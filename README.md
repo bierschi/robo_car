@@ -1,4 +1,11 @@
 # RoboCar
+Build a remote-controlled robot car with a Raspberry Pi 3b+
+
+- [Hardware](https://github.com/bierschi/robo_car#hardware)
+- [Software](https://github.com/bierschi/robo_car#software)
+- [Operating System](https://github.com/bierschi/robo_car#operating_system)
+- [Project Layout](https://github.com/bierschi/robo_car#project-layout)
+
 
 ## Hardware
 
@@ -9,7 +16,9 @@
 - Arduino UNO: [Arduino UNO](https://www.aliexpress.com/item/1pcs-New-and-original-UNO-R3-ATMega328P-Arduino-UNO-R3-ATMega328-Official-Genuine-with-cable-free/32838136070.html?spm=2114.search0604.3.43.4d833b7fbsJw13&ws_ab_test=searchweb0_0,searchweb201602_1_10320_10152_5724111_10065_10151_10344_10068_10342_10547_5724211_10343_10340_10341_10548_5724311_10696_5724011_10084_10083_10618_10304_10307_10820_10821_10302_10843_10059_100031_10319_10103_5725011_10624_10623_10622_10621_10620_5724911,searchweb201603_2,ppcSwitch_7&algo_expid=efca40dd-c818-4a50-8141-8a9df73b6e4a-9&algo_pvid=efca40dd-c818-4a50-8141-8a9df73b6e4a&priceBeautifyAB=0)
 - Ultrasonic ranging module HC-SR04: [Ultrasonic](https://www.aliexpress.com/item/Free-shiping-HC-SR04-HCSR04-to-world-Ultrasonic-Wave-Detector-Ranging-Module-HC-SR04-HC-SR04/32523466302.html?spm=2114.search0604.3.12.18ce45a75xweKn&ws_ab_test=searchweb0_0,searchweb201602_1_10320_10152_5724111_10065_10151_10344_10068_10342_10547_5724211_10343_10340_10341_10548_5724311_10696_5724011_10084_10083_10618_10304_10307_10820_10821_10302_10843_10059_100031_10319_10103_5725011_10624_10623_10622_10621_10620_5724911,searchweb201603_2,ppcSwitch_7&algo_expid=cc35f551-a4f1-45e6-b73f-b071cba8343d-2&algo_pvid=cc35f551-a4f1-45e6-b73f-b071cba8343d&priceBeautifyAB=0)
 
+## Software
 
+## Operating System
 
 ## Project Layout
 <pre><code>
@@ -18,6 +27,18 @@
     /sensors
 
 /pictures
+
+/scripts
+    os_settings.sh
+    
+/software
+    /build
+    /configs
+    /include
+    /lib
+    /src
+    /test
+    CMakeLists.txt
 
 LICENSE
 README.md
