@@ -88,4 +88,4 @@ fabric.properties
 /latex/**/*.aux
 
 #Project
-/images/*
+/software/.idea
