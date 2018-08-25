@@ -3,7 +3,7 @@ Build a remote-controlled robot car with a Raspberry Pi 3b+
 
 - [Hardware](https://github.com/bierschi/robo_car#hardware)
 - [Software](https://github.com/bierschi/robo_car#software)
-- [Operating System](https://github.com/bierschi/robo_car#operating_system)
+- [Operating System](https://github.com/bierschi/robo_car#operating-system)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
 
@@ -30,7 +30,7 @@ Build a remote-controlled robot car with a Raspberry Pi 3b+
 
 /scripts
     os_settings.sh
-    
+
 /software
     /build
     /configs
