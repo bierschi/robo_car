@@ -8,6 +8,7 @@ def main():
     camera = picamera.PiCamera()
     camera.resolution = (640, 480)
     camera.framerate = 24
+    camera.rotate = 180
 
     server_socket = socket.socket()
     server_socket.bind(('0.0.0.0', 8000))
