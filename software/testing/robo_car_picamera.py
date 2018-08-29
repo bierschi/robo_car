@@ -8,9 +8,10 @@ def main():
     camera = picamera.PiCamera()
     camera.resolution = (640, 480)
     camera.framerate = 24
+    camera.rotation = 180
 
     server_socket = socket.socket()
-    server_socket.bind(('0.0.0.0', 8000))
+    server_socket.bind(('0.0.0.0', 8001))
     server_socket.listen(0)
 
     # Accept a single connection and make a file-like object out of it
