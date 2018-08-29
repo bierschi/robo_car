@@ -12,25 +12,32 @@
 
 #define BUFFER_LEN 256
 
+/** /class Server
+ *
+ *  creates a Server object 
+ */
+
 class Server {
 
 private:
-    int sockfd, newsockfd, port;
-    socklen_t clilen;
+    int sockfd, newsockfd;
+    unsigned int port;
+    socklen_t clientLen;
     char buffer[BUFFER_LEN];
     bool running;
-    struct sockaddr_in serv_addr, cli_addr;
+    struct sockaddr_in serverAddr, clientAddr;
     long dataLen;
 
 public:
-    Server(int port_n);
+    Server(unsigned int port_n);
     ~Server();
+
+    bool isRunning();
+    int getPort();
 
     void run();
     void recv();
     void send(const std::string&);
-    bool isRunning();
-    int getPort();
     void stop();
     void actions(const std::string&);
 

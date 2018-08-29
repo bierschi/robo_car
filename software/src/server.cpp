@@ -7,29 +7,41 @@
 
 #include "server.h"
 
-Server::Server(int port_n) {
-
-    port = port_n;
-    running = false;
+/**
+ * Constructor for a Server instance
+ *
+ * USAGE:
+ *      Server serv(2500);
+ *
+ * @param port_n: port the server is listen
+ *
+ */
+Server::Server(unsigned int port_n) : port(port_n), running(false), dataLen(0){
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("Error in opening socket");
     }
 
-    memset(&serv_addr, 0, sizeof(serv_addr));
+    memset(&serverAddr, 0, sizeof(serverAddr));
 
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons((uint16_t)port);
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
+    serverAddr.sin_port = htons((uint16_t)port);
 
 }
 
+/**
+ * Destructor: calls the stop() method
+ */
 Server::~Server() {
 
     stop();
 }
 
+/**
+ * cleanly stop the server instance
+ */
 void Server::stop() {
 
     running = false;
@@ -37,30 +49,42 @@ void Server::stop() {
     close(sockfd);
 }
 
+/**
+ * check if the server is running
+ *
+ * @return 'true', if server is running, else 'false'
+ */
 bool Server::isRunning() {
     return running;
 }
 
-
+/**
+ * get the port of the server instance
+ *
+ * @return unsigned int port number
+ */
 int Server::getPort() {
     return port;
 }
 
+/**
+ * call this run method, to start the server
+ */
 void Server::run() {
 
     running = true;
 
-    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0){
+    if (bind(sockfd, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0){
         perror("ERROR on binding");
         exit(1);
     }
 
     listen(sockfd, 5);
-    clilen = sizeof(cli_addr);
+    clientLen = sizeof(clientAddr);
 
     while (running) {
 
-        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        newsockfd = accept(sockfd, (struct sockaddr *) &clientAddr, &clientLen);
 
         if (newsockfd < 0){
 
@@ -76,6 +100,9 @@ void Server::run() {
 
 }
 
+/**
+ * processes the incoming messages to the server
+ */
 void Server::recv() {
 
     memset(buffer, 0, sizeof(buffer));
@@ -91,6 +118,11 @@ void Server::recv() {
 
 }
 
+/**
+ * selects a appropriate action, depending on the incoming data string
+ *
+ * @param data: received string reference
+ */
 void Server::actions(const std::string &data) {
 
     if (data.compare(0, 4, "stop") == 0) {
@@ -108,6 +140,11 @@ void Server::actions(const std::string &data) {
 
 }
 
+/**
+ * send messages to the client
+ *
+ * @param msg: string reference, which will be sent
+ */
 void Server::send(const std::string& msg) {
 
     long n  = write(newsockfd, msg.c_str(), msg.size());
