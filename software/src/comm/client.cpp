@@ -14,7 +14,7 @@
  * @param host_n: hostname where the server is running on
  * @param port_n: port of the server
  */
-Client::Client(std::string host_n, unsigned int port_n) :  host(host_n), port(port_n), sockfd(0), connected(false){
+Client::Client(std::string& host_n, unsigned int& port_n) :  host(host_n), port(port_n), sockfd(0), connected(false){
 
     server = gethostbyname(host.data());
     if (server == NULL) {
@@ -81,10 +81,6 @@ void Client::run() {
     }
     connected = true;
 
-    while (connected) {
-        send();
-        recv();
-    }
 }
 
 /**
@@ -102,14 +98,14 @@ void Client::recv() {
 /**
  * send messages to the server
  */
-void Client::send() {
+void Client::send(const std::string msg) {
 
-    std::cout << "Please enter a message: ";
+    //std::cout << "Please enter a message: ";
 
-    memset(buf, 0, sizeof(buf));
-    fgets(buf, sizeof(buf), stdin);
+    //memset(buf, 0, sizeof(buf));
+    //fgets(buf, sizeof(buf), stdin);
 
-    n = write(sockfd, buf, strlen(buf));
+    n = write(sockfd, msg.c_str(), msg.size());
     if (n < 0) {
         perror("ERROR writing to socket!");
     }

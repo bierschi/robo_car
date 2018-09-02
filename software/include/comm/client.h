@@ -22,8 +22,8 @@
 class Client {
 
 private:
-    std::string& host;
-    unsigned int& port;
+    std::string host;
+    unsigned int port;
 
     int sockfd, n;
     char buf[BUFFSIZE];
@@ -33,7 +33,7 @@ private:
     bool connected;
 
 public:
-    Client(std::string host, unsigned int port);
+    Client(std::string& host, unsigned int& port);
     ~Client();
 
     std::string getHost();
@@ -41,7 +41,7 @@ public:
 
     void stop();
     void run();
-    void send();
+    void send(std::string);
     void recv();
 
 };

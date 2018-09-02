@@ -9,10 +9,15 @@
 
 int main() {
     std::cout << "Test Client Class" << std::endl;
-
-    Client client("localhost", 2503);
+    std::string host = "localhost";
+    unsigned int port = 2503;
+    Client client(host, port);
     client.run();
+    client.send("stream");
+    while(true);
+    {
 
+    }
     return 0;
 }
 
