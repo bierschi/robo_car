@@ -20,6 +20,8 @@ set(main_gui_src
         src/mainwindow.ui
         src/mainwindow.cpp
         src/mainwindow.h
+        src/client.h
+        src/client.cpp
         main_gui.cpp)
 
 # tell CMake to create a main_gui executable

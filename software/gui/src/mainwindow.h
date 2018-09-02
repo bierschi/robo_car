@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "client.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,12 +16,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void setName(const QString &name);
-    QString name() const;
-
 
 private:
     Ui::MainWindow *ui;
+    Client *client;
+
+private slots:
+    void conServer();
+    void stream();
+    void forward();
+    void backward();
+    void right();
+    void left();
+    void send_cmd();
 };
 
 #endif // MAINWINDOW_H

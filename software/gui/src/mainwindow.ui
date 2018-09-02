@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="exit">
+   <widget class="QPushButton" name="exit_pb">
     <property name="geometry">
      <rect>
       <x>680</x>
@@ -27,7 +27,7 @@
      <string>exit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="forward">
+   <widget class="QPushButton" name="forward_pb">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -43,7 +43,7 @@
      <string notr="true">buttonGroup</string>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="left">
+   <widget class="QPushButton" name="left_pb">
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -59,7 +59,7 @@
      <string notr="true">buttonGroup</string>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="right">
+   <widget class="QPushButton" name="right_pb">
     <property name="geometry">
      <rect>
       <x>690</x>
@@ -75,7 +75,7 @@
      <string notr="true">buttonGroup</string>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="backward">
+   <widget class="QPushButton" name="backward_pb">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -91,7 +91,7 @@
      <string notr="true">buttonGroup</string>
     </attribute>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QGraphicsView" name="stream_gv">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -101,17 +101,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="acceleration_le">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>280</y>
-      <width>113</width>
-      <height>27</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="imu">
+   <widget class="QLabel" name="imu_l">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -134,7 +124,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="acceleration">
+   <widget class="QLabel" name="acceleration_l">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -150,7 +140,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="control">
+   <widget class="QLabel" name="control_l">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -176,7 +166,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="velocity">
+   <widget class="QLabel" name="velocity_l">
     <property name="geometry">
      <rect>
       <x>680</x>
@@ -192,68 +182,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QPushButton" name="connect_pb">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>330</y>
-      <width>67</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>330</y>
-      <width>67</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>350</y>
-      <width>113</width>
-      <height>27</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>350</y>
-      <width>113</width>
-      <height>27</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="velocity_le">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>280</y>
-      <width>113</width>
-      <height>27</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="connect">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>440</y>
-      <width>99</width>
+      <x>60</x>
+      <y>500</y>
+      <width>111</width>
       <height>27</height>
      </rect>
     </property>
@@ -261,11 +195,11 @@
      <string>Connect</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="stream">
+   <widget class="QPushButton" name="stream_pb">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>490</y>
+      <x>230</x>
+      <y>430</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -274,21 +208,21 @@
      <string>Stream</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="send_cmd_le">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>440</y>
+      <x>530</x>
+      <y>340</y>
       <width>211</width>
       <height>27</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="send_command">
+   <widget class="QPushButton" name="send_cmd_pb">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>490</y>
+      <x>560</x>
+      <y>370</y>
       <width>151</width>
       <height>27</height>
      </rect>
@@ -297,7 +231,115 @@
      <string>Send Command</string>
     </property>
    </widget>
+   <widget class="QLCDNumber" name="acceleration_lcd">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>280</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Dec</enum>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="velocity_lcd">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>280</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="host_le">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>430</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="host_l">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>430</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Host:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="port_l">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Port:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="port_le">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>460</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -314,15 +356,6 @@
    </widget>
    <addaction name="menuRoboCar"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionRoboCar">
    <property name="text">
     <string>RoboCar</string>
