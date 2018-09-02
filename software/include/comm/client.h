@@ -19,12 +19,12 @@
  *
  * creates a client object
  */
-
 class Client {
 
 private:
-    std::string host;
-    unsigned int port;
+    std::string& host;
+    unsigned int& port;
+
     int sockfd, n;
     char buf[BUFFSIZE];
     struct sockaddr_in serv_addr;
@@ -33,14 +33,16 @@ private:
     bool connected;
 
 public:
-    Client(std::string &host, unsigned int &port);
+    Client(std::string host, unsigned int port);
     ~Client();
 
+    std::string getHost();
+    unsigned int getPort();
+
+    void stop();
     void run();
     void send();
     void recv();
-
-
 
 };
 #endif //ROBOCAR_CLIENT_H

@@ -13,7 +13,7 @@
  * USAGE:
  *      Server serv(2500);
  *
- * @param port_n: port the server is listen
+ * @param port_n: port which the server is listen on
  *
  */
 Server::Server(unsigned int port_n) : port(port_n), running(false), dataLen(0){
@@ -83,20 +83,18 @@ void Server::run() {
     listen(sockfd, 5);
     clientLen = sizeof(clientAddr);
 
+    std::cout << "accept" <<std::endl;
+    newsockfd = accept(sockfd, (struct sockaddr *) &clientAddr, &clientLen);
+    if (newsockfd < 0){
+
+        perror("ERROR on accept");
+
+    }
+
     while (running) {
 
-        newsockfd = accept(sockfd, (struct sockaddr *) &clientAddr, &clientLen);
-
-        if (newsockfd < 0){
-
-            perror("ERROR on accept");
-
-        } else {
-
+            std::cout << "recv" << std::endl;
             recv();
-
-        }
-
     }
 
 }
@@ -114,7 +112,7 @@ void Server::recv() {
 
     std::string data(buffer, dataLen);
 
-    std::cout << "message received: " << data << std::endl;
+    std::cout << "message received: " << data;
     actions(data);
 
 }
@@ -127,16 +125,40 @@ void Server::recv() {
 void Server::actions(const std::string &data) {
 
     if (data.compare(0, 4, "stop") == 0) {
-        std::cout << "stop running comm!" << std::endl;
+        std::cout << "stop running Server!" << std::endl;
+        std::string stopMsg = "stop running Server";
+        send(stopMsg);
         stop();
     }
     else if (data.compare(0, 4, "send") == 0){
-        std::cout << "send message to client!" << std::endl<<std::endl;
+        std::cout << "send message to client!" << std::endl;
         std::string strToClient = "msg to Client";
         send(strToClient);
+    } else if (data.compare(0, 6, "stream") == 0) {
+        std::cout << "create stream object!" << std::endl;
+        std::string stream = "create stream object";
+        send(stream);
+    } else if (data.compare(0, 7, "forward") == 0) {
+        std::cout << "drive forward!" << std::endl;
+        std::string forwad = "drive forward";
+        send(forwad);
+    } else if (data.compare(0, 8, "backward") == 0) {
+        std::cout << "drive backward!" << std::endl;
+        std::string backward = "drive backward";
+        send(backward);
+    } else if (data.compare(0, 5, "right") == 0) {
+        std::cout << "drive right!" << std::endl;
+        std::string right = "drive right";
+        send(right);
+    } else if (data.compare(0, 4, "left") == 0) {
+        std::cout << "drive left" << std::endl;
+        std::string left = "drive left";
+        send(left);
     }
     else {
-        std::cout << "get next message from client" << std::endl<<std::endl;
+        std::cout << "get next message from client" << std::endl;
+        std::string nextMsg = "get next message from client";
+        send(nextMsg);
     }
 
 }

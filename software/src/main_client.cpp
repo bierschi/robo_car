@@ -9,14 +9,9 @@
 
 int main() {
     std::cout << "Test Client Class" << std::endl;
-    std::string host = "localhost";
-    unsigned int port = 2503;
-    Client client(host, port);
+
+    Client client("localhost", 2503);
     client.run();
-    client.send();
-    client.recv();
-    client.send();
-    client.recv();
 
     return 0;
 }

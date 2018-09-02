@@ -16,17 +16,18 @@
  *
  *  creates a Server object
  */
-
 class Server {
 
 private:
+    unsigned int& port;
+
     int sockfd, newsockfd;
-    unsigned int port;
     socklen_t clientLen;
     char buffer[BUFFER_LEN];
-    bool running;
     struct sockaddr_in serverAddr, clientAddr;
     long dataLen;
+
+    bool running;
 
 public:
     Server(unsigned int port_n);
