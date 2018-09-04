@@ -14,7 +14,7 @@ int main() {
 
     try {
 
-        ClientSocket client_socket ("localhost", 2500);
+        ClientSocket client_socket ("localhost", 2501);
 
         Commands forward = FORWARD;
         Commands backward = BACKWARD;
@@ -38,6 +38,8 @@ int main() {
                 } else if (zeile.compare(0, 4, "left") == 0) {
                     client_socket << left ;
                 }else if (zeile.compare(0, 6, "stream") == 0) {
+                    client_socket << stream ;
+                }else if (zeile.compare(0, 4, "zwei") == 0) {
                     client_socket << stream ;
                 }else {
                     exit(1);

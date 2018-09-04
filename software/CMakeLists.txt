@@ -19,7 +19,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 add_executable(main_ServerSocket src/main_serversocket.cpp "src/comm/ServerSocket.cpp" "include/comm/ServerSocket.h" "src/comm/Socket.cpp" "include/comm/Socket.h")
 add_executable(main_ClientSocket src/main_clientsocket.cpp "src/comm/ClientSocket.cpp" "include/comm/ClientSocket.h" "src/comm/Socket.cpp" "include/comm/Socket.h")
 
-#target_link_libraries(main_server ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(main_ServerSocket ${CMAKE_THREAD_LIBS_INIT})
 
 
 #add_executable(main_server src/main_server.cpp "src/comm/server.cpp" "include/comm/server.h")
