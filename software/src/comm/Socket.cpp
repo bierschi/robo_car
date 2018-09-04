@@ -119,6 +119,15 @@ bool Socket::send(const std::string s) const {
         return true;
 }
 
+bool Socket::send(Commands& cmd) const {
+
+    int status = ::send(m_sock, &cmd, sizeof(cmd), MSG_NOSIGNAL);
+
+    if (status == -1)
+        return false;
+    else
+        return true;
+}
 /**
  * receive string from socket
  *
@@ -152,6 +161,29 @@ int Socket::recv(std::string& s) const {
     }
 
 }
+
+int Socket::recv(Commands& cmd) const {
+
+
+    int status = ::recv(m_sock, &cmd, MAXRECV, 0);
+
+    if (status == -1) {
+
+        std::cout << "status == -1 errno == " << errno << " in Socket::recv()\n";
+
+    } else if( status == 0) {
+
+        return 0;
+
+    } else {
+
+        return status;
+
+    }
+
+}
+
+
 /**
  * connecting to a particular socket
  *

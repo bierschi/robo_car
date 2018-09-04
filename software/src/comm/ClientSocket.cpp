@@ -29,7 +29,7 @@ ClientSocket::ClientSocket(std::string host, int port) {
     }
 }
 
-const ClientSocket& ClientSocket::operator<<(const std::string &s) const {
+const ClientSocket& ClientSocket::operator << (const std::string &s) const {
 
     if ( !Socket::send(s)) {
 
@@ -40,11 +40,31 @@ const ClientSocket& ClientSocket::operator<<(const std::string &s) const {
     return *this;
 }
 
-const ClientSocket& ClientSocket::operator>>(std::string &s) const {
+const ClientSocket& ClientSocket::operator << (Commands& cmd) const {
+
+    if ( !Socket::send(cmd)) {
+
+        throw SocketException("Could not write ctl cmd to socket!");
+
+    }
+}
+
+const ClientSocket& ClientSocket::operator >> (std::string &s) const {
 
     if ( !Socket::recv(s)) {
 
         throw SocketException("Could not read from socket!");
+
+    }
+
+    return *this;
+}
+
+const ClientSocket& ClientSocket::operator >> (Commands& cmd) const {
+
+    if ( !Socket::recv(cmd)) {
+
+        throw SocketException("Could not read ctl cmd from socket!");
 
     }
 

@@ -17,6 +17,8 @@
 const int MAXCONNECTIONS = 5;
 const int MAXRECV = 500;
 
+enum Commands {FORWARD, BACKWARD, RIGHT, LEFT, STREAM};
+
 /** /CLASS Socket
  *
  * defines the basic functions for a server client connection
@@ -42,7 +44,10 @@ public:
     bool connect(const std::string host, const int port);
 
     bool send(const std::string) const;
+    bool send(Commands&) const;
+
     int recv(std::string&) const;
+    int recv(Commands&) const;
 
     bool isValid() const { return m_sock != -1;}
     void setNonBlocking(const bool);

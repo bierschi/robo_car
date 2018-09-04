@@ -10,29 +10,39 @@
 
 int main() {
     std::cout << "Test ServerSocket" << std::endl;
-    try {
 
+    try {
 
     ServerSocket server (2500);
 
     while (true) {
+
         ServerSocket new_sock;
         server.accept(new_sock);
 
         try {
             while (true) {
+                Commands cmd;
+
                 std::cout <<"read: " << std::endl;
-                std::string data;
-                new_sock >> data;
-                new_sock.actions(data);
-                //std::cout << "Server received: " << data << std::endl;
+
+                new_sock >> cmd;
+                new_sock.actions(cmd);
+                std::cout << "Server received: " << cmd << std::endl;
+
             }
         }
-        catch ( SocketException&){}
+        catch ( SocketException& e){
+
+            std::cout << "Inner Exception was caught: " << e.description() << std::endl;
+
+        }
     }
 }
 catch ( SocketException& e) {
-        std::cout << "Exception was caught: " << e.description() << "\n";
+
+        std::cout << "Exception was caught: " << e.description() << std::endl;
+
     }
     return 0;
 }

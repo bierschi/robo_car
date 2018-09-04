@@ -61,6 +61,17 @@ const ServerSocket& ServerSocket::operator >> (std::string &s) const {
     return *this;
 }
 
+const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
+
+    if ( !Socket::recv(cmd) ) {
+
+        throw SocketException("Could not read cmd from socket!");
+
+    }
+
+    return *this;
+}
+
 void ServerSocket::accept(ServerSocket &sock) {
 
     if ( !Socket::accept(sock)) {
@@ -118,4 +129,32 @@ void ServerSocket::actions(const std::string &data) {
 
     }
 
+}
+
+void ServerSocket::actions(Commands& cmd) {
+
+    switch(cmd) {
+        case FORWARD:
+            std::cout << "Drive Forward!" << std::endl;
+            break;
+
+        case BACKWARD:
+            std::cout << "Drive Backward!" << std::endl;
+            break;
+
+        case RIGHT:
+            std::cout << "Drive Right!" << std::endl;
+            break;
+
+        case LEFT:
+            std::cout << "Drive Left!" << std::endl;
+            break;
+
+        case STREAM:
+            std::cout << "Stream object!" << std::endl;
+            break;
+
+        default:
+            std::cout << "Default in act!" << std::endl;
+    }
 }

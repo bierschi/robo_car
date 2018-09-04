@@ -22,10 +22,12 @@ public:
 
     const ServerSocket& operator << (const std::string& ) const;
     const ServerSocket& operator >> (std::string& ) const;
+    const ServerSocket& operator >> (Commands& ) const;
 
     void accept(ServerSocket&);
-    void actions(const std::string&);
 
+    void actions(const std::string&);
+    void actions(Commands&);
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H

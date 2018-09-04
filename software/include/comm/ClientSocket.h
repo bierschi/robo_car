@@ -20,8 +20,10 @@ public:
     virtual ~ClientSocket(){};
 
     const ClientSocket& operator << (const std::string&) const;
-    const ClientSocket& operator >> (std::string&) const;
+    const ClientSocket& operator << (Commands&) const;
 
+    const ClientSocket& operator >> (std::string&) const;
+    const ClientSocket& operator >> (Commands&) const;
 };
 
 #endif //ROBOCAR_CLIENTSOCKET_H
