@@ -89,3 +89,4 @@ fabric.properties
 
 #Project
 /software/.idea
+/software/build/*
