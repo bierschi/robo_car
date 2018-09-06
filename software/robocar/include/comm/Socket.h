@@ -37,7 +37,7 @@ public:
     virtual ~Socket();
 
     bool create();
-    bool bind(const int port);
+    bool bind(const unsigned int port);
     bool listen() const;
     bool accept(Socket&) const;
 

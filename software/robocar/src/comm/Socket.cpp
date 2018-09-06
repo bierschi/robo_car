@@ -52,7 +52,7 @@ bool Socket::create() {
  * @param port: const int
  * @return true, if port could be bind to socket, else false
  */
-bool Socket::bind(const int port) {
+bool Socket::bind(const unsigned int port) {
 
     if ( !isValid() )
         return false;
@@ -96,7 +96,8 @@ bool Socket::accept(Socket & new_socket) const {
     int addr_length = sizeof(m_addr);
 
     new_socket.m_sock = ::accept(m_sock, (sockaddr*)&m_addr, (socklen_t *) &addr_length);
-    std::cout<< "new_socket: " << new_socket.m_sock << std::endl;
+    std::clog << "new client is connecting with socket_fd: " << new_socket.m_sock << std::endl;
+
     if (new_socket.m_sock <= 0)
         return false;
     else
@@ -112,6 +113,7 @@ bool Socket::accept(Socket & new_socket) const {
 bool Socket::send(const std::string s) const {
 
     int status = ::send(m_sock, s.c_str(), s.size(), MSG_NOSIGNAL);
+    std::clog << "send msg ..." << std::endl;
 
     if (status == -1)
         return false;
@@ -122,6 +124,7 @@ bool Socket::send(const std::string s) const {
 bool Socket::send(Commands& cmd) const {
 
     int status = ::send(m_sock, &cmd, sizeof(cmd), MSG_NOSIGNAL);
+    std::clog << "send msg ..." << std::endl;
 
     if (status == -1)
         return false;
@@ -143,6 +146,7 @@ int Socket::recv(std::string& s) const {
     memset(buf, 0, MAXRECV +1 );
 
     int status = ::recv(m_sock, buf, MAXRECV, 0);
+    std::clog << "recv msg ..." << std::endl;
 
     if (status == -1) {
 
@@ -166,6 +170,7 @@ int Socket::recv(Commands& cmd) const {
 
 
     int status = ::recv(m_sock, &cmd, MAXRECV, 0);
+    std::clog << "send msg ..." << std::endl;
 
     if (status == -1) {
 
@@ -205,6 +210,7 @@ bool Socket::connect(const std::string host, const int port) {
         return false;
 
     status = ::connect(m_sock, (sockaddr*)&m_addr, sizeof(m_addr));
+    std::clog << "connecting to " << host << ", " << port << std::endl;
 
     if (status == 0)
         return true;

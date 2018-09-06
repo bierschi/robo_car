@@ -13,7 +13,8 @@
  *
  * @param port: int
  */
-ServerSocket::ServerSocket(int port) {
+ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port), maxClient_n(maxClient), countClient(0){
+
 
     if ( !Socket::create() ) {
 
@@ -21,7 +22,7 @@ ServerSocket::ServerSocket(int port) {
 
     }
 
-    if ( !Socket::bind(port) ) {
+    if ( !Socket::bind(port_n) ) {
 
         throw SocketException("Could not bind to port!");
 
@@ -32,12 +33,50 @@ ServerSocket::ServerSocket(int port) {
         throw SocketException("Could not listen to socket");
 
     }
+
+    socks = new ServerSocket[maxClient_n];
+    threadClients.reserve(maxClient_n);
+    running = true;
+
+    std::cout << "Server is being set up on port: " << port << std::endl;
+    std::cout << maxClient_n << " clients can be connected simultaneously!" << std::endl;
+    std::cout << "Listening ..." << std::endl;
 }
 
+/**
+ * Destructor in ServerSocket
+ */
 ServerSocket::~ServerSocket() {
 
+    running = false;
+    delete[] socks;
+    threadClients.clear();
+
 }
 
+/**
+ * get port of Server
+ *
+ * @return unsigned int port
+ */
+int ServerSocket::getPort() const {
+    return port_n;
+}
+
+/**
+ * returns true, if server is running
+ *
+ * @return bool running
+ */
+bool ServerSocket::isRunning() const {
+    return running;
+}
+
+/**
+ *
+ * @param s
+ * @return const ServerSocket&
+ */
 const ServerSocket& ServerSocket::operator << (const std::string &s) const {
 
     if ( !Socket::send(s)) {
@@ -50,6 +89,11 @@ const ServerSocket& ServerSocket::operator << (const std::string &s) const {
 
 }
 
+/**
+ *
+ * @param s
+ * @return const ServerSocket&
+ */
 const ServerSocket& ServerSocket::operator >> (std::string &s) const {
 
     if ( !Socket::recv(s)) {
@@ -61,6 +105,11 @@ const ServerSocket& ServerSocket::operator >> (std::string &s) const {
     return *this;
 }
 
+/**
+ *
+ * @param cmd
+ * @return const ServerSocket&
+ */
 const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
 
     if ( !Socket::recv(cmd) ) {
@@ -72,6 +121,9 @@ const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
     return *this;
 }
 
+/**
+ * blocking method, waits for a client connection
+ */
 void ServerSocket::accept(ServerSocket &sock) {
 
     if ( !Socket::accept(sock)) {
@@ -79,6 +131,64 @@ void ServerSocket::accept(ServerSocket &sock) {
         throw SocketException("Could not accept socket!");
 
     }
+}
+
+/**
+ * multiple clients can be connecting to server
+ */
+void ServerSocket::multipleClients() {
+    std::clog << "Running Server with multiple client connections" << std::endl;
+
+    std::thread runThread(&ServerSocket::processClient, this);
+    runThread.join();
+}
+
+/**
+ * run thread of server, which handles multiple client connections
+ */
+void ServerSocket::processClient() {
+
+
+    while (isRunning()) {
+
+        for (; countClient < maxClient_n; countClient++) {
+
+            accept(socks[countClient]);
+            threadClients.emplace_back(&ServerSocket::serveTask, this, std::ref(socks[countClient]));
+
+        }
+        /*
+        for (int j = 0; j < maxClient_n; j++) {
+            std::clog << "join client into thread" << std::endl;
+
+            threadClients[j].join();
+
+        }*/
+    }
+}
+
+/**
+ * worker thread for connected clients. Send defined commands to server
+ */
+void ServerSocket::serveTask(ServerSocket& sock){
+
+    try {
+
+        Commands cmd;
+
+        while (true) {
+
+            sock >> cmd;
+            sock.actions(cmd);
+
+        }
+
+    } catch (SocketException& e) {
+
+        std::cout << "Exception was caught in worker thread `serveTask`: " << e.description() << std::endl;
+        countClient--;
+    }
+
 }
 
 /**
