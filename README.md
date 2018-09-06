@@ -33,13 +33,33 @@ Build a remote-controlled robot car with a Raspberry Pi 3b+
     os_settings.sh
 
 /software
-    /build
-    /configs
-    /include
-    /lib
-    /src
-    /test
-    CMakeLists.txt
+    /gui
+        /build
+        /include
+        /src
+        main_gui.cpp
+        CMakeLists.txt
+    /robocar
+        /build
+        /configs
+        /include
+            /comm
+                ClientSocket.h
+                ServerSocket.h
+                Socket.h
+                SocketException.h
+            /sensors
+        /lib
+        /src
+            /comm
+                ClientSocket.cpp
+                ServerSocket.cpp
+                Socket.cpp
+            /sensors
+        CMakeLists.txt
+    /testing
+        picamera_stream.py
+
 
 LICENSE
 README.md
