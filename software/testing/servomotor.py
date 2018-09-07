@@ -47,7 +47,7 @@ def main():
     print("Servo Motor test: ")
 
     sm_steering = ServoMotor(140, 490, channel=0, freq=60)
-    sm_camera = ServoMotor(170,560, channel=15, freq=60)
+    sm_camera = ServoMotor(170,560, channel=1, freq=60)
     #sm_steering.move_extremas()
     #sm_camera.move_extremas()
     sleep(2)
