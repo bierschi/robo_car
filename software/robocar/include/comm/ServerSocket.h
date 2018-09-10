@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "Socket.h"
+#include "sensors/PCA9685.h"
 
 /**
  * /CLASS ServerSocket
@@ -24,6 +25,7 @@ private:
     std::vector<std::thread> threadClients;
     bool running = false;
     int countClient;
+    PCA9685 *steeringServo, *cameraServo;
 
 public:
 

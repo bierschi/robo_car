@@ -5,6 +5,7 @@
 #include "comm/ServerSocket.h"
 #include "comm/SocketException.h"
 
+
 /**
  * Constructor for a ServerSocket instance
  *
@@ -34,6 +35,7 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
 
     }
 
+    steeringServo = new PCA9685(1, 0x40);
     socks = new ServerSocket[maxClient_n];
     threadClients.reserve(maxClient_n);
     running = true;
@@ -246,6 +248,7 @@ void ServerSocket::actions(Commands& cmd) {
     switch(cmd) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
+            steeringServo->setPWM(1, 1750, 2130);
             break;
 
         case BACKWARD:
@@ -254,10 +257,12 @@ void ServerSocket::actions(Commands& cmd) {
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
+            steeringServo.setPWM(1, 1230, 1750);
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
+            steeringServo.setPWM(1, 1750, 1895);
             break;
 
         case STREAM:
