@@ -28,6 +28,7 @@ public:
     PCA9685(unsigned int, int);
     ~PCA9685();
 
+    void reset();
     void setPWMFreq(int freq);
     void setPWM(uint8_t channel, int onValue, int offValue);
 

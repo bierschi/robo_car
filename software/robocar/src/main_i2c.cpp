@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "PCA test" << std::endl;
 
-    PCA9685 pca(1, 0x20);
+    PCA9685 pca(1, 0x40);
 
 
 

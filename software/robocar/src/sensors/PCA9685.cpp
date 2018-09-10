@@ -9,7 +9,7 @@
 PCA9685::PCA9685(unsigned int devNr, int address) {
 
     i2c = new I2C(devNr, address);
-
+    reset();
     setPWMFreq(60);
 }
 
@@ -20,9 +20,18 @@ PCA9685::~PCA9685() {
 
 }
 
+void PCA9685::reset() {
+
+    i2c->writeByte(MODE1, 0x00);
+    i2c->writeByte(MODE2, 0x04);
+
+}
+
 void PCA9685::setPWMFreq(int freq) {
 
-    uint8_t prescale_val = (CLOCK_FREQ / 4096 / freq) - 1;
+    freq = (freq > 1000 ? 1000 : (freq < 40 ? 40 : freq));
+
+    uint8_t prescale_val = (int)(CLOCK_FREQ / (4096 * freq) - 0.5f);
 
     i2c->writeByte(MODE1, 0x10);
     i2c->writeByte(PRE_SCALE, prescale_val);
