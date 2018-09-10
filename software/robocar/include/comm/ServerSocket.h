@@ -25,7 +25,6 @@ private:
     std::vector<std::thread> threadClients;
     bool running = false;
     int countClient;
-    PCA9685 *steeringServo, *cameraServo;
 
 public:
 

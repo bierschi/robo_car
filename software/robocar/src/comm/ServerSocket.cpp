@@ -35,7 +35,7 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
 
     }
 
-    steeringServo = new PCA9685(1, 0x40);
+
     socks = new ServerSocket[maxClient_n];
     threadClients.reserve(maxClient_n);
     running = true;
@@ -245,10 +245,12 @@ void ServerSocket::actions(const std::string &data) {
 
 void ServerSocket::actions(Commands& cmd) {
 
+    PCA9685 steeringServo(1, 0x40);
+
     switch(cmd) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
-            steeringServo->setPWM(1, 1750, 2130);
+            steeringServo.setPWM(1, 1750, 2130);
             break;
 
         case BACKWARD:
