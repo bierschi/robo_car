@@ -3,14 +3,18 @@
 //
 
 #include "comm/I2C.h"
+#include "sensors/PCA9685.h"
 
 int main(int argc, char* argv[]) {
 
-    I2C i2c(1, 0x20);
+    std::cout << "PCA test" << std::endl;
 
-    std::cout << "write to bus" << std::endl;
+    PCA9685 pca(1, 0x20);
 
-    i2c.writeByte(0x00, 0x10);
+
+
+
+
 
     return 0;
 }

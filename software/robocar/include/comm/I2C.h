@@ -5,7 +5,7 @@
 #ifndef ROBOCAR_I2C_H
 #define ROBOCAR_I2C_H
 
-#include <inttypes.h>
+#include <cinttypes>
 #include <iostream>
 #include <sys/ioctl.h>
 #include <linux/i2c.h>
@@ -19,13 +19,12 @@ class I2C {
 
 private:
 
-    int i2cBus;
-    int i2cAddr;
-    int fd;
-    char busFile[64];
+    int i2cAddr, fd;
+    unsigned int i2cDevNr;
+    char devName[64];
 
 public:
-    I2C(int, int);
+    I2C(unsigned int, int);
     ~I2C();
 
     uint8_t dataBuffer[BUFFER_SIZE];

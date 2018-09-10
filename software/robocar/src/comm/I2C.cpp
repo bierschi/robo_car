@@ -4,19 +4,19 @@
 #include "comm/I2C.h"
 
 
-I2C::I2C(int bus, int address) : i2cBus(bus), i2cAddr(address) {
+I2C::I2C(unsigned int devNr, int address) : i2cDevNr(devNr), i2cAddr(address) {
 
-    snprintf(busFile, sizeof(busFile), "/dev/i2c-%d", bus);
+    std::snprintf(devName, sizeof(devName), "/dev/i2c-%d", i2cDevNr);
 
-    if ((fd = open(busFile, O_RDWR)) < 0) {
+    if ((fd = open(devName, O_RDWR)) < 0) {
 
-        throw std::runtime_error("Could not open I2C Bus");
+        throw std::runtime_error("Could not open I2C Device!");
 
     }
 
     if (ioctl(fd, I2C_SLAVE, i2cAddr) < 0) {
 
-        throw std::runtime_error("I2C slave failed!");
+        throw std::runtime_error("Accessing I2C slave failed!");
     }
 
 }
@@ -35,16 +35,25 @@ uint8_t I2C::readByte(uint8_t address) {
         buff[0] = address;
 
         if ( write(fd, buff,BUFFER_SIZE) != BUFFER_SIZE) {
-            std::clog << "I2C slave failed to go to register" << std::endl;
+
+            std::clog << "Failed to access I2C slave address" << std::endl;
+
         } else {
+
             if (read(fd, dataBuffer, BUFFER_SIZE) != BUFFER_SIZE) {
+
                 std::clog << "Could not read from I2C slave" << std::endl;
+
             } else {
+
                 return dataBuffer[0];
+
             }
         }
     } else {
-        std::clog << "Device file not availalbe" << std::endl;
+
+        std::clog << "Device file not available" << std::endl;
+
     }
 }
 
@@ -59,10 +68,12 @@ uint8_t I2C::writeByte(uint8_t address, uint8_t data) {
 
         if ( write(fd, buff, sizeof(buff)) != 2) {
 
-            std::runtime_error("Failed to write to I2C slave!");
+            std::clog << "Failed to write to I2C slave!" << std::endl;
 
         } else {
+
             std::clog << "Wrote to I2C Slave " << std::endl;
+
         }
 
     } else {

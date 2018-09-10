@@ -18,7 +18,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
 #add_executable(main_ServerSocket src/main_serversocket.cpp "src/comm/ServerSocket.cpp" "include/comm/ServerSocket.h" "src/comm/Socket.cpp" "include/comm/Socket.h")
 #add_executable(main_ClientSocket src/main_clientsocket.cpp "src/comm/ClientSocket.cpp" "include/comm/ClientSocket.h" "src/comm/Socket.cpp" "include/comm/Socket.h")
-add_executable(main_i2c src/main_i2c.cpp "src/comm/I2C.cpp" "include/comm/I2C.h")
+add_executable(main_i2c src/main_i2c.cpp "src/sensors/PCA9685.cpp" "include/sensors/PCA9685.h" "src/comm/I2C.cpp" "include/comm/I2C.h")
 #target_link_libraries(main_ServerSocket ${CMAKE_THREAD_LIBS_INIT})
 
 
