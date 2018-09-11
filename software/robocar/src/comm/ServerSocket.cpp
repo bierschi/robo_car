@@ -245,7 +245,7 @@ void ServerSocket::actions(const std::string &data) {
 
 void ServerSocket::actions(Commands& cmd) {
 
-    PCA9685 steeringServo(1, 0x40);
+    PCA9685 steeringServo(1, 0x40, 60);
 
     switch(cmd) {
         case FORWARD:
