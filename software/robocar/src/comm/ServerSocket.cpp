@@ -246,11 +246,13 @@ void ServerSocket::actions(const std::string &data) {
 void ServerSocket::actions(Commands& cmd) {
 
     PCA9685 steeringServo(1, 0x40, 60);
+    PCA9685 cameraServo(1, 0x40, 60);
 
     switch(cmd) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
             steeringServo.setPWM(0, 1750, 2130);
+            cameraServo.setPWM(15, 1750, 2128);
             break;
 
         case BACKWARD:
@@ -259,12 +261,14 @@ void ServerSocket::actions(Commands& cmd) {
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
-            steeringServo.setPWM(0, 1230, 1750);
+            steeringServo.setPWM(0, 1230, 1720);
+            cameraServo.setPWM(15, 1780, 2000);
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
             steeringServo.setPWM(0, 1750, 1895);
+            cameraServo.setPWM(15, 1230, 1750);
             break;
 
         case STREAM:
