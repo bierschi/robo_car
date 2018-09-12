@@ -14,7 +14,7 @@
  *
  * @param port: int
  */
-ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port), maxClient_n(maxClient), countClient(0), camCounter(1780){
+ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port), maxClient_n(maxClient), countClient(0){
 
 
     if ( !Socket::create() ) {
@@ -35,11 +35,10 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
 
     }
 
-
     socks = new ServerSocket[maxClient_n];
     threadClients.reserve(maxClient_n);
     running = true;
-
+    std::cout << "CamCounter in Const: " << camCounter << std::endl;
     std::cout << "Server is being set up on port: " << port << std::endl;
     std::cout << maxClient_n << " clients can be connected simultaneously!" << std::endl;
     std::cout << "Listening ..." << std::endl;
@@ -247,6 +246,7 @@ void ServerSocket::actions(Commands& cmd) {
 
     PCA9685 steeringServo(1, 0x40, 60);
     PCA9685 cameraServo(1, 0x40, 60);
+    std::cout << "coun: " << camCounter << std::endl;
 
     switch(cmd) {
         case FORWARD:
@@ -278,12 +278,20 @@ void ServerSocket::actions(Commands& cmd) {
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
             std::cout << "counter: " << camCounter << std::endl;
-            camCounter += 50;
-            cameraServo.setPWM(15, 1780, camCounter);
+            if (camCounter > 1820){
+                camCounter -= 50;
+
+                cameraServo.setPWM(15, 1750, camCounter);
+            }
             break;
 
         case CAM_L:
             std::cout << "Move camera left!" << std::endl;
+            std::cout << "counter: " << camCounter << std::endl;
+            if (camCounter < 2320){
+            camCounter += 50;
+            cameraServo.setPWM(15, 1750, camCounter);
+            }
             break;
 
         default:
