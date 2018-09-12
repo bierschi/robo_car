@@ -25,6 +25,7 @@ private:
     std::vector<std::thread> threadClients;
     bool running = false;
     int countClient;
+    int camCounter;
 
 public:
 

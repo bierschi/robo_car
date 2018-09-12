@@ -14,7 +14,7 @@
  *
  * @param port: int
  */
-ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port), maxClient_n(maxClient), countClient(0){
+ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port), maxClient_n(maxClient), countClient(0), camCounter(1780){
 
 
     if ( !Socket::create() ) {
@@ -273,6 +273,17 @@ void ServerSocket::actions(Commands& cmd) {
 
         case STREAM:
             std::cout << "Stream object!" << std::endl;
+            break;
+
+        case CAM_R:
+            std::cout << "Move camera right!" << std::endl;
+            std::cout << "counter: " << camCounter << std::endl;
+            camCounter += 50;
+            cameraServo.setPWM(15, 1780, camCounter);
+            break;
+
+        case CAM_L:
+            std::cout << "Move camera left!" << std::endl;
             break;
 
         default:

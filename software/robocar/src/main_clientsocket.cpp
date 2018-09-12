@@ -21,6 +21,8 @@ int main() {
         Commands right = RIGHT;
         Commands left = LEFT;
         Commands stream = STREAM;
+        Commands cam_r = CAM_R;
+        Commands cam_l = CAM_L;
 
         try {
             while (true) {
@@ -30,22 +32,23 @@ int main() {
                 std::getline(std::cin, zeile);
 
                 if (zeile.compare(0, 7, "forward") == 0) {
-                    client_socket << forward ;
+                    client_socket << forward;
                 } else if (zeile.compare(0, 8, "backward") == 0) {
-                    client_socket << backward ;
+                    client_socket << backward;
                 } else if (zeile.compare(0, 5, "right") == 0) {
-                    client_socket << right ;
+                    client_socket << right;
                 } else if (zeile.compare(0, 4, "left") == 0) {
-                    client_socket << left ;
+                    client_socket << left;
                 }else if (zeile.compare(0, 6, "stream") == 0) {
-                    client_socket << stream ;
-                }else if (zeile.compare(0, 4, "zwei") == 0) {
-                    client_socket << stream ;
+                    client_socket << stream;
+                }else if (zeile.compare(0, 5, "cam_r") == 0) {
+                    client_socket << cam_r;
+                }else if (zeile.compare(0, 5, "cam_l") == 0) {
+                    client_socket << cam_l;
                 }else {
-                    exit(1);
+                        exit(1);
+                    }
                 }
-
-            }
 
             } catch (SocketException& e) {
 

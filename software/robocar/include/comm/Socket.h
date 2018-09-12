@@ -17,7 +17,7 @@
 const int MAXCONNECTIONS = 5;
 const int MAXRECV = 500;
 
-enum Commands {FORWARD, BACKWARD, RIGHT, LEFT, STREAM};
+enum Commands {FORWARD, BACKWARD, RIGHT, LEFT, CAM_R, CAM_L, STREAM};
 
 /** /CLASS Socket
  *
