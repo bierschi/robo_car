@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>70</y>
+      <y>30</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -47,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>110</y>
+      <y>70</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -63,7 +63,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>110</y>
+      <y>70</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -79,7 +79,7 @@
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>150</y>
+      <y>110</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -105,7 +105,7 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>230</y>
+      <y>250</y>
       <width>41</width>
       <height>17</height>
      </rect>
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>260</y>
+      <y>280</y>
       <width>91</width>
       <height>17</height>
      </rect>
@@ -144,7 +144,7 @@
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>30</y>
+      <y>0</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -170,7 +170,7 @@
     <property name="geometry">
      <rect>
       <x>680</x>
-      <y>260</y>
+      <y>280</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -212,7 +212,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>340</y>
+      <y>360</y>
       <width>211</width>
       <height>27</height>
      </rect>
@@ -222,7 +222,7 @@
     <property name="geometry">
      <rect>
       <x>560</x>
-      <y>370</y>
+      <y>390</y>
       <width>151</width>
       <height>27</height>
      </rect>
@@ -235,7 +235,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>280</y>
+      <y>300</y>
       <width>64</width>
       <height>23</height>
      </rect>
@@ -257,7 +257,7 @@
     <property name="geometry">
      <rect>
       <x>680</x>
-      <y>280</y>
+      <y>300</y>
       <width>64</width>
       <height>23</height>
      </rect>
@@ -328,6 +328,58 @@
       <width>113</width>
       <height>27</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="camera_move_l">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>160</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Move Camera</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="left_camera_pb">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>190</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>left</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="right_camera_pb">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>190</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>right</string>
     </property>
    </widget>
   </widget>

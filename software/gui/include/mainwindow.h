@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "client.h"
+#include "ClientSocket.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +19,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    Client *client;
+    ClientSocket *client;
+    bool connected;
 
 private slots:
     void conServer();
@@ -28,6 +29,8 @@ private slots:
     void backward();
     void right();
     void left();
+    void cameraRight();
+    void cameraLeft();
     void send_cmd();
 };
 

@@ -15,7 +15,7 @@
 class ClientSocket : private Socket {
 
 public:
-    ClientSocket(){};
+
     ClientSocket(std::string host, int port);
     virtual ~ClientSocket(){};
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <QApplication>
 #include <QPushButton>
-#include "src/mainwindow.h"
+#include "mainwindow.h"
 
 int main(int argc, char **argv) {
     std::cout << "Test GUI" << std::endl;

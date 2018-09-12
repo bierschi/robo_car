@@ -7,11 +7,11 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    client(NULL)
+    client(NULL),
+    connected(false)
 {
     ui->setupUi(this);
     this->setWindowTitle("RoboCar");
-
 
     connect(ui->exit_pb, SIGNAL(clicked()), this, SLOT(close()));
     connect(ui->connect_pb, SIGNAL(clicked()), this, SLOT(conServer()));
@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->backward_pb, SIGNAL(clicked()), this, SLOT(backward()));
     connect(ui->right_pb, SIGNAL(clicked()), this, SLOT(right()));
     connect(ui->left_pb, SIGNAL(clicked()), this, SLOT(left()));
+    connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
+    connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
 }
 
 MainWindow::~MainWindow()
@@ -34,37 +36,54 @@ void MainWindow::conServer() {
     std::string host = ui->host_le->text().toStdString();
     unsigned int port = (unsigned) ui->port_le->text().toInt();
     std::cout << host << " " << port << std::endl;
-    client = new Client(host, port);
-    client->run();
 
+    client = new ClientSocket(host, port);
+    connected = true;
 }
 
 void MainWindow::stream() {
-    std::string stream = "stream";
-    client->send(stream);
+    Commands stream_c = STREAM;
+
+    if (connected)
+        (*client)<<(stream_c);
 }
 
 void MainWindow::forward() {
-    std::string forward = "forward";
-    client->send(forward);
+    Commands forward_c = FORWARD;
+    if (connected)
+        (*client) << forward_c;
 }
 
 void MainWindow::backward() {
-    std::string backward = "backward";
-    client->send(backward);
+    Commands backward_c = BACKWARD;
+    if (connected)
+    (*client) << backward_c;
 }
 
 void MainWindow::right() {
-    std::string right = "right";
-    client->send(right);
+    Commands right_c = RIGHT;
+    if (connected)
+        (*client) << right_c;
 }
 
 void MainWindow::left() {
-    std::string left = "left";
-    client->send(left);
+    Commands left_c = LEFT;
+    if (connected)
+        (*client) << left_c;
 }
 
+void MainWindow::cameraRight() {
+    Commands cam_r_c = CAM_R;
+    if (connected)
+        (*client) << cam_r_c;
+}
+
+void MainWindow::cameraLeft() {
+    Commands cam_l_c = CAM_L;
+    if (connected)
+        (*client) << cam_l_c;
+}
 void MainWindow::send_cmd() {
     std::string cmd = ui->send_cmd_le->text().toStdString();
-    client->send(cmd);
+    //client->send(cmd);
 }

@@ -15,13 +15,18 @@ set(CMAKE_AUTOUIC ON)
 # find the Qt Widgets Core libraries
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
+include_directories(include)
+
 # populate a CMake variable with the sources
 set(main_gui_src
+        include/mainwindow.h
+        include/ClientSocket.h
+        include/Socket.h
+        include/SocketException.h
         src/mainwindow.ui
         src/mainwindow.cpp
-        src/mainwindow.h
-        src/client.h
-        src/client.cpp
+        src/ClientSocket.cpp
+        src/Socket.cpp
         main_gui.cpp)
 
 # tell CMake to create a main_gui executable
