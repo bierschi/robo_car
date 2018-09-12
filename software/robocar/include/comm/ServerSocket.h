@@ -25,7 +25,7 @@ private:
     std::vector<std::thread> threadClients;
     bool running = false;
     int countClient;
-    int camCounter=2120;
+    int countCamServo = 2120;
 
 public:
 
@@ -38,8 +38,7 @@ public:
     const ServerSocket& operator >> (Commands& ) const;
 
     int getPort() const;
-    int getCamCounter();
-    void setCamCounter();
+
     void accept(ServerSocket&);
     bool isRunning() const;
 
@@ -47,7 +46,6 @@ public:
     void serveTask(ServerSocket&);
     void multipleClients();
 
-    void actions(const std::string&);
     void actions(Commands&);
 };
 

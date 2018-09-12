@@ -38,7 +38,7 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
     socks = new ServerSocket[maxClient_n];
     threadClients.reserve(maxClient_n);
     running = true;
-    std::cout << "CamCounter in Const: " << camCounter << std::endl;
+
     std::cout << "Server is being set up on port: " << port << std::endl;
     std::cout << maxClient_n << " clients can be connected simultaneously!" << std::endl;
     std::cout << "Listening ..." << std::endl;
@@ -193,66 +193,20 @@ void ServerSocket::serveTask(ServerSocket& sock){
 }
 
 /**
- * selects a appropriate action, depending on the incoming data string
+ * selects a appropriate action, depending on the incoming command
  *
- * @param data: std::string&
+ * @param cmd: Commands&
  */
-void ServerSocket::actions(const std::string &data) {
-
-    if (data.compare(0, 4, "stop") == 0) {
-
-        std::cout << "stop running Server!" << std::endl;
-
-    }
-    else if (data.compare(0, 4, "send") == 0){
-
-        std::cout << "send message to client!" << std::endl;
-
-
-    } else if (data.compare(0, 6, "stream") == 0) {
-
-        std::cout << "create stream object!" << std::endl;
-
-
-    } else if (data.compare(0, 7, "forward") == 0) {
-
-        std::cout << "drive forward!" << std::endl;
-
-
-    } else if (data.compare(0, 8, "backward") == 0) {
-
-        std::cout << "drive backward!" << std::endl;
-
-
-    } else if (data.compare(0, 5, "right") == 0) {
-
-        std::cout << "drive right!" << std::endl;
-
-
-    } else if (data.compare(0, 4, "left") == 0) {
-
-        std::cout << "drive left!" << std::endl;
-
-    }
-    else {
-        std::cout << "get next message from client" << std::endl;
-        std::string nextMsg = "get next message from client";
-
-    }
-
-}
-
 void ServerSocket::actions(Commands& cmd) {
 
     PCA9685 steeringServo(1, 0x40, 60);
     PCA9685 cameraServo(1, 0x40, 60);
-    std::cout << "coun: " << camCounter << std::endl;
 
     switch(cmd) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
             steeringServo.setPWM(0, 1750, 2130);
-            cameraServo.setPWM(15, 1750, 2128);
+            //cameraServo.setPWM(15, 1750, 2128);
             break;
 
         case BACKWARD:
@@ -262,13 +216,13 @@ void ServerSocket::actions(Commands& cmd) {
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
             steeringServo.setPWM(0, 1230, 1720);
-            cameraServo.setPWM(15, 1780, 2000);
+            //cameraServo.setPWM(15, 1780, 2000);
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
             steeringServo.setPWM(0, 1750, 1895);
-            cameraServo.setPWM(15, 1230, 1750);
+            //cameraServo.setPWM(15, 1230, 1750);
             break;
 
         case STREAM:
@@ -277,20 +231,23 @@ void ServerSocket::actions(Commands& cmd) {
 
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
-            std::cout << "counter: " << camCounter << std::endl;
-            if (camCounter > 1820){
-                camCounter -= 50;
 
-                cameraServo.setPWM(15, 1750, camCounter);
+            if (countCamServo > 1820){
+
+                countCamServo -= 50;
+                cameraServo.setPWM(15, 1750, countCamServo);
+
             }
             break;
 
         case CAM_L:
             std::cout << "Move camera left!" << std::endl;
-            std::cout << "counter: " << camCounter << std::endl;
-            if (camCounter < 2320){
-            camCounter += 50;
-            cameraServo.setPWM(15, 1750, camCounter);
+
+            if (countCamServo < 2320){
+
+            countCamServo += 50;
+            cameraServo.setPWM(15, 1750, countCamServo);
+
             }
             break;
 

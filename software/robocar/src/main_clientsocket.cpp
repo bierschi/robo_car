@@ -14,7 +14,7 @@ int main() {
 
     try {
 
-        ClientSocket client_socket ("localhost", 2501);
+        ClientSocket client_socket ("192.168.178.39", 2501);
 
         Commands forward = FORWARD;
         Commands backward = BACKWARD;
