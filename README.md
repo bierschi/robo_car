@@ -20,7 +20,12 @@ Build a remote-controlled robot car with a Raspberry Pi 3b+
 
 ## Software
 
+The Software is written in C++ and build with [CMake](https://cmake.org/)
+
+
 ## Operating System
+
+
 
 ## Project Layout
 <pre><code>
