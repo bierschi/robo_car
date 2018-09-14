@@ -5,6 +5,15 @@
 #include "comm/ServerSocket.h"
 #include "comm/SocketException.h"
 
+/**
+ *
+ */
+ServerSocket::ServerSocket() : countCamServo(2120){
+
+    steeringServo = new PCA9685(1, 0x40, 60);
+    cameraServo   = new PCA9685(1, 0x40, 60);
+
+}
 
 /**
  * Constructor for a ServerSocket instance
@@ -199,13 +208,13 @@ void ServerSocket::serveTask(ServerSocket& sock){
  */
 void ServerSocket::actions(Commands& cmd) {
 
-    PCA9685 steeringServo(1, 0x40, 60);
-    PCA9685 cameraServo(1, 0x40, 60);
+    //PCA9685 steeringServo(1, 0x40, 60);
+    //PCA9685 cameraServo(1, 0x40, 60);
 
     switch(cmd) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
-            steeringServo.setPWM(0, 1750, 2130);
+            steeringServo->setPWM(0, 1750, 2130);
             //cameraServo.setPWM(15, 1750, 2128);
             break;
 
@@ -215,13 +224,13 @@ void ServerSocket::actions(Commands& cmd) {
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
-            steeringServo.setPWM(0, 1230, 1720);
+            steeringServo->setPWM(0, 1230, 1720);
             //cameraServo.setPWM(15, 1780, 2000);
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
-            steeringServo.setPWM(0, 1750, 1895);
+            steeringServo->setPWM(0, 1750, 1895);
             //cameraServo.setPWM(15, 1230, 1750);
             break;
 
@@ -235,7 +244,7 @@ void ServerSocket::actions(Commands& cmd) {
             if (countCamServo > 1820){
 
                 countCamServo -= 50;
-                cameraServo.setPWM(15, 1750, countCamServo);
+                cameraServo->setPWM(15, 1750, countCamServo);
 
             }
             break;
@@ -246,7 +255,7 @@ void ServerSocket::actions(Commands& cmd) {
             if (countCamServo < 2320){
 
             countCamServo += 50;
-            cameraServo.setPWM(15, 1750, countCamServo);
+            cameraServo->setPWM(15, 1750, countCamServo);
 
             }
             break;
