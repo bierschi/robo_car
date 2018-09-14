@@ -25,11 +25,13 @@ private:
     std::vector<std::thread> threadClients;
     bool running = false;
     int countClient;
-    int countCamServo = 2120;
+    int countCamServo;
+    PCA9685* steeringServo;
+    PCA9685* cameraServo;
 
 public:
 
-    ServerSocket(){};
+    ServerSocket();
     ServerSocket(unsigned int port, unsigned int maxClient_n = 2);
     virtual ~ServerSocket();
 
