@@ -6,6 +6,10 @@
 #include "comm/SocketException.h"
 
 /**
+ * Default Constructor for a ServerSocket instance
+ *
+ * USAGE:
+ *      ServerSocket* sock = new ServerSocket();
  *
  */
 ServerSocket::ServerSocket() : countCamServo(2120){
@@ -19,7 +23,7 @@ ServerSocket::ServerSocket() : countCamServo(2120){
  * Constructor for a ServerSocket instance
  *
  * USAGE:
- *      ServerSocket(2500);
+ *      ServerSocket* sock = new ServerSocket(2500, 2);
  *
  * @param port: int
  */
@@ -60,6 +64,7 @@ ServerSocket::~ServerSocket() {
 
     running = false;
     delete[] socks;
+    delete steeringServo, cameraServo;
     threadClients.clear();
 
 }
@@ -208,10 +213,9 @@ void ServerSocket::serveTask(ServerSocket& sock){
  */
 void ServerSocket::actions(Commands& cmd) {
 
-    //PCA9685 steeringServo(1, 0x40, 60);
-    //PCA9685 cameraServo(1, 0x40, 60);
-
     switch(cmd) {
+
+        //move the vehicle
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
             steeringServo->setPWM(0, 1750, 2130);
@@ -234,16 +238,13 @@ void ServerSocket::actions(Commands& cmd) {
             //cameraServo.setPWM(15, 1230, 1750);
             break;
 
-        case STREAM:
-            std::cout << "Stream object!" << std::endl;
-            break;
-
+        //move the camera
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
 
             if (countCamServo > 1820){
 
-                countCamServo -= 50;
+                countCamServo -= 30;
                 cameraServo->setPWM(15, 1750, countCamServo);
 
             }
@@ -254,10 +255,15 @@ void ServerSocket::actions(Commands& cmd) {
 
             if (countCamServo < 2320){
 
-            countCamServo += 50;
+            countCamServo += 30;
             cameraServo->setPWM(15, 1750, countCamServo);
 
             }
+            break;
+
+        //starts the stream of the camera
+        case STREAM:
+            std::cout << "Stream object!" << std::endl;
             break;
 
         default:

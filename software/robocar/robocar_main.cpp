@@ -21,7 +21,7 @@ int main() {
 
     try {
 
-        ServerSocket server (2501, 1);
+        ServerSocket server (2501, 2);
         server.multipleClients();
 
     }

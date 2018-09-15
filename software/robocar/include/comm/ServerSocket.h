@@ -21,11 +21,12 @@ class ServerSocket : private Socket {
 private:
     unsigned int port_n;
     unsigned int maxClient_n;
-    ServerSocket* socks;
-    std::vector<std::thread> threadClients;
-    bool running = false;
     int countClient;
     int countCamServo;
+    bool running = false;
+
+    ServerSocket* socks;
+    std::vector<std::thread> threadClients;
     PCA9685* steeringServo;
     PCA9685* cameraServo;
 
