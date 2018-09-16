@@ -89,7 +89,7 @@ void MainWindow::cameraLeft() {
 void MainWindow::distance() {
     Commands distance = DISTANCE;
     std::string dist_s;
-    
+
     if (connected) {
 
         (*client) << distance;
