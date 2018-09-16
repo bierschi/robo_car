@@ -285,10 +285,11 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             break;
 
             //starts the stream of the camera
-        case DISTANCE:
+        case DISTANCE: {
             std::cout << "Get current distance!" << std::endl;
             double distance = ultrasonic->triggerOneMeasurement();
             sock << std::to_string(distance);
+        }
             break;
 
         //starts the stream of the camera
