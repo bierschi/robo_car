@@ -37,6 +37,7 @@ public:
     virtual ~ServerSocket();
 
     const ServerSocket& operator << (const std::string& ) const;
+    const ServerSocket& operator << (Commands& ) const;
     const ServerSocket& operator >> (std::string& ) const;
     const ServerSocket& operator >> (Commands& ) const;
 
@@ -49,7 +50,7 @@ public:
     void serveTask(ServerSocket&);
     void multipleClients();
 
-    void actions(Commands&);
+    void actions(Commands&, ServerSocket& sock);
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H

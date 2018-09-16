@@ -109,6 +109,22 @@ const ServerSocket& ServerSocket::operator << (const std::string &s) const {
  * @param s
  * @return const ServerSocket&
  */
+const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
+
+    if ( !Socket::send(cmd)) {
+
+        throw SocketException("Could not write to socket!");
+
+    }
+
+    return *this;
+
+}
+/**
+ *
+ * @param s
+ * @return const ServerSocket&
+ */
 const ServerSocket& ServerSocket::operator >> (std::string &s) const {
 
     if ( !Socket::recv(s)) {
@@ -194,7 +210,7 @@ void ServerSocket::serveTask(ServerSocket& sock){
         while (true) {
 
             sock >> cmd;
-            sock.actions(cmd);
+            sock.actions(cmd, sock);
 
         }
 
@@ -211,7 +227,7 @@ void ServerSocket::serveTask(ServerSocket& sock){
  *
  * @param cmd: Commands&
  */
-void ServerSocket::actions(Commands& cmd) {
+void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
 
     switch(cmd) {
 
@@ -264,6 +280,7 @@ void ServerSocket::actions(Commands& cmd) {
         //starts the stream of the camera
         case STREAM:
             std::cout << "Stream object!" << std::endl;
+            sock << "hallo";
             break;
 
         default:
