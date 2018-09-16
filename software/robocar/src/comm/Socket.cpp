@@ -121,6 +121,12 @@ bool Socket::send(const std::string s) const {
         return true;
 }
 
+/**
+ * send command to socket
+ *
+ * @param cmd: Commands& reference
+ * @return true, if sending was successfully, else false
+ */
 bool Socket::send(Commands& cmd) const {
 
     int status = ::send(m_sock, &cmd, sizeof(cmd), MSG_NOSIGNAL);
@@ -166,6 +172,12 @@ int Socket::recv(std::string& s) const {
 
 }
 
+/**
+ * receive command from socket
+ *
+ * @param cmd: Commands& reference
+ * @return true, if sending was successfully, else false
+ */
 int Socket::recv(Commands& cmd) const {
 
 
@@ -187,7 +199,6 @@ int Socket::recv(Commands& cmd) const {
     }
 
 }
-
 
 /**
  * connecting to a particular socket

@@ -88,9 +88,10 @@ bool ServerSocket::isRunning() const {
 }
 
 /**
+ * overloaded operator << to send strings to sockets
  *
- * @param s
- * @return const ServerSocket&
+ * @param s: const string reference
+ * @return const ServerSocket& reference
  */
 const ServerSocket& ServerSocket::operator << (const std::string &s) const {
 
@@ -105,9 +106,10 @@ const ServerSocket& ServerSocket::operator << (const std::string &s) const {
 }
 
 /**
+ * overloaded operator << to send predefined commands to sockets
  *
- * @param s
- * @return const ServerSocket&
+ * @param cmd: Commands& reference
+ * @return const ServerSocket& reference
  */
 const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
 
@@ -121,9 +123,10 @@ const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
 
 }
 /**
+ * overloaded operator >> to receive strings from sockets
  *
- * @param s
- * @return const ServerSocket&
+ * @param s: string& reference
+ * @return const ServerSocket& reference
  */
 const ServerSocket& ServerSocket::operator >> (std::string &s) const {
 
@@ -137,9 +140,10 @@ const ServerSocket& ServerSocket::operator >> (std::string &s) const {
 }
 
 /**
+ * overloaded operator >> to receive predefined commands from sockets
  *
- * @param cmd
- * @return const ServerSocket&
+ * @param cmd: Commands& reference
+ * @return const ServerSocket& reference
  */
 const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
 
@@ -154,6 +158,8 @@ const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
 
 /**
  * blocking method, waits for a client connection
+ *
+ * @param sock: ServerSocket& reference
  */
 void ServerSocket::accept(ServerSocket &sock) {
 
@@ -284,6 +290,6 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             break;
 
         default:
-            std::cout << "Default in act!" << std::endl;
+            std::cout << "Default in method actions!" << std::endl;
     }
 }

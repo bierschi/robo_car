@@ -8,7 +8,6 @@
 #include "cstdio"
 #include "comm/ServerSocket.h"
 #include "comm/SocketException.h"
-#include "sensors/Ultrasonic.h"
 
 #define LOGGING true
 
@@ -21,8 +20,7 @@ int main() {
     }
 
     try {
-        Ultrasonic* us = new Ultrasonic(4, 5);
-        us->triggerOneMeasurement();
+
         ServerSocket server (2501, 2);
         server.multipleClients();
 
