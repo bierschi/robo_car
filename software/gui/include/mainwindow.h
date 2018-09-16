@@ -31,6 +31,7 @@ private slots:
     void left();
     void cameraRight();
     void cameraLeft();
+    void distance();
     void send_cmd();
 };
 

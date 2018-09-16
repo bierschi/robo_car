@@ -16,6 +16,7 @@ ServerSocket::ServerSocket() : countCamServo(2120){
 
     steeringServo = new PCA9685(1, 0x40, 60);
     cameraServo   = new PCA9685(1, 0x40, 60);
+    ultrasonic    = new Ultrasonic(4, 5);
 
 }
 
@@ -281,6 +282,13 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             cameraServo->setPWM(15, 1750, countCamServo);
 
             }
+            break;
+
+            //starts the stream of the camera
+        case DISTANCE:
+            std::cout << "Get current distance!" << std::endl;
+            double distance = ultrasonic->triggerOneMeasurement();
+            sock << std::to_string(distance);
             break;
 
         //starts the stream of the camera

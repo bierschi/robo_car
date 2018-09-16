@@ -10,6 +10,7 @@
 
 #include "Socket.h"
 #include "sensors/PCA9685.h"
+#include "sensors/Ultrasonic.h"
 
 /**
  * /CLASS ServerSocket
@@ -25,10 +26,12 @@ private:
     int countCamServo;
     bool running = false;
 
-    ServerSocket* socks;
     std::vector<std::thread> threadClients;
+
+    ServerSocket* socks;
     PCA9685* steeringServo;
     PCA9685* cameraServo;
+    Ultrasonic* ultrasonic;
 
 public:
 

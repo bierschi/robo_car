@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->left_pb, SIGNAL(clicked()), this, SLOT(left()));
     connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
     connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
+    connect(ui->distance_pb, SIGNAL(clicked()), this, SLOT(distance()));
+
 }
 
 MainWindow::~MainWindow()
@@ -83,6 +85,20 @@ void MainWindow::cameraLeft() {
     if (connected)
         (*client) << cam_l_c;
 }
+
+void MainWindow::distance() {
+    Commands distance = DISTANCE;
+    std::string dist_s;
+    
+    if (connected) {
+
+        (*client) << distance;
+        (*client) >> dist_s;
+
+    }
+    std::cout << "received distance: " << dist_s << std::endl;
+}
+
 void MainWindow::send_cmd() {
     std::string cmd = ui->send_cmd_le->text().toStdString();
     //client->send(cmd);
