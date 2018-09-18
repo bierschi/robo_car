@@ -288,15 +288,15 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case DISTANCE: {
             std::cout << "Start/Stop query current distance!" << std::endl;
 
-            if ( !ultrasonic->getIsRunning() ) {
+            if ( !getDistanceFlag() ) {
 
-                ultrasonic->setIsRunning(true);
-                std::thread distanceThread(ultrasonic->continousMeasurement, sock);
+                setDistanceFlag(true);
+                std::thread distanceThread(this->continousMeasurement, sock);
 
             } else {
 
-                ultrasonic->setIsRunning(false);
-                
+                setDistanceFlag(false);
+
             }
 
         }
@@ -311,4 +311,24 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         default:
             std::cout << "Default in method actions!" << std::endl;
     }
+}
+
+bool ServerSocket::getDistanceFlag() {
+    return distanceFlag;
+}
+
+void ServerSocket::setDistanceFlag(bool distFlag) {
+    distanceFlag = distFlag;
+}
+
+void ServerSocket::continousMeasurement(ServerSocket& sock) {
+
+    double distance;
+
+    while (distanceFlag) {
+        distance = ultrasonic->triggerOneMeasurement();
+        sleep(1);
+        sock << std::to_string(distance);
+    }
+
 }

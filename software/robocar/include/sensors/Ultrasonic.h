@@ -9,7 +9,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <chrono>
-#include <comm/ServerSocket.h>
 
 /**
  * /CLASS Ultrasonic
@@ -20,16 +19,13 @@ class Ultrasonic {
 
 private:
     int Trigger, Echo;
-    bool isRunning;
 
 public:
     Ultrasonic(int TriggerPin, int EchoPin);
     ~Ultrasonic();
 
-    void setIsRunning(bool runFlag);
-    bool getIsRunning() const;
     double triggerOneMeasurement();
-    void continousMeasurement(ServerSocket& sock);
+
 
 };
 

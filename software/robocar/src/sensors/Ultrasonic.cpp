@@ -17,7 +17,7 @@
  * @param TriggerPin: Int gpio number
  * @param EchoPin Int gpio number
  */
-Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin), Echo(EchoPin), isRunning(false) {
+Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin), Echo(EchoPin) {
 
     wiringPiSetup();
 
@@ -32,13 +32,7 @@ Ultrasonic::~Ultrasonic() {
 
 }
 
-void Ultrasonic::setIsRunning(bool runFlag) {
-    isRunning = runFlag;
-}
 
-bool Ultrasonic::getIsRunning() const {
-    return isRunning;
-}
 double Ultrasonic::triggerOneMeasurement() {
 
     std::chrono::steady_clock::time_point pulseStart;
@@ -66,14 +60,3 @@ double Ultrasonic::triggerOneMeasurement() {
     return distance;
 }
 
-void Ultrasonic::continousMeasurement(ServerSocket& sock) {
-
-    double distance;
-
-    while ( getIsRunning() ){
-        distance = triggerOneMeasurement();
-        sleep(1);
-        sock << std::to_string(distance);
-    }
-
-}

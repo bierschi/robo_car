@@ -25,6 +25,7 @@ private:
     int countClient;
     int countCamServo;
     bool running = false;
+    bool distanceFlag = false;
 
     std::vector<std::thread> threadClients;
 
@@ -45,6 +46,8 @@ public:
     const ServerSocket& operator >> (Commands& ) const;
 
     int getPort() const;
+    bool getDistanceFlag();
+    void setDistanceFlag(bool distFlag);
 
     void accept(ServerSocket&);
     bool isRunning() const;
@@ -54,6 +57,7 @@ public:
     void multipleClients();
 
     void actions(Commands&, ServerSocket& sock);
+    void continousMeasurement(ServerSocket& sock);
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H
