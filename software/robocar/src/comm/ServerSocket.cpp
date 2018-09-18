@@ -286,9 +286,19 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
 
             //starts the stream of the camera
         case DISTANCE: {
-            std::cout << "Get current distance!" << std::endl;
-            double distance = ultrasonic->triggerOneMeasurement();
-            sock << std::to_string(distance);
+            std::cout << "Start/Stop query current distance!" << std::endl;
+
+            if ( !ultrasonic->getIsRunning() ) {
+
+                ultrasonic->setIsRunning(true);
+                std::thread distanceThread(ultrasonic->continousMeasurement, sock);
+
+            } else {
+
+                ultrasonic->setIsRunning(false);
+                
+            }
+
         }
             break;
 

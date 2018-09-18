@@ -5,6 +5,7 @@
 #include "sensors/Ultrasonic.h"
 #include <iostream>
 
+
 /**
  * Constructor for a Ultrasonic instance
  *
@@ -16,7 +17,7 @@
  * @param TriggerPin: Int gpio number
  * @param EchoPin Int gpio number
  */
-Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin), Echo(EchoPin) {
+Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin), Echo(EchoPin), isRunning(false) {
 
     wiringPiSetup();
 
@@ -31,7 +32,13 @@ Ultrasonic::~Ultrasonic() {
 
 }
 
+void Ultrasonic::setIsRunning(bool runFlag) {
+    isRunning = runFlag;
+}
 
+bool Ultrasonic::getIsRunning() const {
+    return isRunning;
+}
 double Ultrasonic::triggerOneMeasurement() {
 
     std::chrono::steady_clock::time_point pulseStart;
@@ -59,7 +66,14 @@ double Ultrasonic::triggerOneMeasurement() {
     return distance;
 }
 
-void Ultrasonic::startMeasurement() {
+void Ultrasonic::continousMeasurement(ServerSocket& sock) {
 
+    double distance;
+
+    while ( getIsRunning() ){
+        distance = triggerOneMeasurement();
+        sleep(1);
+        sock << std::to_string(distance);
+    }
 
 }
