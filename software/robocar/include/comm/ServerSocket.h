@@ -57,7 +57,7 @@ public:
     void multipleClients();
 
     void actions(Commands&, ServerSocket& sock);
-    void continousMeasurement(ServerSocket& sock);
+    void continousMeasurement();
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H

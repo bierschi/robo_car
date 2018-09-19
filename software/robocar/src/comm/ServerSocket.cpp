@@ -236,6 +236,8 @@ void ServerSocket::serveTask(ServerSocket& sock){
  */
 void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
 
+
+
     switch(cmd) {
 
         //move the vehicle
@@ -284,14 +286,15 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             }
             break;
 
-            //starts the stream of the camera
+            //starts/stops the thread to get the current distance from ultrasonic sensor
         case DISTANCE: {
-            std::cout << "Start/Stop query current distance!" << std::endl;
+            std::cout << "Start/Stop to query current distance!" << std::endl;
 
             if ( !getDistanceFlag() ) {
 
                 setDistanceFlag(true);
-                std::thread distanceThread(this->continousMeasurement, sock);
+                std::thread t(&ServerSocket::continousMeasurement, this);
+                t.detach();
 
             } else {
 
@@ -321,14 +324,15 @@ void ServerSocket::setDistanceFlag(bool distFlag) {
     distanceFlag = distFlag;
 }
 
-void ServerSocket::continousMeasurement(ServerSocket& sock) {
+void ServerSocket::continousMeasurement() {
 
     double distance;
 
     while (distanceFlag) {
         distance = ultrasonic->triggerOneMeasurement();
         sleep(1);
-        sock << std::to_string(distance);
+        std::cout << distance << std::endl;
+        //this-> << std::to_string(distance);
     }
 
 }

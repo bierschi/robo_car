@@ -93,10 +93,10 @@ void MainWindow::distance() {
     if (connected) {
 
         (*client) << distance;
-        (*client) >> dist_s;
+        //(*client) >> dist_s;
 
     }
-    std::cout << "received distance: " << dist_s << std::endl;
+    //std::cout << "received distance: " << dist_s << std::endl;
 }
 
 void MainWindow::send_cmd() {

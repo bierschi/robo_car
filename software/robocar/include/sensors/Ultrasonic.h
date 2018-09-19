@@ -9,6 +9,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <chrono>
+#include <thread>
 
 /**
  * /CLASS Ultrasonic
@@ -25,7 +26,6 @@ public:
     ~Ultrasonic();
 
     double triggerOneMeasurement();
-
 
 };
 
