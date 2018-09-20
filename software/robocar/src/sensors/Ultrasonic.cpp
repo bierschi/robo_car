@@ -29,6 +29,9 @@ Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin), Echo(
 
 }
 
+/**
+ * Destructor in Ultrasonic
+ */
 Ultrasonic::~Ultrasonic() {
 
 }
