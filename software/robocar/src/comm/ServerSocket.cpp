@@ -89,6 +89,23 @@ bool ServerSocket::isRunning() const {
 }
 
 /**
+ * get distanceFlag to ensure if distance thread is running
+ *
+ * @return bool distanceFlag
+ */
+bool ServerSocket::getDistanceFlag() {
+    return distanceFlag;
+}
+
+/**
+ * set distanceFlag to true or false
+ * @param distFlag: bool distanceFlag
+ */
+void ServerSocket::setDistanceFlag(bool distFlag) {
+    distanceFlag = distFlag;
+}
+
+/**
  * overloaded operator << to send strings to sockets
  *
  * @param s: const string reference
@@ -232,7 +249,8 @@ void ServerSocket::serveTask(ServerSocket& sock){
 /**
  * selects a appropriate action, depending on the incoming command
  *
- * @param cmd: Commands&
+ * @param cmd: Commands reference to execute defined commands
+ * @param sock: ServerSocket reference to send commands back to the clients
  */
 void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
 
@@ -267,9 +285,9 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
 
-            if (countCamServo > 1820){
+            if (countCamServo < 2320){
 
-                countCamServo -= 30;
+                countCamServo += 30;
                 cameraServo->setPWM(15, 1750, countCamServo);
 
             }
@@ -278,9 +296,9 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case CAM_L:
             std::cout << "Move camera left!" << std::endl;
 
-            if (countCamServo < 2320){
+            if (countCamServo > 1820){
 
-            countCamServo += 30;
+            countCamServo -= 30;
             cameraServo->setPWM(15, 1750, countCamServo);
 
             }
@@ -293,8 +311,8 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             if ( !getDistanceFlag() ) {
 
                 setDistanceFlag(true);
-                std::thread t(&ServerSocket::continousMeasurement, this);
-                t.detach();
+                std::thread distanceThread(&ServerSocket::runDistanceThread, this, std::ref(sock));
+                distanceThread.detach();
 
             } else {
 
@@ -316,23 +334,21 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
     }
 }
 
-bool ServerSocket::getDistanceFlag() {
-    return distanceFlag;
-}
 
-void ServerSocket::setDistanceFlag(bool distFlag) {
-    distanceFlag = distFlag;
-}
-
-void ServerSocket::continousMeasurement() {
+/**
+ * run thread to get continously the current distance from the ultrasonic sensor
+ *
+ * @param sock: ServerSocket reference to send the current distance to the clients
+ */
+void ServerSocket::runDistanceThread(ServerSocket& sock) {
 
     double distance;
 
     while (distanceFlag) {
-        distance = ultrasonic->triggerOneMeasurement();
+        distance = ultrasonic->currentDistance();
         sleep(1);
-        std::cout << distance << std::endl;
-        //this-> << std::to_string(distance);
+        std::cout << "current distance: " << distance << " cm" << std::endl;
+        sock << std::to_string(distance);
     }
 
 }

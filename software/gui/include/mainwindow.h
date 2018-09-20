@@ -21,6 +21,7 @@ private:
     Ui::MainWindow *ui;
     ClientSocket *client;
     bool connected;
+    bool run=false;
 
 private slots:
     void conServer();
@@ -33,6 +34,7 @@ private slots:
     void cameraLeft();
     void distance();
     void send_cmd();
+    void showThread();
 };
 
 #endif // MAINWINDOW_H

@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <thread>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -88,18 +89,36 @@ void MainWindow::cameraLeft() {
 
 void MainWindow::distance() {
     Commands distance = DISTANCE;
-    std::string dist_s;
+    //std::string dist_s;
 
     if (connected) {
 
         (*client) << distance;
         //(*client) >> dist_s;
+        if ( !run ){
+            run = true;
+            std::thread t(&MainWindow::showThread, this);
+            t.detach();
+        } else {
+            run = false;
+        }
+
 
     }
-    //std::cout << "received distance: " << dist_s << std::endl;
+   // std::cout << "received distance: " << dist_s << std::endl;
 }
 
 void MainWindow::send_cmd() {
     std::string cmd = ui->send_cmd_le->text().toStdString();
     //client->send(cmd);
+}
+
+void MainWindow::showThread() {
+    std::string dist_s;
+
+    while (run) {
+        (*client) >> dist_s;
+        std::cout << "distance: " <<dist_s << std::endl;
+    }
+
 }

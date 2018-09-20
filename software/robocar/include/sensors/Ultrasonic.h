@@ -25,7 +25,7 @@ public:
     Ultrasonic(int TriggerPin, int EchoPin);
     ~Ultrasonic();
 
-    double triggerOneMeasurement();
+    double currentDistance();
 
 };
 

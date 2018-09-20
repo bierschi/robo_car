@@ -14,6 +14,7 @@ set(CMAKE_AUTOUIC ON)
 
 # find the Qt Widgets Core libraries
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+find_package(Threads REQUIRED)
 
 include_directories(include)
 
@@ -32,5 +33,5 @@ set(main_gui_src
 # tell CMake to create a main_gui executable
 add_executable(main_gui ${main_gui_src})
 
-
+target_link_libraries(main_gui ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(main_gui Qt5::Widgets)

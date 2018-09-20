@@ -34,7 +34,7 @@ Ultrasonic::~Ultrasonic() {
 }
 
 
-double Ultrasonic::triggerOneMeasurement() {
+double Ultrasonic::currentDistance() {
 
     std::chrono::steady_clock::time_point pulseStart;
     std::chrono::steady_clock::time_point pulseEnd;
@@ -55,8 +55,6 @@ double Ultrasonic::triggerOneMeasurement() {
     pulseDuration = std::chrono::duration_cast<std::chrono::microseconds>(pulseEnd - pulseStart).count();
 
     distance = pulseDuration * 1e-6 * 17150;
-
-    std::cout << "distance in cm: " << distance << std::endl;
 
     return distance;
 }
