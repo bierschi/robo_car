@@ -11,6 +11,7 @@
 #include "Socket.h"
 #include "sensors/PCA9685.h"
 #include "sensors/Ultrasonic.h"
+#include "sensors/GearMotor.h"
 
 /**
  * /CLASS ServerSocket
@@ -33,6 +34,7 @@ private:
     PCA9685* steeringServo;
     PCA9685* cameraServo;
     Ultrasonic* ultrasonic;
+    GearMotor* gearmotor;
 
 public:
 
