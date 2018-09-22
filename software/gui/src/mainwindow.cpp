@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
     connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
     connect(ui->distance_pb, SIGNAL(clicked()), this, SLOT(distance()));
+    connect(ui->stop_pb, SIGNAL(clicked()), this, SLOT(stop()));
+    connect(ui->speedp_pb, SIGNAL(clicked()), this, SLOT(increaseSpeed()));
+    connect(ui->speedm_pb, SIGNAL(clicked()), this, SLOT(decreaseSpeed()));
 
 }
 
@@ -73,6 +76,24 @@ void MainWindow::left() {
     Commands left_c = LEFT;
     if (connected)
         (*client) << left_c;
+}
+
+void MainWindow::stop() {
+    Commands stop_c = STOP;
+    if (connected)
+        (*client) << stop_c;
+}
+
+void MainWindow::increaseSpeed() {
+    Commands increase_c = INCREASE_SPEED;
+    if (connected)
+        (*client) << increase_c;
+}
+
+void MainWindow::decreaseSpeed() {
+    Commands decrease_c = DECREASE_SPEED;
+    if (connected)
+        (*client) << decrease_c;
 }
 
 void MainWindow::cameraRight() {

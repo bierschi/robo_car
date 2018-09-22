@@ -46,8 +46,8 @@
    <widget class="QPushButton" name="left_pb">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>550</y>
+      <x>410</x>
+      <y>560</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -62,8 +62,8 @@
    <widget class="QPushButton" name="right_pb">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>550</y>
+      <x>650</x>
+      <y>560</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -79,7 +79,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>590</y>
+      <y>610</y>
       <width>99</width>
       <height>27</height>
      </rect>
@@ -503,6 +503,45 @@
     </property>
     <property name="text">
      <string>Get Distance:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stop_pb">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>560</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>stop</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="speedp_pb">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>650</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+ Speed</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="speedm_pb">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>650</y>
+      <width>99</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Speed</string>
     </property>
    </widget>
   </widget>

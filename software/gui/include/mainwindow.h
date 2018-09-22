@@ -30,6 +30,9 @@ private slots:
     void backward();
     void right();
     void left();
+    void stop();
+    void increaseSpeed();
+    void decreaseSpeed();
     void cameraRight();
     void cameraLeft();
     void distance();
