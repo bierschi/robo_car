@@ -15,9 +15,9 @@
  * @param pwmP: Int PWM GPIO number
  * @param directionP: Int GPIO number
  */
-GearMotor::GearMotor(int pwmP, int directionP) : pwmPin(pwmP), directionPin(directionP), speedValue(0){
+GearMotor::GearMotor(int pwmP, int directionP) : pwmPin(pwmP), directionPin(directionP), speedValue(0), maxSpeedValue(MAX_SPEED){
 
-    wiringPiSetupGpio();
+    //wiringPiSetup();
 
     pinMode(pwmPin, PWM_OUTPUT);
     pwmSetMode(PWM_MODE_MS);
@@ -25,6 +25,7 @@ GearMotor::GearMotor(int pwmP, int directionP) : pwmPin(pwmP), directionPin(dire
     pwmSetClock(2);
 
     pinMode(directionPin, OUTPUT);
+
 
 }
 /**
@@ -62,4 +63,12 @@ void GearMotor::setSpeed(int value) {
     digitalWrite(directionPin, direction);
     pwmWrite(pwmPin, speedValue);
 
+}
+
+int GearMotor::getSpeed() const {
+    return speedValue;
+}
+
+int GearMotor::getMaxSpeed() const {
+    return maxSpeedValue;
 }

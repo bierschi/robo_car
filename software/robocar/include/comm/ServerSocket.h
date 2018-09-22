@@ -23,8 +23,7 @@ class ServerSocket : private Socket {
 private:
     unsigned int port_n;
     unsigned int maxClient_n;
-    int countClient;
-    int countCamServo;
+    int countClient, countCamServo, countSpeed;
     bool running = false;
     bool distanceFlag = false;
 

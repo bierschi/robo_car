@@ -18,13 +18,16 @@ class GearMotor {
 
 private:
     int pwmPin, directionPin;
-    int speedValue;
+    int speedValue, maxSpeedValue;
 
 public:
     GearMotor(int pwmP, int directionP);
     ~GearMotor();
 
     void setSpeed(int value);
+    int getSpeed() const;
+    int getMaxSpeed() const;
+
 };
 
 #endif //ROBOCAR_GEARMOTOR_H

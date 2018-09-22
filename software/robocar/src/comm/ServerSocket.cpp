@@ -12,12 +12,12 @@
  *      ServerSocket* sock = new ServerSocket();
  *
  */
-ServerSocket::ServerSocket() : countCamServo(2120){
+ServerSocket::ServerSocket() : countCamServo(2120), countSpeed(480){
 
     steeringServo = new PCA9685(1, 0x40, 60);
     cameraServo   = new PCA9685(1, 0x40, 60);
     ultrasonic    = new Ultrasonic(4, 5);
-    gearmotor     = new GearMotor(12, 5);
+    gearmotor     = new GearMotor(26, 21);
 
 }
 
@@ -264,12 +264,14 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             std::cout << "Drive Forward!" << std::endl;
             steeringServo->setPWM(0, 1750, 2130);
             //cameraServo.setPWM(15, 1750, 2128);
-            gearmotor->setSpeed(20);
+            countSpeed = 480;
+            gearmotor->setSpeed(countSpeed);
             break;
 
         case BACKWARD:
             std::cout << "Drive Backward!" << std::endl;
-            gearmotor->setSpeed(-50);
+            countSpeed = -480;
+            gearmotor->setSpeed(countSpeed);
             break;
 
         case RIGHT:
@@ -282,6 +284,34 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             std::cout << "Drive Left!" << std::endl;
             steeringServo->setPWM(0, 1750, 1895);
             //cameraServo.setPWM(15, 1230, 1750);
+            break;
+
+        case STOP:
+            std::cout << "Stop vehicle!" << std::endl;
+            gearmotor->setSpeed(0);
+            break;
+
+        case INCREASE_SPEED:
+            std::cout << "Increase current Speed!" << std::endl;
+
+            if (gearmotor->getSpeed() < (gearmotor->getMaxSpeed() - 50)) {
+
+                countSpeed += 50;
+                gearmotor->setSpeed(countSpeed);
+
+            }
+
+            break;
+
+        case DECREASE_SPEED:
+            std::cout << "Decrease current Speed!" << std::endl;
+
+            if (gearmotor->getSpeed() > (- gearmotor->getMaxSpeed() + 50)) {
+
+                countSpeed -= 50;
+                gearmotor->setSpeed(countSpeed);
+
+            }
             break;
 
         //move the camera
@@ -329,6 +359,7 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         //starts the stream of the camera
         case STREAM:
             std::cout << "Stream object!" << std::endl;
+            gearmotor->setSpeed(0);
             sock << "hallo";
             break;
 
