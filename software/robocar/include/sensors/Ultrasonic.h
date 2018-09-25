@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <chrono>
 #include <thread>
+#include <cmath>
 
 /**
  * /CLASS Ultrasonic

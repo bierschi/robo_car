@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <thread>
+#include <iomanip>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -139,7 +140,8 @@ void MainWindow::showThread() {
 
     while (run) {
         (*client) >> dist_s;
-        std::cout << "distance: " <<dist_s << std::endl;
+        std::cout << "distance: " << dist_s << std::endl;
+        ui->distance_lcd->display(QString::fromStdString(dist_s));
     }
 
 }

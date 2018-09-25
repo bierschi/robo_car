@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +15,9 @@
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="exit_pb">
@@ -473,7 +479,7 @@
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>250</y>
+      <y>260</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -495,14 +501,14 @@
    <widget class="QPushButton" name="distance_pb">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>290</y>
-      <width>101</width>
+      <x>920</x>
+      <y>370</y>
+      <width>251</width>
       <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string>Get Distance:</string>
+     <string>Start/Stop Distance Measurement</string>
     </property>
    </widget>
    <widget class="QPushButton" name="stop_pb">
@@ -521,7 +527,7 @@
    <widget class="QPushButton" name="speedp_pb">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>590</x>
       <y>650</y>
       <width>99</width>
       <height>27</height>
@@ -534,7 +540,7 @@
    <widget class="QPushButton" name="speedm_pb">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>460</x>
       <y>650</y>
       <width>99</width>
       <height>27</height>
@@ -542,6 +548,43 @@
     </property>
     <property name="text">
      <string>- Speed</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="distance_lcd">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>300</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>true</bool>
+    </property>
+    <property name="digitCount">
+     <number>10</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Dec</enum>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+    <property name="value" stdset="0">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="intValue" stdset="0">
+     <number>0</number>
     </property>
    </widget>
   </widget>

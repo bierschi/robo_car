@@ -7,6 +7,7 @@
 
 #include <thread>
 #include <vector>
+#include <iomanip>
 
 #include "Socket.h"
 #include "sensors/PCA9685.h"

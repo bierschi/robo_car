@@ -59,5 +59,6 @@ double Ultrasonic::currentDistance() {
 
     distance = pulseDuration * 1e-6 * 17150;
 
+    //distance = std::floor((distance * 100) + .5) / 100;
     return distance;
 }
