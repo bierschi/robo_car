@@ -113,7 +113,7 @@ bool Socket::accept(Socket & new_socket) const {
 bool Socket::send(const std::string s) const {
 
     int status = ::send(m_sock, s.c_str(), s.size(), MSG_NOSIGNAL);
-    std::clog << "send msg ..." << std::endl;
+    std::clog << "send str-msg ..." << std::endl;
 
     if (status == -1)
         return false;
@@ -130,7 +130,7 @@ bool Socket::send(const std::string s) const {
 bool Socket::send(Commands& cmd) const {
 
     int status = ::send(m_sock, &cmd, sizeof(cmd), MSG_NOSIGNAL);
-    std::clog << "send msg ..." << std::endl;
+    std::clog << "send cmd-msg ..." << std::endl;
 
     if (status == -1)
         return false;

@@ -65,10 +65,20 @@ void GearMotor::setSpeed(int value) {
 
 }
 
+/**
+ * return current speed value
+ *
+ * @return int speedValue
+ */
 int GearMotor::getSpeed() const {
     return speedValue;
 }
 
+/**
+ * return maximal speed value
+ *
+ * @return int maxSpeedValue
+ */
 int GearMotor::getMaxSpeed() const {
     return maxSpeedValue;
 }

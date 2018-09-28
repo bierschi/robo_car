@@ -141,6 +141,7 @@ const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
     return *this;
 
 }
+
 /**
  * overloaded operator >> to receive strings from sockets
  *
@@ -197,6 +198,7 @@ void ServerSocket::multipleClients() {
 
     std::thread runThread(&ServerSocket::processClient, this);
     runThread.join();
+    //runThread.detach();
 }
 
 /**
@@ -210,8 +212,10 @@ void ServerSocket::processClient() {
         for (; countClient < maxClient_n; countClient++) {
 
             accept(socks[countClient]);
+            std::cout << "countClient" << countClient << std::endl;
             threadClients.emplace_back(&ServerSocket::serveTask, this, std::ref(socks[countClient]));
 
+            //threadClients[countClient].detach();
         }
         /*
         for (int j = 0; j < maxClient_n; j++) {
@@ -242,7 +246,7 @@ void ServerSocket::serveTask(ServerSocket& sock){
     } catch (SocketException& e) {
 
         std::cout << "Exception was caught in worker thread `serveTask`: " << e.description() << std::endl;
-        countClient--;
+        //countClient--;
     }
 
 }
@@ -262,7 +266,6 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         //move the vehicle
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
-            steeringServo->setPWM(0, 1750, 2130);
             //cameraServo.setPWM(15, 1750, 2128);
             countSpeed = 480;
             gearmotor->setSpeed(countSpeed);
@@ -272,6 +275,11 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             std::cout << "Drive Backward!" << std::endl;
             countSpeed = -480;
             gearmotor->setSpeed(countSpeed);
+            break;
+
+        case STRAIGHT:
+            std::cout << "Drive Straight ahead!" << std::endl;
+            steeringServo->setPWM(0, 1750, 2130);
             break;
 
         case RIGHT:

@@ -17,7 +17,7 @@
 const int MAXCONNECTIONS = 5;
 const int MAXRECV = 500;
 
-enum Commands {FORWARD, BACKWARD, RIGHT, LEFT, STOP, INCREASE_SPEED, DECREASE_SPEED, CAM_R, CAM_L, STREAM, DISTANCE};
+enum Commands {FORWARD, BACKWARD, STRAIGHT, RIGHT, LEFT, STOP, INCREASE_SPEED, DECREASE_SPEED, CAM_R, CAM_L, STREAM, DISTANCE};
 
 /** /CLASS Socket
  *
@@ -42,6 +42,7 @@ public:
     bool accept(Socket&) const;
 
     bool connect(const std::string host, const int port);
+    void disconnect();
 
     bool send(const std::string) const;
     bool send(Commands&) const;

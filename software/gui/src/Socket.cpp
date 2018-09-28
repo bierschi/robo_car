@@ -16,15 +16,22 @@ Socket::Socket() : m_sock(-1){
 }
 
 /**
- * BaseClass Destructor to cleanly close socket connections
+ * BaseClass Destructor call the disconnect method
  */
 Socket::~Socket() {
 
+    disconnect();
+}
+
+/**
+ * disconnect the socket cleanly
+ */
+void Socket::disconnect() {
+
     if ( isValid() ) {
-
         ::close(m_sock);
-
     }
+
 }
 
 /**
@@ -166,6 +173,12 @@ int Socket::recv(std::string& s) const {
 
 }
 
+/**
+ * receive command from socket
+ *
+ * @param cmd: Command reference
+ * @return true, if receiving was successfully, else false
+ */
 int Socket::recv(Commands& cmd) const {
 
 

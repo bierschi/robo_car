@@ -29,6 +29,12 @@ ClientSocket::ClientSocket(std::string host, int port) {
     }
 }
 
+/**
+ * overloaded operator << to send strings to sockets
+ *
+ * @param s: const string reference
+ * @return const ClientSocket& reference
+ */
 const ClientSocket& ClientSocket::operator << (const std::string &s) const {
 
     if ( !Socket::send(s)) {
@@ -40,6 +46,12 @@ const ClientSocket& ClientSocket::operator << (const std::string &s) const {
     return *this;
 }
 
+/**
+ * overloaded operator << to send predefined commands to sockets
+ *
+ * @param cmd: Commands& reference
+ * @return const ClientSocket& reference
+ */
 const ClientSocket& ClientSocket::operator << (Commands& cmd) const {
 
     if ( !Socket::send(cmd)) {
@@ -49,6 +61,12 @@ const ClientSocket& ClientSocket::operator << (Commands& cmd) const {
     }
 }
 
+/**
+ * overloaded operator >> to receive strings from sockets
+ *
+ * @param s: string& reference
+ * @return const ClientSocket& reference
+ */
 const ClientSocket& ClientSocket::operator >> (std::string &s) const {
 
     if ( !Socket::recv(s)) {
@@ -60,6 +78,12 @@ const ClientSocket& ClientSocket::operator >> (std::string &s) const {
     return *this;
 }
 
+/**
+ * overloaded operator >> to receive predefined commands from sockets
+ *
+ * @param cmd: Commands& reference
+ * @return const ClientSocket& reference
+ */
 const ClientSocket& ClientSocket::operator >> (Commands& cmd) const {
 
     if ( !Socket::recv(cmd)) {
@@ -69,4 +93,13 @@ const ClientSocket& ClientSocket::operator >> (Commands& cmd) const {
     }
 
     return *this;
+}
+
+/**
+ * disconnect cleanly from the socket
+ */
+void ClientSocket::closeConnection() {
+
+    Socket::disconnect();
+
 }

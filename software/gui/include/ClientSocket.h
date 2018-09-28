@@ -24,6 +24,8 @@ public:
 
     const ClientSocket& operator >> (std::string&) const;
     const ClientSocket& operator >> (Commands&) const;
+
+    void closeConnection();
 };
 
 #endif //ROBOCAR_CLIENTSOCKET_H

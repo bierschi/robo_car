@@ -20,19 +20,23 @@ public:
 private:
     Ui::MainWindow *ui;
     ClientSocket *client;
+    QPixmap noWifi, wifi;
     bool connected;
     bool run=false;
 
 private slots:
     void conServer();
+    void disConServer();
     void stream();
     void forward();
     void backward();
+    void straight();
     void right();
     void left();
     void stop();
     void increaseSpeed();
     void decreaseSpeed();
+    void setDesiredSpeed();
     void cameraRight();
     void cameraLeft();
     void distance();
