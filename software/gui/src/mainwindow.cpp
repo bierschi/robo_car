@@ -81,6 +81,7 @@ void MainWindow::disConServer() {
         ui->disconnect_pb->setEnabled(false);
         ui->connect_pb->setEnabled(true);
         ui->wifi_l->setPixmap(noWifi);
+        connected = false;
         client->closeConnection();
 
     }
