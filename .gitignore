@@ -91,3 +91,4 @@ fabric.properties
 /software/.idea
 /software/gui/build/*
 /software/robocar/build/*
+/software/libs
