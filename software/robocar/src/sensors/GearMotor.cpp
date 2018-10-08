@@ -17,7 +17,7 @@
  */
 GearMotor::GearMotor(int pwmP, int directionP) : pwmPin(pwmP), directionPin(directionP), speedValue(0), maxSpeedValue(MAX_SPEED){
 
-    //wiringPiSetup();
+    wiringPiSetup();
 
     pinMode(pwmPin, PWM_OUTPUT);
     pwmSetMode(PWM_MODE_MS);

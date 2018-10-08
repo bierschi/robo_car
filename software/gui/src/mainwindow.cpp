@@ -2,6 +2,7 @@
 #include <iostream>
 #include <thread>
 #include <iomanip>
+#include <QtWidgets/QMessageBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -10,12 +11,20 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     client(NULL),
-    connected(false)
+    connected(false),
+    run(true),
+    closeFlag(true)
 {
     ui->setupUi(this);
     this->setWindowTitle("RoboCar");
+    this->setGeometry(QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            this->size(),
+            qApp->desktop()->availableGeometry()
+            ));
 
-    connect(ui->exit_pb, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui->exit_pb, SIGNAL(clicked()), this, SLOT(closeWindow()));
     connect(ui->connect_pb, SIGNAL(clicked()), this, SLOT(conServer()));
     connect(ui->disconnect_pb, SIGNAL(clicked()), this, SLOT(disConServer()));
 
@@ -53,6 +62,35 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::closeWindow() {
+    QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));
+
+    if (resBtn != QMessageBox::Yes) {
+
+
+    } else {
+
+        exit(0);
+
+    }
+
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+
+    QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));
+
+    if (resBtn != QMessageBox::Yes) {
+
+        event->ignore();
+
+    } else {
+        closeFlag = false;
+        disConServer();
+        event->accept();
+
+    }
+}
 
 void MainWindow::conServer() {
 
@@ -60,23 +98,40 @@ void MainWindow::conServer() {
     unsigned int port = (unsigned) ui->port_le->text().toInt();
     std::cout << "Set up connection ..." << std::endl;
 
-    client = new ClientSocket(host, port);
+    try {
+        client = new ClientSocket(host, port);
 
-    connected = true;
-    if (connected) {
+        QMessageBox::information(this, "Information", "Connection established!");
 
-        ui->wifi_l->setPixmap(wifi);
+        connected = true;
+        if (connected) {
+
+            ui->wifi_l->setPixmap(wifi);
+
+        }
+
+        ui->connect_pb->setEnabled(false);
+        ui->disconnect_pb->setEnabled(true);
+
+    } catch ( SocketException& e ) {
+        std::cout << "SocketException caught with error message: " << e.description() << std::endl;
+        QMessageBox::warning(this, "Error", "Connection failed!");
+
+        connected = false;
 
     }
 
-    ui->connect_pb->setEnabled(false);
-    ui->disconnect_pb->setEnabled(true);
+
+
 
 }
 
 void MainWindow::disConServer() {
 
     if (connected) {
+
+        if (closeFlag)
+            QMessageBox::information(this, "Information", "Connection closed!");
 
         ui->disconnect_pb->setEnabled(false);
         ui->connect_pb->setEnabled(true);

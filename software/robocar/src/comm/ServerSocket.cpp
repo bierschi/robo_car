@@ -267,30 +267,30 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
             //cameraServo.setPWM(15, 1750, 2128);
-            countSpeed = 480;
+            countSpeed = 240;
             gearmotor->setSpeed(countSpeed);
             break;
 
         case BACKWARD:
             std::cout << "Drive Backward!" << std::endl;
-            countSpeed = -480;
+            countSpeed = -240;
             gearmotor->setSpeed(countSpeed);
             break;
 
         case STRAIGHT:
             std::cout << "Drive Straight ahead!" << std::endl;
-            steeringServo->setPWM(0, 1750, 2130);
+            steeringServo->setPWM(15, 1770, 2130); //1750-1770
             break;
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
-            steeringServo->setPWM(0, 1230, 1720);
+            steeringServo->setPWM(15, 1230, 1720);
             //cameraServo.setPWM(15, 1780, 2000);
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
-            steeringServo->setPWM(0, 1750, 1895);
+            steeringServo->setPWM(15, 1750, 1895);
             //cameraServo.setPWM(15, 1230, 1750);
             break;
 
@@ -329,7 +329,7 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             if (countCamServo < 2320){
 
                 countCamServo += 30;
-                cameraServo->setPWM(15, 1750, countCamServo);
+                cameraServo->setPWM(14, 1750, countCamServo);
 
             }
             break;
@@ -340,7 +340,7 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             if (countCamServo > 1820){
 
             countCamServo -= 30;
-            cameraServo->setPWM(15, 1750, countCamServo);
+            cameraServo->setPWM(14, 1750, countCamServo);
 
             }
             break;

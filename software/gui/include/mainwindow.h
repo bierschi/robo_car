@@ -2,7 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDesktopWidget>
+#include <QCloseEvent>
 #include "ClientSocket.h"
+#include "SocketException.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -22,9 +26,12 @@ private:
     ClientSocket *client;
     QPixmap noWifi, wifi;
     bool connected;
-    bool run=false;
+    bool run;
+    bool closeFlag;
 
 private slots:
+    void closeWindow();
+    void closeEvent(QCloseEvent *event);
     void conServer();
     void disConServer();
     void stream();

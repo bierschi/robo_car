@@ -36,7 +36,7 @@
    <widget class="QPushButton" name="connect_pb">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>50</x>
       <y>640</y>
       <width>85</width>
       <height>27</height>
@@ -694,27 +694,6 @@
        </rect>
       </property>
      </widget>
-     <zorder>distance_lcd</zorder>
-     <zorder>velocity_lcd</zorder>
-     <zorder>velocity_l</zorder>
-     <zorder>acceleration_lcd</zorder>
-     <zorder>distance_pb</zorder>
-     <zorder>acceleration_l</zorder>
-     <zorder>distance_l</zorder>
-     <zorder>send_cmd_le</zorder>
-     <zorder>imu_l</zorder>
-     <zorder>send_cmd_pb</zorder>
-     <zorder>velocity_lcd</zorder>
-     <zorder>acceleration_lcd</zorder>
-     <zorder>velocity_l</zorder>
-     <zorder>acceleration_l</zorder>
-     <zorder>send_cmd_le</zorder>
-     <zorder>imu_l</zorder>
-     <zorder>send_cmd_pb</zorder>
-     <zorder>distance_lcd</zorder>
-     <zorder>distance_pb</zorder>
-     <zorder>distance_l</zorder>
-     <zorder>graphicsView_2</zorder>
     </widget>
     <widget class="QWidget" name="slam_tab">
      <attribute name="title">
@@ -768,7 +747,7 @@
    <widget class="QPushButton" name="disconnect_pb">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>140</x>
       <y>640</y>
       <width>85</width>
       <height>27</height>
