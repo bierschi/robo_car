@@ -93,11 +93,11 @@ fabric.properties
 /software/robocar/build/*
 /software/libs
 
-/circuit diagram/*.bak
-/circuit diagram/*.bck
-/circuit diagram/*.dcm
-/circuit diagram/*.lib
-/circuit diagram/*.txt
-/circuit diagram/*.pro
-/circuit diagram/*.sch
-/circuit diagram/*.kicad_pcb
+/circuit_diagram/*.bak
+/circuit_diagram/*.bck
+/circuit_diagram/*.dcm
+/circuit_diagram/*.lib
+/circuit_diagram/*.txt
+/circuit_diagram/*.pro
+/circuit_diagram/*.sch
+/circuit_diagram/*.kicad_pcb

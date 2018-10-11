@@ -5,6 +5,8 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
 #### Table of Contents:
 
 - [Hardware](https://github.com/bierschi/robo_car#hardware)
+    - [Components]()
+    - [Circuit Diagram]()
 - [Software](https://github.com/bierschi/robo_car#software)
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
@@ -13,6 +15,11 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
 
 
 ## Hardware
+To build this platform, two essential part have to be considered. On
+the one hand the used hardware components and on the other hand the wiring of
+the individual components
+
+#### Components
 Here are listed all hardware components that were used to build this RoboCar
 
 - 4WD RC Smart Auto Chassis: [Auto Chassis](https://de.aliexpress.com/item/4WD-RC-Smart-Auto-Chassis-F-r-Arduino-Plattform-Mit-MG996R-Metal-Gear-Servo-Lagersatz-Lenkgetriebe/32830665408.html?spm=a2g0x.search0104.3.2.106a2f5f4Hjmhg&ws_ab_test=searchweb0_0%2Csearchweb201602_4_10320_10152_10065_10151_10344_10068_10342_10547_10343_10340_10341_10548_10696_10084_10083_10618_10304_5725020_10307_10820_10821_10302_5724920_5724120_10843_5724020_10059_100031_10319_5724320_10103_10624_10623_10622_10621_10620_5724220%2Csearchweb201603_2%2CppcSwitch_5&algo_expid=0a82566b-deae-43f9-9fa3-5f2403602186-0&algo_pvid=0a82566b-deae-43f9-9fa3-5f2403602186&transAbTest=ae803_2&priceBeautifyAB=0)
@@ -24,7 +31,16 @@ Here are listed all hardware components that were used to build this RoboCar
 - PCA9685 PWM/Servo Driver: [PCA9685](https://www.ebay.de/itm/PCA9685-16-Kanal-Driver-Servomotor-Treiber-Modul-PWM-I2C-Arduino-Raspberry-Pi/253285067342?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649)
 - Laser Scanner Hokuyo URG-04LX-UG01: [Hokuyo](https://www.robotshop.com/de/de/hokuyo-urg-04lx-ug01-scan-laser-entfernungsmesser-eu.html?gclid=Cj0KCQjw6MHdBRCtARIsAEigMxFSq916Qq001TadjiVhvlQdLHBiCjHoI453lspePQd77kCsp5AZhw4aApSKEALw_wcB)
 
-Datasheets for every component can be found under /hardware
+Datasheets for every component can be found under `/hardware`
+
+#### Circuit Diagram
+The Circuit Diagram is shown below to connect the individual components.
+A pdf file is under `/circuit_diagram`
+
+<div align="center">
+  <br>
+  <img src="images/circuit_diagram_robocar.png" alt="example" width="584" height="380">
+</div>
 
 ## Software
 
