@@ -5,8 +5,8 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
 #### Table of Contents:
 
 - [Hardware](https://github.com/bierschi/robo_car#hardware)
-    - [Components]()
-    - [Circuit Diagram]()
+    - [Components](https://github.com/bierschi/robo_car#components)
+    - [Circuit Diagram](https://github.com/bierschi/robo_car#circuit-diagram)
 - [Software](https://github.com/bierschi/robo_car#software)
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
@@ -37,9 +37,9 @@ Datasheets for every component can be found under `/hardware`
 The Circuit Diagram is shown below to connect the individual components.
 A pdf file is under `/circuit_diagram`
 
-<div align="center">
+<div align="left">
   <br>
-  <img src="images/circuit_diagram_robocar.png" alt="example" width="584" height="380">
+  <img src="images/circuit_diagram_robocar.png" alt="example" width="650" height="430">
 </div>
 
 ## Software
