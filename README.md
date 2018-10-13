@@ -42,8 +42,10 @@ Here are listed all hardware components that were used to build this RoboCar
     - Laser Scanner RPLidar A1: [RPLidar A1](https://de.aliexpress.com/item/12-mt-Lidar-RPLIDAR-A1-verbessert-360-grad-Lidar-Scannen-Im-Bereich-EINE-neue-verbesserte-version/32862806452.html?spm=a2g0x.search0104.3.2.7b59bf04YGt7RO&transAbTest=ae803_5&ws_ab_test=searchweb0_0%2Csearchweb201602_1_10320_10065_10068_318_10547_319_10548_10696_450_10084_10083_10618_452_535_534_10304_10307_533_10820_532_10821_5727311_10302_204_10843_5727211_10059_10884_10887_100031_10319_320_10103_448_449%2Csearchweb201603_2%2CppcSwitch_0&algo_pvid=622b8212-2b4b-484f-979e-0fab781315a0&priceBeautifyAB=0&algo_expid=622b8212-2b4b-484f-979e-0fab781315a0-0)
     - Laser Scanner RPLidar A2: [RPLIdar A2](https://de.aliexpress.com/item/Slamtec-RPLIDAR-A2-2D-360-grad-12-meter-scannen-radius-lidar-sensor-scanner-f-r-bstacle/32893709845.html?spm=a2g0x.search0104.3.2.57c8748fEgi3nC&transAbTest=ae803_5&ws_ab_test=searchweb0_0%2Csearchweb201602_1_10320_10065_10068_318_10547_319_10548_10696_450_10084_10083_10618_452_535_534_10304_10307_533_10820_532_10821_5727311_10302_204_10843_5727211_10059_10884_10887_100031_10319_320_10103_448_449%2Csearchweb201603_2%2CppcSwitch_0&algo_pvid=98320612-5189-4bf7-9049-efd4f4fba2c8&priceBeautifyAB=0&algo_expid=98320612-5189-4bf7-9049-efd4f4fba2c8-0)
 
-The costs is about ~140€ without the lidar sensor. With a Lidar the costs
-are about ~230€ - ???. Datasheets for every component can be found under `/hardware`
+Without a Lidar sensor the cost is about ~140€ . With a Lidar the cost
+is about ~230€ - ???.
+
+Datasheets for every component can be found under `/hardware`
 
 #### Circuit Diagram
 The Circuit Diagram is shown below to connect the individual components.
