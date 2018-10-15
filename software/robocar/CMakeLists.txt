@@ -25,5 +25,6 @@ target_link_libraries(robocar ${CMAKE_THREAD_LIBS_INIT})
 
 target_link_libraries(robocar ${wiringPi_LIB})
 
+#add_library(lib/libbreezylidar.so SHARED IMPORTED)
 #target_link_libraries( robocar ${OpenCV_LIBS})
 

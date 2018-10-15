@@ -14,7 +14,7 @@
  */
 ServerSocket::ServerSocket() : countCamServo(2120), countSpeed(480){
 
-    steeringServo = new PCA9685(1, 0x40, 60);
+    steeringServo = new SteeringServo(15);
     cameraServo   = new PCA9685(1, 0x40, 60);
     ultrasonic    = new Ultrasonic(4, 5);
     gearmotor     = new GearMotor(26, 21);
@@ -278,25 +278,23 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             break;
 
         case STRAIGHT:
-            std::cout << "Drive Straight ahead!" << std::endl;
-            steeringServo->setPWM(15, 1770, 2130); //1750-1770
+            std::cout << "Drive Straight Ahead!" << std::endl;
+            steeringServo->driveStraight();
             break;
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
-            steeringServo->setPWM(15, 1230, 1720);
-            //cameraServo.setPWM(15, 1780, 2000);
+            steeringServo->driveRight();
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
-            steeringServo->setPWM(15, 1750, 1895);
-            //cameraServo.setPWM(15, 1230, 1750);
+            steeringServo->driveLeft();
             break;
 
         case STOP:
             std::cout << "Stop vehicle!" << std::endl;
-            gearmotor->setSpeed(0);
+            gearmotor->stop();
             break;
 
         case INCREASE_SPEED:

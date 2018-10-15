@@ -82,3 +82,39 @@ int GearMotor::getSpeed() const {
 int GearMotor::getMaxSpeed() const {
     return maxSpeedValue;
 }
+
+/**
+ * stops the GearMotor
+ */
+void GearMotor::stop() {
+
+    setSpeed(0);
+
+}
+
+/**
+ * sets the speed to MAX_SPEED
+ */
+void GearMotor::fast() {
+
+    setSpeed(MAX_SPEED);
+
+}
+
+/**
+ * sets the speed to half of MAX_SPEED
+ */
+void GearMotor::middle() {
+
+    setSpeed(MAX_SPEED/2);
+
+}
+
+/**
+ * sets the speed to slow
+ */
+void GearMotor::slow() {
+
+    setSpeed(70);
+
+}

@@ -28,6 +28,11 @@ public:
     int getSpeed() const;
     int getMaxSpeed() const;
 
+    void stop();
+    void fast();
+    void middle();
+    void slow();
+
 };
 
 #endif //ROBOCAR_GEARMOTOR_H

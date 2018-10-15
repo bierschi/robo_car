@@ -13,6 +13,7 @@
 #include "sensors/PCA9685.h"
 #include "sensors/Ultrasonic.h"
 #include "sensors/GearMotor.h"
+#include "sensors/SteeringServo.h"
 
 /**
  * /CLASS ServerSocket
@@ -31,7 +32,7 @@ private:
     std::vector<std::thread> threadClients;
 
     ServerSocket* socks;
-    PCA9685* steeringServo;
+    SteeringServo* steeringServo;
     PCA9685* cameraServo;
     Ultrasonic* ultrasonic;
     GearMotor* gearmotor;
