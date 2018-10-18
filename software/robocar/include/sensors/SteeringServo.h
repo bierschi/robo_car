@@ -7,6 +7,11 @@
 
 #include "PCA9685.h"
 
+/**
+ * /CLASS SteeringServo
+ *
+ * creates a SteeringServo object to control the steering servo
+ */
 class SteeringServo : public PCA9685 {
 
 private:
@@ -21,6 +26,5 @@ public:
     void driveStraight();
 
 };
-
 
 #endif //ROBOCAR_GUI_STEERINGSERVO_H

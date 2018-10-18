@@ -10,10 +10,10 @@
 #include <iomanip>
 
 #include "Socket.h"
-#include "sensors/PCA9685.h"
 #include "sensors/Ultrasonic.h"
 #include "sensors/GearMotor.h"
 #include "sensors/SteeringServo.h"
+#include "sensors/CameraServo.h"
 
 /**
  * /CLASS ServerSocket
@@ -25,7 +25,8 @@ class ServerSocket : private Socket {
 private:
     unsigned int port_n;
     unsigned int maxClient_n;
-    int countClient, countCamServo, countSpeed;
+    int countClient, countSpeed;
+    double distance;
     bool running = false;
     bool distanceFlag = false;
 
@@ -33,7 +34,7 @@ private:
 
     ServerSocket* socks;
     SteeringServo* steeringServo;
-    PCA9685* cameraServo;
+    CameraServo* cameraServo;
     Ultrasonic* ultrasonic;
     GearMotor* gearmotor;
 

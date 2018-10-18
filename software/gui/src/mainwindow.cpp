@@ -38,8 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->right_pb, SIGNAL(clicked()), this, SLOT(right()));
     connect(ui->left_pb, SIGNAL(clicked()), this, SLOT(left()));
 
-    connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
-    connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
+    connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
+    connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
     connect(ui->distance_pb, SIGNAL(clicked()), this, SLOT(distance()));
 
     connect(ui->speedp_pb, SIGNAL(clicked()), this, SLOT(increaseSpeed()));

@@ -36,7 +36,11 @@ Ultrasonic::~Ultrasonic() {
 
 }
 
-
+/**
+ * returns the current distance in cm from the ultrasonic range sensor
+ *
+ * @return distance: double
+ */
 double Ultrasonic::currentDistance() {
 
     std::chrono::steady_clock::time_point pulseStart;

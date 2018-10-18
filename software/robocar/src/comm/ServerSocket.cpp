@@ -12,12 +12,14 @@
  *      ServerSocket* sock = new ServerSocket();
  *
  */
-ServerSocket::ServerSocket() : countCamServo(2120), countSpeed(480){
+ServerSocket::ServerSocket() : countSpeed(480) {
 
     steeringServo = new SteeringServo(15);
-    cameraServo   = new PCA9685(1, 0x40, 60);
+    cameraServo   = new CameraServo(14);
     ultrasonic    = new Ultrasonic(4, 5);
     gearmotor     = new GearMotor(26, 21);
+
+    distance = ultrasonic->currentDistance();
 
 }
 
@@ -324,23 +326,15 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
 
-            if (countCamServo < 2320){
+            cameraServo->moveRight();
 
-                countCamServo += 30;
-                cameraServo->setPWM(14, 1750, countCamServo);
-
-            }
             break;
 
         case CAM_L:
             std::cout << "Move camera left!" << std::endl;
 
-            if (countCamServo > 1820){
+            cameraServo->moveLeft();
 
-            countCamServo -= 30;
-            cameraServo->setPWM(14, 1750, countCamServo);
-
-            }
             break;
 
             //starts/stops the thread to get the current distance from ultrasonic sensor
@@ -382,10 +376,13 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
  */
 void ServerSocket::runDistanceThread(ServerSocket& sock) {
 
-    double distance;
 
     while (distanceFlag) {
+
         distance = ultrasonic->currentDistance();
+        if (distance < 5.0) {
+            gearmotor->setSpeed(0);
+        }
         sleep(1);
         std::cout << "current distance: " << distance << " cm" << std::endl;
         sock << std::to_string(distance);
