@@ -27,9 +27,10 @@ private:
     unsigned int maxClient_n;
     int countClient, countSpeed;
     double distance;
+    bool distanceFlag;
+    bool forwardForbidden;
     bool running = false;
-    bool distanceFlag = false;
-
+    bool connected;
     std::vector<std::thread> threadClients;
 
     ServerSocket* socks;
@@ -61,7 +62,7 @@ public:
     void multipleClients();
 
     void actions(Commands&, ServerSocket& sock);
-    void runDistanceThread(ServerSocket& sock);
+    void runDistanceThread();
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H
