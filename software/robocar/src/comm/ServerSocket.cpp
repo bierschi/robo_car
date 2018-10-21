@@ -246,7 +246,7 @@ void ServerSocket::serveTask(ServerSocket& sock){
 
         Commands cmd;
         sock.connected = true;
-        
+
         while (true) {
 
             sock >> cmd;
