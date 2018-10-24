@@ -5,6 +5,7 @@
 #include <QtWidgets/QMessageBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -61,6 +62,36 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+
+    QMainWindow::keyPressEvent(event);
+    if (event->key() == Qt::Key_W) {
+        std::cout << "Key forward" << std::endl;
+        forward();
+    }
+    else if (event->key() == Qt::Key_E) {
+        std::cout << "Key backward" << std::endl;
+        backward();
+    }
+    else if (event->key() == Qt::Key_A) {
+        std::cout << "Key left" << std::endl;
+        left();
+    }
+    else if (event->key() == Qt::Key_S) {
+        std::cout << "Key straight" << std::endl;
+        straight();
+    }
+    else if (event->key() == Qt::Key_D) {
+        std::cout << "Key Right" << std::endl;
+        right();
+    }
+    else if (event->key() == Qt::Key_Q) {
+        std::cout << "Key stop" << std::endl;
+        stop();
+    }
+}
+
 
 void MainWindow::closeWindow() {
     QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));

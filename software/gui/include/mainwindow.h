@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDesktopWidget>
 #include <QCloseEvent>
+//#include <QKeyEvent>
 #include "ClientSocket.h"
 #include "SocketException.h"
 
@@ -49,6 +50,8 @@ private slots:
     void distance();
     void send_cmd();
     void showThread();
+    void keyPressEvent(QKeyEvent *event);
+
 };
 
 #endif // MAINWINDOW_H
