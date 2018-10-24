@@ -397,7 +397,7 @@ void ServerSocket::runDistanceThread() {
 
         if (distance < 12.0) {
 
-            if ( (gearmotor->getSpeed() > 0) && (!forwardForbidden) ) {
+            if ( (gearmotor->getSpeed() == 0) && (!forwardForbidden) ) {
 
                 gearmotor->setSpeed(0);
                 forwardForbidden = true;
@@ -410,9 +410,9 @@ void ServerSocket::runDistanceThread() {
             forwardForbidden = false;
 
         }
-        sleep(1);
-        std::cout << "distance: " << distance <<std::endl;
-        //usleep(500);
+        //sleep(1);
+        //std::cout << "distance: " << distance <<std::endl;
+        usleep(400);
         //sock << std::to_string(distance);
     }
 
