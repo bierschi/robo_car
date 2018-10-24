@@ -278,7 +278,7 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
             if ( !forwardForbidden) {
-                countSpeed = 240;
+                countSpeed = 150;
                 gearmotor->setSpeed(countSpeed);
             }
 
@@ -287,7 +287,7 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
         case BACKWARD:
             std::cout << "Drive Backward!" << std::endl;
 
-            countSpeed = -240;
+            countSpeed = -150;
             gearmotor->setSpeed(countSpeed);
             break;
 
@@ -395,7 +395,7 @@ void ServerSocket::runDistanceThread() {
 
         distance = ultrasonic->currentDistance();
 
-        if (distance < 8.0) {
+        if (distance < 12.0) {
 
             if ( (gearmotor->getSpeed() > 0) && (!forwardForbidden) ) {
 
@@ -403,14 +403,16 @@ void ServerSocket::runDistanceThread() {
                 forwardForbidden = true;
             }
 
+        }
 
-        } else {
+        if (distance > 12.0){
 
             forwardForbidden = false;
 
         }
         sleep(1);
-
+        std::cout << "distance: " << distance <<std::endl;
+        //usleep(500);
         //sock << std::to_string(distance);
     }
 

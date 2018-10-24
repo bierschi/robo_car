@@ -8,6 +8,7 @@
 #include <thread>
 #include <vector>
 #include <iomanip>
+#include <unistd.h>
 
 #include "Socket.h"
 #include "sensors/Ultrasonic.h"

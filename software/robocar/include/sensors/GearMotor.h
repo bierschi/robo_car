@@ -19,6 +19,7 @@ class GearMotor {
 private:
     int pwmPin, directionPin;
     int speedValue, maxSpeedValue;
+    int direction;
 
 public:
     GearMotor(int pwmP, int directionP);
@@ -27,6 +28,7 @@ public:
     void setSpeed(int value);
     int getSpeed() const;
     int getMaxSpeed() const;
+    int getDirection() const;
 
     void stop();
     void fast();
