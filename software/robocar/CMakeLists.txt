@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.3)
 
 project(robocar)
 
@@ -23,7 +23,7 @@ add_executable(robocar ${SOURCES})
 
 target_link_libraries(robocar ${CMAKE_THREAD_LIBS_INIT})
 
-target_link_libraries(robocar ${wiringPi_LIB})
+target_link_libraries(robocar ${wiringPi_LIB} rt -lcrypt)
 
 #add_library(lib/libbreezylidar.so SHARED IMPORTED)
 #target_link_libraries( robocar ${OpenCV_LIBS})
