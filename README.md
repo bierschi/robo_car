@@ -12,8 +12,10 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
-    - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate-)
+    - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
+
+
 
 
 ## Hardware
@@ -61,6 +63,9 @@ A pdf file is under `/circuit_diagram`
   <img src="images/circuit_diagram_robocar.png" alt="example" width="650" height="430">
 </div>
 
+
+
+
 ## Software
 
 This Software is written in C++, build with [CMake](https://cmake.org/) and is divided in
@@ -76,12 +81,17 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 ### Autonomous driving:
 
 
+
+
+
 ## Operating System
 As operating system [Ubuntu Mate](https://ubuntu-mate.org/) was selected. Due to the reason
 that currently no official raspberry pi 3b+ is provided (25.10.2018), litte hacks are necessary to get
 it running.
 <br><br>
-Problem: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
+**Problem**: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
+
+<br>
 
 #### Instructions to install Ubuntu Mate for Raspberry Pi 3b+
 <br>
@@ -117,6 +127,8 @@ sudo BRANCH=stable rpi-update
 <pre><code>
 sudo systemctl enable ssh
 </pre></code>
+
+<br>
 
 #### Instructions to install [ROS](http://www.ros.org/) on Ubuntu Mate
 <br>
@@ -172,6 +184,9 @@ echo “source ~/catkin_ws/devel/setup.bash” >> ~/.bashrc
 <pre><code>
 roscore
 </pre></code>
+
+
+
 
 
 ## Project Layout
