@@ -75,6 +75,97 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 
 
 ## Operating System
+As operating system [Ubuntu Mate](https://ubuntu-mate.org/) was selected. Due to the reason
+that currently no official raspberry pi 3b+ is provided (25.10.2018), litte hacks are necessary to get
+it running.
+<br><br>
+Problem: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
+
+##### Instructions to install Ubuntu Mate for Raspberry Pi 3b+
+
+1. Download Ubuntu Mate image for Raspberry Pi 2/3 [here](https://ubuntu-mate.org/download/)
+2. Flash Ubuntu Mate image on sd card
+3. Insert sd card into a **Raspberry Pi 2** or **Raspberry Pi 3**
+4. Boot Raspberry Pi 2/3 and insert subsequent command for a kernel update
+
+<pre><code>
+sudo CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt rpi-update
+</pre></code>
+alternative:
+<pre><code>
+sudo BRANCH=stable rpi-update
+</pre></code>
+
+5. Insert sd card into Raspberry Pi 3b+, now the raspi should start booting
+6. No wifi is available!
+    - Install a new [raspbian](https://www.raspberrypi.org/downloads/raspbian/) image on sd card
+    - boot a raspberry pi with this sd card
+    - copy folder `/lib/firmware/bcrm` on a usb
+    <pre><code>
+    sudo cp -r /lib/firmware/bcrm /path_to_usb
+    </pre></code>
+    - boot Raspberry Pi 3b+ with Ubuntu Mate
+    - replace current `/lib/firmware/bcrm` with the folder on usb stick
+    <pre><code>
+    sudo cp -r /path_to_usb /lib/firmware/bcrm
+    </pre></code>
+7. Reboot and wifi should be available
+8. Enable ssh on boot. Insert in terminal:
+<pre><code>
+sudo systemctl enable ssh
+</pre></code>
+9. Install [ROS](http://www.ros.org/)
+    1. Setup sources.list
+    <pre><code>
+    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+    </pre></code>
+    2. Setup keys
+    <pre><code>
+    wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+    </pre></code>
+    3. Update packages
+    <pre><code>
+    sudo apt-get update
+    </pre></code>
+    4. Install ros-kinetic-desktop-full
+    <pre><code>
+    sudo apt-get install ros-kinetic-desktop-full
+    </pre></code>
+    5. Initialize rosdep
+    <pre><code>
+    sudo rosdep init
+    </pre></code>
+    <pre><code>
+    rosdep update
+    </pre></code>
+    6. Setting up the ROS environment variables
+    <pre><code>
+    echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+    </pre></code>
+    <pre><code>
+    source ~/.bashrc
+    </pre></code>
+    7. Create a catkin workspace
+    <pre><code>
+    mkdir -p ~/catkin_ws/src
+    </pre></code>
+    <pre><code>
+    cd ~/catkin_ws/
+    </pre></code>
+    <pre><code>
+    catkin_make
+    </pre></code>
+    <pre><code>
+    source ~/catkin_ws/devel/setup.bash
+    </pre></code>
+    8. If you want access to source builded ros packages everywhere in your linux system
+    <pre><code>
+    echo “source ~/catkin_ws/devel/setup.bash” >> ~/.bashrc
+    </pre></code>
+    9. Start roscore master
+    <pre><code>
+    roscore
+    </pre></code>
 
 
 ## Project Layout
@@ -125,9 +216,11 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
                 SocketException.h
             /sensors
                 Camera.h
+                CameraServo.h
                 GearMotor.h
                 MPU6050.h
                 PCA9685.h
+                SteeringServo.h
                 Ultrasonic.h
         /lib
         /src
@@ -137,9 +230,11 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
                 Socket.cpp
             /sensors
                 Camera.cpp
+                CameraServo.cpp
                 GearMotor.cpp
                 MPU6050.cpp
                 PCA9685.cpp
+                SteeringServo.cpp
                 Ultrasonic.cpp
         CMakeLists.txt
         robocar_main.cpp
