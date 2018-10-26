@@ -11,6 +11,8 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
+    - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
+    - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
 
@@ -81,7 +83,7 @@ it running.
 <br><br>
 Problem: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
 
-##### Instructions to install Ubuntu Mate for Raspberry Pi 3b+
+#### Instructions to install Ubuntu Mate for Raspberry Pi 3b+
 
 1. Download Ubuntu Mate image for Raspberry Pi 2/3 [here](https://ubuntu-mate.org/download/)
 2. Flash Ubuntu Mate image on sd card
@@ -107,65 +109,67 @@ sudo BRANCH=stable rpi-update
     - boot Raspberry Pi 3b+ with Ubuntu Mate
     - replace current `/lib/firmware/bcrm` with the folder on usb stick
     <pre><code>
-    sudo cp -r /path_to_usb /lib/firmware/bcrm
+    sudo cp -r /path_to_usb/lib/firmware/bcrm /lib/firmware/bcrm
     </pre></code>
 7. Reboot and wifi should be available
 8. Enable ssh on boot. Insert in terminal:
 <pre><code>
 sudo systemctl enable ssh
 </pre></code>
-9. Install [ROS](http://www.ros.org/)
-    1. Setup sources.list
-    <pre><code>
-    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-    </pre></code>
-    2. Setup keys
-    <pre><code>
-    wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-    </pre></code>
-    3. Update packages
-    <pre><code>
-    sudo apt-get update
-    </pre></code>
-    4. Install ros-kinetic-desktop-full
-    <pre><code>
-    sudo apt-get install ros-kinetic-desktop-full
-    </pre></code>
-    5. Initialize rosdep
-    <pre><code>
-    sudo rosdep init
-    </pre></code>
-    <pre><code>
-    rosdep update
-    </pre></code>
-    6. Setting up the ROS environment variables
-    <pre><code>
-    echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-    </pre></code>
-    <pre><code>
-    source ~/.bashrc
-    </pre></code>
-    7. Create a catkin workspace
-    <pre><code>
-    mkdir -p ~/catkin_ws/src
-    </pre></code>
-    <pre><code>
-    cd ~/catkin_ws/
-    </pre></code>
-    <pre><code>
-    catkin_make
-    </pre></code>
-    <pre><code>
-    source ~/catkin_ws/devel/setup.bash
-    </pre></code>
-    8. If you want access to source builded ros packages everywhere in your linux system
-    <pre><code>
-    echo “source ~/catkin_ws/devel/setup.bash” >> ~/.bashrc
-    </pre></code>
-    9. Start roscore master
-    <pre><code>
-    roscore
-    </pre></code>
+
+#### Instructions to install [ROS](http://www.ros.org/) on Ubuntu Mate <br>
+
+1. Setup sources.list
+<pre><code>
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+</pre></code>
+2. Setup keys
+<pre><code>
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+</pre></code>
+3. Update packages
+<pre><code>
+sudo apt-get update
+</pre></code>
+4. Install ros-kinetic-desktop-full
+<pre><code>
+sudo apt-get install ros-kinetic-desktop-full
+</pre></code>
+5. Initialize rosdep
+<pre><code>
+sudo rosdep init
+</pre></code>
+<pre><code>
+rosdep update
+</pre></code>
+6. Setting up the ROS environment variables
+<pre><code>
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+</pre></code>
+<pre><code>
+source ~/.bashrc
+</pre></code>
+7. Create a catkin workspace
+<pre><code>
+mkdir -p ~/catkin_ws/src
+</pre></code>
+<pre><code>
+cd ~/catkin_ws/
+</pre></code>
+<pre><code>
+catkin_make
+</pre></code>
+<pre><code>
+source ~/catkin_ws/devel/setup.bash
+</pre></code>
+8. If you want access to source builded ros packages everywhere in your linux system
+<pre><code>
+echo “source ~/catkin_ws/devel/setup.bash” >> ~/.bashrc
+</pre></code>
+9. Start roscore master
+<pre><code>
+roscore
+</pre></code>
 
 
 ## Project Layout
