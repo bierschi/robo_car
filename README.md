@@ -86,7 +86,7 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 
 ## Operating System
 As operating system [Ubuntu Mate](https://ubuntu-mate.org/) was selected. Due to the reason
-that currently no official raspberry pi 3b+ is provided (25.10.2018), litte hacks are necessary to get
+that currently no official raspberry pi 3b+ image is provided (25.10.2018), litte hacks are necessary to get
 it running.
 <br><br>
 **Problem**: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
