@@ -13,6 +13,7 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
     - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
+    - [Wiring Pi update](https://github.com/bierschi/robo_car#wiring-pi-update)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
 
@@ -97,8 +98,11 @@ it running.
 <br>
 
 1. Download Ubuntu Mate image for Raspberry Pi 2/3 [here](https://ubuntu-mate.org/download/)
+
 2. Flash Ubuntu Mate image on sd card
+
 3. Insert sd card into a **Raspberry Pi 2** or **Raspberry Pi 3**
+
 4. Boot Raspberry Pi 2/3 and insert subsequent command for a kernel update
 
 <pre><code>
@@ -110,6 +114,7 @@ sudo BRANCH=stable rpi-update
 </pre></code>
 
 5. Insert sd card into Raspberry Pi 3b+, now the raspi should start booting
+
 6. No wifi is available!
     - Install a new [raspbian](https://www.raspberrypi.org/downloads/raspbian/) image on sd card
     - boot a raspberry pi with this sd card
@@ -122,7 +127,9 @@ sudo BRANCH=stable rpi-update
     <pre><code>
     sudo cp -r /path_to_usb/lib/firmware/bcrm /lib/firmware/bcrm
     </pre></code>
+
 7. Reboot and wifi should be available
+
 8. Enable ssh on boot. Insert in terminal:
 <pre><code>
 sudo systemctl enable ssh
@@ -185,6 +192,36 @@ echo “source ~/catkin_ws/devel/setup.bash” >> ~/.bashrc
 roscore
 </pre></code>
 
+<br>
+
+#### Wiring Pi update
+<br>
+
+1. check [WiringPi](http://wiringpi.com/) software with `gpio -v`
+
+2. If errors occur, remove current wiring pi version
+<pre><code>
+sudo apt-get purge wiringpi
+</pre></code>
+
+3. Clone current wiring pi version from source and build
+<pre><code>
+git clone git://git.dragon.net/wiringPi
+</pre></code>
+<pre><code>
+cd wiringPi
+</pre></code>
+<pre><code>
+./build
+</pre></code>
+
+4. Check the new version of wiring pi
+<pre><code>
+gpio -v
+</pre></code>
+<pre><code>
+gpio readall
+</pre></code>
 
 
 
