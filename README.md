@@ -12,7 +12,7 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
-    - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
+    - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate-)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
 
@@ -84,6 +84,7 @@ it running.
 Problem: The Rasperry Pi 3b+ shows only a rainbow screen and will not boot
 
 #### Instructions to install Ubuntu Mate for Raspberry Pi 3b+
+<br>
 
 1. Download Ubuntu Mate image for Raspberry Pi 2/3 [here](https://ubuntu-mate.org/download/)
 2. Flash Ubuntu Mate image on sd card
@@ -117,7 +118,8 @@ sudo BRANCH=stable rpi-update
 sudo systemctl enable ssh
 </pre></code>
 
-#### Instructions to install [ROS](http://www.ros.org/) on Ubuntu Mate <br>
+#### Instructions to install [ROS](http://www.ros.org/) on Ubuntu Mate
+<br>
 
 1. Setup sources.list
 <pre><code>
