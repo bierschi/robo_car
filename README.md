@@ -14,7 +14,7 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
     - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
     - [Create a systemd service for roscore master](https://github.com/bierschi/robo_car#create-a-systemd-service-for-roscore-master)
-    - [Add write permission to the hokuyo port /dev/ttyACM0](https://github.com/bierschi/robo_car#add-write-permission-to-the-hokuyo-port-/dev/ttyACM0)
+    - [Add write permission to the hokuyo port /dev/ttyACM0](https://github.com/bierschi/robo_car#add-write-permission-to-the-hokuyo-port-devttyacm0)
     - [Wiring Pi update](https://github.com/bierschi/robo_car#wiring-pi-update)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
