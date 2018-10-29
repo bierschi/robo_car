@@ -79,6 +79,29 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 
 ##### GUI:
 
+##### SLAM:
+**Build hokuyo_node** <br>
+
+<pre><code>
+sudo apt-get install ros-kinetic-driver-common
+</pre></code>
+Go into catkin workspace `~/catkin_ws/src` and clone hokuyo_node
+<pre><code>
+git clone https://github.com/ros-drivers/hokuyo_node.git
+</pre></code>
+go back to `~/catkin_ws` and build
+<pre><code>
+catkin_make
+</pre></code>
+
+<br>
+
+**Install hector_mapping**
+<pre><code>
+sudo apt-get install ros-kinetic-hector-mapping
+</pre></code>
+
+
 ##### Testing:
 
 ### Autonomous driving:
@@ -120,14 +143,14 @@ sudo BRANCH=stable rpi-update
 6. No wifi is available!
     - Install a new [raspbian](https://www.raspberrypi.org/downloads/raspbian/) image on sd card
     - boot a raspberry pi with this sd card
-    - copy folder `/lib/firmware/bcrm` on a usb
+    - copy folder `/lib/firmware/brcm` on a usb
     <pre><code>
-    sudo cp -r /lib/firmware/bcrm /path_to_usb
+    sudo cp -r /lib/firmware/brcm /path_to_usb
     </pre></code>
     - boot Raspberry Pi 3b+ with Ubuntu Mate
-    - replace current `/lib/firmware/bcrm` with the folder on usb stick
+    - replace current `/lib/firmware/brcm` with the folder on usb stick
     <pre><code>
-    sudo cp -r /path_to_usb/lib/firmware/bcrm /lib/firmware/bcrm
+    sudo cp -r /path_to_usb/lib/firmware/brcm /lib/firmware/brcm
     </pre></code>
 
 7. Reboot and wifi should be available
@@ -256,7 +279,10 @@ sudo apt-get purge wiringpi
 
 3. Clone current wiring pi version from source and build
 <pre><code>
-git clone git://git.dragon.net/wiringPi
+sudo apt install git
+</pre></code>
+<pre><code>
+git clone git://git.drogon.net/wiringPi
 </pre></code>
 <pre><code>
 cd wiringPi
