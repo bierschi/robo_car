@@ -17,13 +17,16 @@ class CameraServo : public PCA9685{
 private:
     uint8_t channel;
     int countCamServo;
+    double xLeft, xRight;
 
 public:
     CameraServo(uint8_t chan);
     ~CameraServo();
 
     void moveLeft();
+    void moveXLeft(int x);
     void moveRight();
+    void moveXRight(int x);
     void moveStraight();
 
 };

@@ -11,7 +11,9 @@
 #include "sensors/Ultrasonic.h"
 
 /**
- * 
+ * /CLASS Car
+ *
+ * creates a car object to initialize the hardware modules
  */
 class Car {
 
@@ -37,12 +39,15 @@ public:
     void driveForward(int velocity);
     void driveBackward(int velocity);
     void driveStop();
-    /*
+
     //moving camera
     void turnCameraLeft();
-    void turnCameraAhead();
+    void turnCameraXLeft(int x);
     void turnCameraRight();
+    void turnCameraXRight(int x);
+    void turnCameraStraight();
 
+    /*
     //ultrasonic
     void getUltrasonicDistance();
     */

@@ -5,6 +5,10 @@
 #include "Car.h"
 
 /**
+ * Constructor for a Car instance
+ *
+ * USAGE:
+ *      Car *car = new Car();
  *
  */
 Car::Car() {
@@ -16,7 +20,7 @@ Car::Car() {
 }
 
 /**
- *
+ * Destructor in Car
  */
 Car::~Car() {
 
@@ -85,4 +89,43 @@ void Car::driveBackward(int velocity) {
  */
 void Car::driveStop() {
     gearmotor->stop();
+}
+
+
+//handling the camera servo
+/**
+ *
+ */
+void Car::turnCameraLeft() {
+    cameraServo->moveLeft();
+}
+
+/**
+ *
+ * @param x
+ */
+void Car::turnCameraXLeft(int x) {
+    cameraServo->moveXLeft(x);
+}
+
+/**
+ *
+ */
+void Car::turnCameraRight() {
+    cameraServo->moveRight();
+}
+
+/**
+ *
+ * @param x
+ */
+void Car::turnCameraXRight(int x) {
+    cameraServo->moveXRight(x);
+}
+
+/**
+ *
+ */
+void Car::turnCameraStraight() {
+    cameraServo->moveStraight();
 }

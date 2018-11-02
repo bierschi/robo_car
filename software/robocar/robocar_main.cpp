@@ -15,13 +15,17 @@ int main(int argc, char** argv) {
 
     Car* car = new Car();
 
-    car->driveForward(50);
+    car->turnCameraStraight();
     sleep(1);
-    car->driveStop();
+    car->turnCameraXRight(50);
     sleep(1);
-    car->driveBackward(100);
+    car->turnCameraStraight();
     sleep(1);
-    car->driveStop();
+    car->turnCameraXLeft(120);
+    sleep(1);
+    car->turnCameraXRight(30);
+    sleep(1);
+    car->turnCameraStraight();
 
     /*
 
