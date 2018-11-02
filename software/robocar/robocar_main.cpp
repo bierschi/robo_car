@@ -9,11 +9,13 @@
 #include "comm/ServerSocket.h"
 #include "comm/SocketException.h"
 
+#include "ros/ros.h"
+
 #define LOGGING true
 
 
-int main() {
-    std::cout << "Test ServerSocket" << std::endl;
+int main(int argc, char** argv) {
+    std::cout << "ServerSocket" << std::endl;
 
     if (!LOGGING) {
         std::clog.setstate(std::ios_base::failbit);
@@ -21,8 +23,17 @@ int main() {
 
     try {
 
-        ServerSocket server (2501, 2);
+        ros::init(argc, argv, "robocar");
+        ServerSocket server (2501, 1);
         server.multipleClients();
+
+        /*
+        while(ros::ok()) {
+
+
+            ros::spinOnce();
+
+        }*/
 
     }
     catch ( SocketException& e) {

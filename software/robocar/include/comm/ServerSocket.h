@@ -11,10 +11,13 @@
 #include <unistd.h>
 
 #include "Socket.h"
+
 #include "sensors/Ultrasonic.h"
 #include "sensors/GearMotor.h"
 #include "sensors/SteeringServo.h"
 #include "sensors/CameraServo.h"
+
+#include "slam/SlamMap.h"
 
 /**
  * /CLASS ServerSocket
@@ -34,6 +37,7 @@ private:
     bool connected;
     std::vector<std::thread> threadClients;
 
+    SlamMap* sm;
     ServerSocket* socks;
     SteeringServo* steeringServo;
     CameraServo* cameraServo;

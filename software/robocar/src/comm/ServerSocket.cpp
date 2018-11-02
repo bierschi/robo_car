@@ -14,13 +14,16 @@
  */
 ServerSocket::ServerSocket() : countSpeed(480),
                                distanceFlag(false),
-                               forwardForbidden(false) {
+                               forwardForbidden(false)
+{
 
     steeringServo = new SteeringServo(15);
     cameraServo   = new CameraServo(14);
     ultrasonic    = new Ultrasonic(4, 5);
     gearmotor     = new GearMotor(26, 21);
-
+    std::string mapname= "hector";
+    //SlamMap sm(mapname, 65, 25);
+    sm = new SlamMap(mapname, 65, 25);
     distance = ultrasonic->currentDistance();
 
     std::thread distanceThread(&ServerSocket::runDistanceThread, this);
@@ -76,7 +79,7 @@ ServerSocket::~ServerSocket() {
 
     running = false;
     delete[] socks;
-    delete steeringServo, cameraServo;
+    delete steeringServo, cameraServo, ultrasonic, gearmotor;
     threadClients.clear();
 
 }
@@ -371,10 +374,18 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
             break;
 
         //starts the stream of the camera
-        case STREAM:
+        case STREAM: {
+
             std::cout << "Stream object!" << std::endl;
-            gearmotor->setSpeed(0);
-            sock << "hallo";
+            //std::string mapname= "hector";
+            //SlamMap sm(mapname, 65, 25);
+            std::cout << "setsavemap" << std::endl;
+            //sm->setSaveMap(true);
+
+            //sock << "hallo";
+
+        }
+
             break;
 
         default:

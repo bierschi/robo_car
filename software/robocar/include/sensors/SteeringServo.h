@@ -16,13 +16,19 @@ class SteeringServo : public PCA9685 {
 
 private:
     uint8_t channel;
+    int xLeft;
+    double xRight;
 
 public:
     SteeringServo(uint8_t chan);
     ~SteeringServo();
 
     void driveLeft();
+    void driveXLeft(int x);
+
     void driveRight();
+    void driveXRight(int x);
+
     void driveStraight();
 
 };
