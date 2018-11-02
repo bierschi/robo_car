@@ -19,7 +19,10 @@ GearMotor::GearMotor(int pwmP, int directionP) : pwmPin(pwmP),
                                                  directionPin(directionP),
                                                  speedValue(0),
                                                  maxSpeedValue(MAX_SPEED),
-                                                 direction(-1){
+                                                 direction(-1),
+                                                 forwardVelocity_(0),
+                                                 backwardVelocity_(0)
+{
 
     wiringPiSetup();
 
@@ -90,6 +93,46 @@ int GearMotor::getSpeed() const {
 int GearMotor::getMaxSpeed() const {
     return maxSpeedValue;
 }
+
+/**
+ *
+ * @param velocity
+ */
+void GearMotor::driveForward(int velocity) {
+
+    if (velocity >= 100) {
+        forwardVelocity_ = MAX_SPEED;
+    } else if (velocity <= 0) {
+        forwardVelocity_ = 0;
+    } else {
+        forwardVelocity_ = 4.8 * velocity;
+    }
+
+    setSpeed((int)forwardVelocity_);
+    //set default value
+    forwardVelocity_ = 0;
+
+}
+
+/**
+ *
+ * @param velocity
+ */
+void GearMotor::driveBackward(int velocity) {
+
+    if (velocity >= 100) {
+        backwardVelocity_ = -MAX_SPEED;
+    } else if (velocity <= 0) {
+        backwardVelocity_ = 0;
+    } else {
+        backwardVelocity_ = - (4.8 * velocity);
+    }
+
+    setSpeed((int)backwardVelocity_);
+    //set default value
+    backwardVelocity_ = 0;
+}
+
 
 /**
  * stops the GearMotor

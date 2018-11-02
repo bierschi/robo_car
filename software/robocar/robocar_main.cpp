@@ -3,19 +3,27 @@
 //
 
 #include <iostream>
-#include <thread>
-#include "cstring"
-#include "cstdio"
-#include "comm/ServerSocket.h"
-#include "comm/SocketException.h"
 
+#include "Car.h"
 #include "ros/ros.h"
 
 #define LOGGING true
 
 
 int main(int argc, char** argv) {
-    std::cout << "ServerSocket" << std::endl;
+    std::cout << "Test Robotic Car" << std::endl;
+
+    Car* car = new Car();
+
+    car->driveForward(50);
+    sleep(1);
+    car->driveStop();
+    sleep(1);
+    car->driveBackward(100);
+    sleep(1);
+    car->driveStop();
+
+    /*
 
     if (!LOGGING) {
         std::clog.setstate(std::ios_base::failbit);
@@ -27,13 +35,13 @@ int main(int argc, char** argv) {
         ServerSocket server (2501, 1);
         server.multipleClients();
 
-        /*
+
         while(ros::ok()) {
 
 
             ros::spinOnce();
 
-        }*/
+        }
 
     }
     catch ( SocketException& e) {
@@ -41,7 +49,7 @@ int main(int argc, char** argv) {
         std::cout << "Exception was caught: " << e.description() << std::endl;
 
     }
-
+    */
     return 0;
 
 }

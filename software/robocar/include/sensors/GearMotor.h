@@ -20,6 +20,7 @@ private:
     int pwmPin, directionPin;
     int speedValue, maxSpeedValue;
     int direction;
+    double forwardVelocity_, backwardVelocity_;
 
 public:
     GearMotor(int pwmP, int directionP);
@@ -30,7 +31,10 @@ public:
     int getMaxSpeed() const;
     int getDirection() const;
 
+    void driveForward(int velocity);
+    void driveBackward(int velocity);
     void stop();
+
     void fast();
     void middle();
     void slow();
