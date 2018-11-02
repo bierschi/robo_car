@@ -93,6 +93,9 @@ fabric.properties
 /software/robocar/build/*
 /software/libs
 /software/client
+/software/testing/robotic_car/
+/software/robocar/lib/
+
 
 /circuit_diagram/*.bak
 /circuit_diagram/*.bck
