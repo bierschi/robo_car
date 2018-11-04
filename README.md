@@ -343,33 +343,46 @@ gpio readall
         /build
         /configs
         /include
-            /comm
-                I2C.h
-                ServerSocket.h
-                Socket.h
-                SocketException.h
-            /sensors
-                Camera.h
-                CameraServo.h
-                GearMotor.h
-                MPU6050.h
-                PCA9685.h
-                SteeringServo.h
-                Ultrasonic.h
-        /lib
+            /car
+                /bus
+                    I2C.h
+                /sensors
+                    Camera.h
+                    CameraServo.h
+                    GearMotor.h
+                    MPU6050.h
+                    PCA9685.h
+                    SteeringServo.h
+                    Ultrasonic.h
+                 Car.h
+            /server
+                /communication
+                    ServerSocket.h
+                    Socket.h
+                    SocketException.h
+                Server.h
+            /slam
+                SlamMap.h
         /src
-            /comm
-                I2C.cpp
-                ServerSocket.cpp
-                Socket.cpp
-            /sensors
-                Camera.cpp
-                CameraServo.cpp
-                GearMotor.cpp
-                MPU6050.cpp
-                PCA9685.cpp
-                SteeringServo.cpp
-                Ultrasonic.cpp
+            /car
+                /bus
+                    I2C.cpp
+                /sensors
+                    Camera.cpp
+                    CameraServo.cpp
+                    GearMotor.cpp
+                    MPU6050.cpp
+                    PCA9685.cpp
+                    SteeringServo.cpp
+                    Ultrasonic.cpp
+                Car.cpp
+            /server
+                /communication
+                    ServerSocket.cpp
+                    Socket.cpp
+                Server.cpp
+            /slam
+                SlamMap.cpp
         CMakeLists.txt
         robocar_main.cpp
     /testing
