@@ -5,7 +5,7 @@
 #ifndef ROBOCAR_GUI_STEERINGSERVO_H
 #define ROBOCAR_GUI_STEERINGSERVO_H
 
-#include <math.h>
+#include "../../../../../../../../../usr/include/math.h"
 
 #include "PCA9685.h"
 

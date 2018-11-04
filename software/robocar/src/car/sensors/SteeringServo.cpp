@@ -2,7 +2,7 @@
 // Created by christian on 16.10.18.
 //
 
-#include "sensors/SteeringServo.h"
+#include "car/sensors/SteeringServo.h"
 
 /**
  * Constructor for a SteeringServo instance

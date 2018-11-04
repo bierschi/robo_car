@@ -1,7 +1,7 @@
 //
 // Created by christian on 10.09.18.
 //
-#include "comm/I2C.h"
+#include "car/bus/I2C.h"
 
 /**
  * Constructor for a I2C instance

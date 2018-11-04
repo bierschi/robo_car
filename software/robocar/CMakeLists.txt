@@ -17,7 +17,7 @@ find_library(wiringPi_LIB wiringPi)
 include_directories(include)
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-file(GLOB SOURCES "robocar_main.cpp" "src/Car.cpp" "src/Server.cpp" "src/bus/*.cpp" "src/sensors/*.cpp" "src/slam/*.cpp" "src/server/*.cpp")
+file(GLOB SOURCES "robocar_main.cpp" "src/car/Car.cpp" "src/server/Server.cpp" "src/car/bus/*.cpp" "src/car/sensors/*.cpp" "src/slam/*.cpp" "src/server/*.cpp")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 

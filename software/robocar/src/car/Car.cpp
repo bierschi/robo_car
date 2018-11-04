@@ -2,7 +2,7 @@
 // Created by christian on 02.11.18.
 //
 
-#include "Car.h"
+#include "car/Car.h"
 
 /**
  * Constructor for a Car instance
@@ -15,8 +15,9 @@ Car::Car() {
 
     steeringServo = new SteeringServo(15);
     cameraServo   = new CameraServo(14);
-    ultrasonic    = new Ultrasonic(4, 5);
     gearmotor     = new GearMotor(26, 21);
+    ultrasonic    = new Ultrasonic(4, 5);
+
 }
 
 /**
@@ -73,7 +74,9 @@ void Car::driveStraight() {
  * @param velocity
  */
 void Car::driveForward(int velocity) {
-    gearmotor->driveForward(velocity);
+
+    if ( !ultrasonic->getForwardForbiddenFlag() )
+        gearmotor->driveForward(velocity);
 }
 
 /**

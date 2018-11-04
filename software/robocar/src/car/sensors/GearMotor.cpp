@@ -2,7 +2,7 @@
 // Created by christian on 21.09.18.
 //
 
-#include "sensors/GearMotor.h"
+#include "car/sensors/GearMotor.h"
 
 /**
  * Constructor for a GearMotor instance

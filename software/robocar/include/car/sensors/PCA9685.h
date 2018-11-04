@@ -5,8 +5,7 @@
 #ifndef ROBOCAR_PCA9685_H
 #define ROBOCAR_PCA9685_H
 
-#include "comm/I2C.h"
-
+#include "car/bus/I2C.h"
 // register definitions
 // checkout datasheet for further informations
 // https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf

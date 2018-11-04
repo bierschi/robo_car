@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "Car.h"
+#include "car/Car.h"
 #include "ros/ros.h"
 
 #define LOGGING true
@@ -26,6 +26,19 @@ int main(int argc, char** argv) {
     car->turnCameraXRight(30);
     sleep(1);
     car->turnCameraStraight();
+    car->driveForward(40);
+    bool run = true;
+    int i = 0;
+    while(run) {
+        car->driveForward(60);
+        sleep(2);
+        i++;
+        if (i > 40) {
+            car->driveStop();
+            run = false;
+        }
+
+    }
 
     /*
 

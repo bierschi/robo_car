@@ -12,12 +12,6 @@
 
 #include "Socket.h"
 
-#include "sensors/Ultrasonic.h"
-#include "sensors/GearMotor.h"
-#include "sensors/SteeringServo.h"
-#include "sensors/CameraServo.h"
-
-#include "slam/SlamMap.h"
 
 /**
  * /CLASS ServerSocket
@@ -31,18 +25,9 @@ private:
     unsigned int maxClient_n;
     int countClient, countSpeed;
     double distance;
-    bool distanceFlag;
-    bool forwardForbidden;
     bool running = false;
     bool connected;
     std::vector<std::thread> threadClients;
-
-    SlamMap* sm;
-    ServerSocket* socks;
-    SteeringServo* steeringServo;
-    CameraServo* cameraServo;
-    Ultrasonic* ultrasonic;
-    GearMotor* gearmotor;
 
 public:
 
@@ -67,7 +52,6 @@ public:
     void multipleClients();
 
     void actions(Commands&, ServerSocket& sock);
-    void runDistanceThread();
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H

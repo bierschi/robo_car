@@ -12,22 +12,10 @@
  *      ServerSocket* sock = new ServerSocket();
  *
  */
-ServerSocket::ServerSocket() : countSpeed(480),
-                               distanceFlag(false),
-                               forwardForbidden(false)
+ServerSocket::ServerSocket() : countSpeed(480)
+
 {
 
-    steeringServo = new SteeringServo(15);
-    cameraServo   = new CameraServo(14);
-    ultrasonic    = new Ultrasonic(4, 5);
-    gearmotor     = new GearMotor(26, 21);
-    std::string mapname= "hector";
-    //SlamMap sm(mapname, 65, 25);
-    sm = new SlamMap(mapname, 65, 25);
-    distance = ultrasonic->currentDistance();
-
-    std::thread distanceThread(&ServerSocket::runDistanceThread, this);
-    distanceThread.detach();
 
 }
 
@@ -273,117 +261,67 @@ void ServerSocket::serveTask(ServerSocket& sock){
  */
 void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
 
-
-
     switch(cmd) {
 
         //move the vehicle
         case FORWARD:
             std::cout << "Drive Forward!" << std::endl;
-            if ( !forwardForbidden) {
-                countSpeed = 150;
-                gearmotor->setSpeed(countSpeed);
-            }
 
             break;
 
         case BACKWARD:
             std::cout << "Drive Backward!" << std::endl;
 
-            countSpeed = -150;
-            gearmotor->setSpeed(countSpeed);
             break;
 
         case STRAIGHT:
             std::cout << "Drive Straight Ahead!" << std::endl;
 
-            steeringServo->driveStraight();
             break;
 
         case RIGHT:
             std::cout << "Drive Right!" << std::endl;
 
-            steeringServo->driveRight();
             break;
 
         case LEFT:
             std::cout << "Drive Left!" << std::endl;
 
-            steeringServo->driveLeft();
             break;
 
         case STOP:
             std::cout << "Stop vehicle!" << std::endl;
 
-            gearmotor->stop();
             break;
 
         case INCREASE_SPEED:
             std::cout << "Increase current Speed!" << std::endl;
-
-            if (gearmotor->getSpeed() < (gearmotor->getMaxSpeed() - 50)) {
-
-                countSpeed += 50;
-                gearmotor->setSpeed(countSpeed);
-
-            }
 
             break;
 
         case DECREASE_SPEED:
             std::cout << "Decrease current Speed!" << std::endl;
 
-            if (gearmotor->getSpeed() > (- gearmotor->getMaxSpeed() + 50)) {
-
-                countSpeed -= 50;
-                gearmotor->setSpeed(countSpeed);
-
-            }
             break;
 
         //move the camera
         case CAM_R:
             std::cout << "Move camera right!" << std::endl;
-
-            cameraServo->moveRight();
             break;
 
         case CAM_L:
             std::cout << "Move camera left!" << std::endl;
-
-            cameraServo->moveLeft();
             break;
 
             //starts/stops the thread to get the current distance from ultrasonic sensor
         case DISTANCE: {
             std::cout << "Start/Stop to query current distance!" << std::endl;
-
-            if ( !getDistanceFlag() ) {
-
-                setDistanceFlag(true);
-                //std::thread distanceThread(&ServerSocket::runDistanceThread, this, std::ref(sock));
-                //distanceThread.detach();
-
-            } else {
-
-                setDistanceFlag(false);
-
-            }
-
         }
             break;
 
         //starts the stream of the camera
         case STREAM: {
-
             std::cout << "Stream object!" << std::endl;
-            //std::string mapname= "hector";
-            //SlamMap sm(mapname, 65, 25);
-            std::cout << "setsavemap" << std::endl;
-            //sm->setSaveMap(true);
-
-            //sock << "hallo";
-
         }
 
             break;
@@ -393,38 +331,3 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
     }
 }
 
-
-/**
- * run thread to get continously the current distance from the ultrasonic sensor
- *
- * @param sock: ServerSocket reference to send the current distance to the clients
- */
-void ServerSocket::runDistanceThread() {
-
-
-    while (true) {
-
-        distance = ultrasonic->currentDistance();
-
-        if (distance < 12.0) {
-
-            if ( (gearmotor->getSpeed() == 0) && (!forwardForbidden) ) {
-
-                gearmotor->setSpeed(0);
-                forwardForbidden = true;
-            }
-
-        }
-
-        if (distance > 12.0){
-
-            forwardForbidden = false;
-
-        }
-        //sleep(1);
-        //std::cout << "distance: " << distance <<std::endl;
-        usleep(400);
-        //sock << std::to_string(distance);
-    }
-
-}

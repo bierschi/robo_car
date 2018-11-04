@@ -5,7 +5,7 @@
 #ifndef ROBOCAR_CAMERASERVO_H
 #define ROBOCAR_CAMERASERVO_H
 
-#include "sensors/PCA9685.h"
+#include "PCA9685.h"
 
 /**
  * /CLASS CameraServo

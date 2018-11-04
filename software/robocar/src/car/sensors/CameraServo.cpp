@@ -2,7 +2,7 @@
 // Created by christian on 18.10.18.
 //
 
-#include "sensors/CameraServo.h"
+#include "car/sensors/CameraServo.h"
 
 /**
  * Constructor for a CameraServo instance
