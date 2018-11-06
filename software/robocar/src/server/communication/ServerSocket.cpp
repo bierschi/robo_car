@@ -2,8 +2,8 @@
 // Created by christian on 03.09.18.
 //
 
-#include "server/ServerSocket.h"
-#include "server/SocketException.h"
+#include "server/communication/ServerSocket.h"
+#include "server/communication/SocketException.h"
 
 /**
  * Default Constructor for a ServerSocket instance
@@ -12,8 +12,7 @@
  *      ServerSocket* sock = new ServerSocket();
  *
  */
-ServerSocket::ServerSocket() : countSpeed(480)
-
+ServerSocket::ServerSocket()
 {
 
 
@@ -27,10 +26,8 @@ ServerSocket::ServerSocket() : countSpeed(480)
  *
  * @param port: int
  */
-ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(port),
-                                                                        maxClient_n(maxClient),
-                                                                        countClient(0),
-                                                                        connected(false){
+ServerSocket::ServerSocket(unsigned int port) : port_(port),
+                                                connected_(false){
 
 
     if ( !Socket::create() ) {
@@ -39,7 +36,7 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
 
     }
 
-    if ( !Socket::bind(port_n) ) {
+    if ( !Socket::bind(port_) ) {
 
         throw SocketException("Could not bind to port!");
 
@@ -51,13 +48,8 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
 
     }
 
-    socks = new ServerSocket[maxClient_n];
-    threadClients.reserve(maxClient_n);
-    running = true;
+    running_ = true;
 
-    std::cout << "Server is being set up on port: " << port << std::endl;
-    std::cout << maxClient_n << " clients can be connected simultaneously!" << std::endl;
-    std::cout << "Listening ..." << std::endl;
 }
 
 /**
@@ -65,10 +57,10 @@ ServerSocket::ServerSocket(unsigned int port, unsigned int maxClient) : port_n(p
  */
 ServerSocket::~ServerSocket() {
 
-    running = false;
-    delete[] socks;
-    delete steeringServo, cameraServo, ultrasonic, gearmotor;
-    threadClients.clear();
+    running_ = false;
+    connected_ = false;
+
+    delete sock;
 
 }
 
@@ -78,7 +70,7 @@ ServerSocket::~ServerSocket() {
  * @return unsigned int port
  */
 int ServerSocket::getPort() const {
-    return port_n;
+    return port_;
 }
 
 /**
@@ -86,26 +78,10 @@ int ServerSocket::getPort() const {
  *
  * @return bool running
  */
-bool ServerSocket::isRunning() const {
-    return running;
+bool ServerSocket::getRunningFlag() const {
+    return running_;
 }
 
-/**
- * get distanceFlag to ensure if distance thread is running
- *
- * @return bool distanceFlag
- */
-bool ServerSocket::getDistanceFlag() {
-    return distanceFlag;
-}
-
-/**
- * set distanceFlag to true or false
- * @param distFlag: bool distanceFlag
- */
-void ServerSocket::setDistanceFlag(bool distFlag) {
-    distanceFlag = distFlag;
-}
 
 /**
  * overloaded operator << to send strings to sockets
@@ -113,7 +89,7 @@ void ServerSocket::setDistanceFlag(bool distFlag) {
  * @param s: const string reference
  * @return const ServerSocket& reference
  */
-const ServerSocket& ServerSocket::operator << (const std::string &s) const {
+const ServerSocket& ServerSocket::sending (const std::string &s) const {
 
     if ( !Socket::send(s)) {
 
@@ -131,7 +107,7 @@ const ServerSocket& ServerSocket::operator << (const std::string &s) const {
  * @param cmd: Commands& reference
  * @return const ServerSocket& reference
  */
-const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
+const ServerSocket& ServerSocket::sending (Commands& cmd) const {
 
     if ( !Socket::send(cmd)) {
 
@@ -149,7 +125,7 @@ const ServerSocket& ServerSocket::operator << (Commands& cmd) const {
  * @param s: string& reference
  * @return const ServerSocket& reference
  */
-const ServerSocket& ServerSocket::operator >> (std::string &s) const {
+const ServerSocket& ServerSocket::receiving(std::string &s) const {
 
     if ( !Socket::recv(s)) {
 
@@ -166,7 +142,7 @@ const ServerSocket& ServerSocket::operator >> (std::string &s) const {
  * @param cmd: Commands& reference
  * @return const ServerSocket& reference
  */
-const ServerSocket& ServerSocket::operator >> (Commands& cmd) const {
+const ServerSocket& ServerSocket::receiving (Commands& cmd) const {
 
     if ( !Socket::recv(cmd) ) {
 
@@ -191,9 +167,12 @@ void ServerSocket::accept(ServerSocket &sock) {
     }
 }
 
+
 /**
  * multiple clients can be connecting to server
+ *
  */
+/*
 void ServerSocket::multipleClients() {
     std::clog << "Running Server with multiple client connections" << std::endl;
 
@@ -201,10 +180,12 @@ void ServerSocket::multipleClients() {
     runThread.join();
     //runThread.detach();
 }
+*/
 
 /**
  * run thread of server, which handles multiple client connections
  */
+/*
 void ServerSocket::processClient() {
 
 
@@ -218,30 +199,26 @@ void ServerSocket::processClient() {
 
             //threadClients[countClient].detach();
         }
-        /*
-        for (int j = 0; j < maxClient_n; j++) {
-            std::clog << "join client into thread" << std::endl;
 
-            threadClients[j].join();
-
-        }*/
     }
 }
+*/
 
 /**
  * worker thread for connected clients. Send defined commands to server
  */
+ /*
 void ServerSocket::serveTask(ServerSocket& sock){
 
     try {
 
         Commands cmd;
-        sock.connected = true;
+        sock.connected_ = true;
 
         while (true) {
 
-            sock >> cmd;
-            sock.actions(cmd, sock);
+            sock.receiving(cmd);
+            //sock.actions(cmd, sock);
 
         }
 
@@ -253,13 +230,15 @@ void ServerSocket::serveTask(ServerSocket& sock){
 
 }
 
+*/
 /**
  * selects a appropriate action, depending on the incoming command
  *
  * @param cmd: Commands reference to execute defined commands
  * @param sock: ServerSocket reference to send commands back to the clients
  */
-void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
+/*
+void ServerSocket::actions(Commands& cmd) {
 
     switch(cmd) {
 
@@ -331,3 +310,4 @@ void ServerSocket::actions(Commands& cmd, ServerSocket& sock) {
     }
 }
 
+*/

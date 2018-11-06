@@ -12,7 +12,6 @@
 
 #include "Socket.h"
 
-
 /**
  * /CLASS ServerSocket
  *
@@ -21,37 +20,31 @@
 class ServerSocket : private Socket {
 
 private:
-    unsigned int port_n;
-    unsigned int maxClient_n;
-    int countClient, countSpeed;
-    double distance;
-    bool running = false;
-    bool connected;
-    std::vector<std::thread> threadClients;
+    unsigned int port_;
+    bool running_, connected_;
+    ServerSocket* sock;
 
 public:
 
     ServerSocket();
-    ServerSocket(unsigned int port, unsigned int maxClient_n = 2);
+    ServerSocket(unsigned int port);
     virtual ~ServerSocket();
 
-    const ServerSocket& operator << (const std::string& ) const;
-    const ServerSocket& operator << (Commands& ) const;
-    const ServerSocket& operator >> (std::string& ) const;
-    const ServerSocket& operator >> (Commands& ) const;
+    const ServerSocket& sending(const std::string& s) const;
+    const ServerSocket& sending(Commands& cmd) const;
+    const ServerSocket& receiving (std::string& ) const;
+    const ServerSocket& receiving (Commands& ) const;
 
     int getPort() const;
-    bool getDistanceFlag();
-    void setDistanceFlag(bool distFlag);
+    bool getRunningFlag() const;
 
     void accept(ServerSocket&);
-    bool isRunning() const;
 
-    void processClient();
-    void serveTask(ServerSocket&);
-    void multipleClients();
+    //void processClient();
+    //void serveTask(ServerSocket&);
+    //void multipleClients();
 
-    void actions(Commands&, ServerSocket& sock);
+    //void actions(Commands&);
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H

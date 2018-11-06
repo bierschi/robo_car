@@ -17,10 +17,18 @@ find_library(wiringPi_LIB wiringPi)
 include_directories(include)
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-file(GLOB SOURCES "robocar_main.cpp" "src/car/Car.cpp" "src/server/Server.cpp" "src/car/bus/*.cpp" "src/car/sensors/*.cpp" "src/slam/*.cpp" "src/server/*.cpp")
+file(GLOB SOURCES "robocar_main.cpp" "src/car/Car.cpp"  "src/car/bus/*.cpp" "src/car/sensors/*.cpp"
+                  "src/server/Server.cpp" "src/server/communication/*.cpp"
+                  "src/slam/*.cpp")
+
+#file(GLOB SOURCES "robocar_main.cpp" "src/server/Server.cpp" "src/server/communication/*.cpp")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
+#set(client_src include/client/Socket.h include/client/SocketException.h include/client/ClientSocket.h
+#               src/client/Socket.cpp src/client/ClientSocket.cpp src/client/main.cpp)
+
+#add_executable(client ${client_src})
 
 add_executable(robocar ${SOURCES})
 

@@ -4,7 +4,7 @@
 
 #include <cstring>
 #include <fcntl.h>
-#include "server/Socket.h"
+#include "server/communication/Socket.h"
 
 /**
  * BaseClass Constructor for a socket instance

@@ -32,37 +32,39 @@ Car::~Car() {
 
 //handling the steering servo
 /**
- *
+ * moves the steering servo maximal to the left
  */
 void Car::driveLeft() {
     steeringServo->driveLeft();
 }
 
 /**
+ * moves the steering servo x% to the left
  *
- * @param x
+ * @param x: int number between 0 - 100
  */
 void Car::turnSteeringLeft(int x) {
     steeringServo->driveXLeft(x);
 }
 
 /**
- *
+ * moves the steering servo maximal to the right
  */
 void Car::driveRight() {
     steeringServo->driveRight();
 }
 
 /**
+ * moves the steering servo x% to the right
  *
- * @param x
+ * @param x: int number between 0 - 100
  */
 void Car::turnSteeringRight(int x) {
     steeringServo->driveXRight(x);
 }
 
 /**
- *
+ * moves the steering servo to the middle -> drive straight ahead
  */
 void Car::driveStraight() {
     steeringServo->driveStraight();
@@ -70,8 +72,9 @@ void Car::driveStraight() {
 
 //handling the for- and backward movements
 /**
+ * moves the car with x% forward
  *
- * @param velocity
+ * @param velocity: int number between 0 - 100
  */
 void Car::driveForward(int velocity) {
 
@@ -80,15 +83,16 @@ void Car::driveForward(int velocity) {
 }
 
 /**
+ * moves the car with x% backward
  *
- * @param velocity
+ * @param velocity: int number between 0 - 100
  */
 void Car::driveBackward(int velocity) {
     gearmotor->driveBackward(velocity);
 }
 
 /**
- *
+ * stops the car
  */
 void Car::driveStop() {
     gearmotor->stop();
@@ -97,37 +101,39 @@ void Car::driveStop() {
 
 //handling the camera servo
 /**
- *
+ * moves the camera servo a bit to the left
  */
 void Car::turnCameraLeft() {
     cameraServo->moveLeft();
 }
 
 /**
+ * moves the camera servo x% to the left
  *
- * @param x
+ * @param x: int number between 0 - 100
  */
 void Car::turnCameraXLeft(int x) {
     cameraServo->moveXLeft(x);
 }
 
 /**
- *
+ * moves the camera servo a bit to the right
  */
 void Car::turnCameraRight() {
     cameraServo->moveRight();
 }
 
 /**
+ * moves the camera servo x% to the right
  *
- * @param x
+ * @param x: int number between 0 - 100
  */
 void Car::turnCameraXRight(int x) {
     cameraServo->moveXRight(x);
 }
 
 /**
- *
+ * moves the camera servo to the middle
  */
 void Car::turnCameraStraight() {
     cameraServo->moveStraight();
