@@ -5,6 +5,10 @@
 #include "server/Server.h"
 
 /**
+ * Constructor for a Server instance
+ *
+ * USAGE:
+ *      Server* server = new Server(2501, *car);
  *
  * @param port
  */
@@ -66,7 +70,6 @@ void Server::run() {
  * selects a appropriate action, depending on the incoming command
  *
  * @param cmd: Commands reference to execute defined commands
- * @param sock: ServerSocket reference to send commands back to the clients
  */
 void Server::actions(Commands& cmd) {
 

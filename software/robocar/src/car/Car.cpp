@@ -8,7 +8,7 @@
  * Constructor for a Car instance
  *
  * USAGE:
- *      Car *car = new Car();
+ *      Car* car = new Car();
  *
  */
 Car::Car() {

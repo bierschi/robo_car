@@ -12,7 +12,8 @@
 
 
 int main(int argc, char** argv) {
-    std::cout << "Test Robotic Car" << std::endl;
+
+    std::cout << "Software RoboCar is running!" << std::endl;
 
     Car* car = new Car();
     Server* s = new Server(2501, *car);

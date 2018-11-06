@@ -44,7 +44,6 @@ public:
     //void serveTask(ServerSocket&);
     //void multipleClients();
 
-    //void actions(Commands&);
 };
 
 #endif //ROBOCAR_SERVERSOCKET_H
