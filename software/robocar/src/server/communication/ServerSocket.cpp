@@ -26,10 +26,9 @@ ServerSocket::ServerSocket()
  *
  * @param port: int
  */
-ServerSocket::ServerSocket(unsigned int port) : port_(port),
-                                                connected_(false){
-
-
+ServerSocket::ServerSocket(unsigned int port) : port_(port) 
+{
+    
     if ( !Socket::create() ) {
 
         throw SocketException("Could not create server socket!");
@@ -47,8 +46,7 @@ ServerSocket::ServerSocket(unsigned int port) : port_(port),
         throw SocketException("Could not listen to socket");
 
     }
-
-    running_ = true;
+    
 
 }
 
@@ -56,12 +54,7 @@ ServerSocket::ServerSocket(unsigned int port) : port_(port),
  * Destructor in ServerSocket
  */
 ServerSocket::~ServerSocket() {
-
-    running_ = false;
-    connected_ = false;
-
-    delete sock;
-
+    
 }
 
 /**
@@ -73,18 +66,9 @@ int ServerSocket::getPort() const {
     return port_;
 }
 
-/**
- * returns true, if server is running
- *
- * @return bool running
- */
-bool ServerSocket::getRunningFlag() const {
-    return running_;
-}
-
 
 /**
- * overloaded operator << to send strings to sockets
+ * sending strings to sockets
  *
  * @param s: const string reference
  * @return const ServerSocket& reference
@@ -102,7 +86,7 @@ const ServerSocket& ServerSocket::sending (const std::string &s) const {
 }
 
 /**
- * overloaded operator << to send predefined commands to sockets
+ * sending predefined commands to sockets
  *
  * @param cmd: Commands& reference
  * @return const ServerSocket& reference
@@ -120,7 +104,7 @@ const ServerSocket& ServerSocket::sending (Commands& cmd) const {
 }
 
 /**
- * overloaded operator >> to receive strings from sockets
+ * receiving strings from sockets
  *
  * @param s: string& reference
  * @return const ServerSocket& reference
@@ -137,7 +121,7 @@ const ServerSocket& ServerSocket::receiving(std::string &s) const {
 }
 
 /**
- * overloaded operator >> to receive predefined commands from sockets
+ * receiving predefined commands from sockets
  *
  * @param cmd: Commands& reference
  * @return const ServerSocket& reference

@@ -4,48 +4,57 @@
 
 #include <iostream>
 
-#include "car/Car.h"
-#include "server/Server.h"
+//#include "car/Car.h"
+//#include "server/Server.h"
+#include "slam/SlamMap.h"
 #include "ros/ros.h"
 
 #define LOGGING true
 
 
+void writeFile(int mapData[]) {
+    FILE* out = fopen("intarray_SlamMap.txt", "w");
+    for( int s = 1; s < 160000; s++) {
+
+        fprintf(out, "%d ", mapData[s]);
+
+        if (s && s%400 == 0) {
+
+            fprintf(out, "\n");
+
+        }
+    }
+}
+
 int main(int argc, char** argv) {
-
-    std::cout << "Software RoboCar is running!" << std::endl;
-
-    Car* car = new Car();
-    Server* s = new Server(2501, *car);
-    s->run();
-
-    /*
 
     if (!LOGGING) {
         std::clog.setstate(std::ios_base::failbit);
     }
 
-    try {
+    // ros initialization
+    ros::init(argc, argv, "robocar");
 
-        ros::init(argc, argv, "robocar");
-        ServerSocket server (2501, 1);
-        server.multipleClients();
+    std::cout << "Software RoboCar is running!" << std::endl;
 
+    SlamMap sm;
 
-        while(ros::ok()) {
+    //Car* car = new Car();
+    //Server* server = new Server(2501, *car);
 
+    //int* data = new int[160000];
+    sm.setSaveMap(true);
+    int* data;
+    while(ros::ok()) {
 
+            data = sm.getMapData(); //+size
+            std::cout << data[10000] << std::endl;
+            writeFile(data);
+            sleep(2);
             ros::spinOnce();
 
         }
 
-    }
-    catch ( SocketException& e) {
-
-        std::cout << "Exception was caught: " << e.description() << std::endl;
-
-    }
-    */
     return 0;
 
 }

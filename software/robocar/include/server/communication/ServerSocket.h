@@ -21,8 +21,6 @@ class ServerSocket : private Socket {
 
 private:
     unsigned int port_;
-    bool running_, connected_;
-    ServerSocket* sock;
 
 public:
 
@@ -36,7 +34,6 @@ public:
     const ServerSocket& receiving (Commands& ) const;
 
     int getPort() const;
-    bool getRunningFlag() const;
 
     void accept(ServerSocket&);
 

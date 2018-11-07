@@ -24,7 +24,7 @@
   <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
   <arg name="base_frame" default="base_frame"/>
   <arg name="odom_frame" default="base_frame"/>
-  <arg name="pub_map_odom_transform" default="false"/>
+  <arg name="pub_map_odom_transform" default="true"/>
   <arg name="scan_subscriber_queue_size" default="5"/>
   <arg name="scan_topic" default="scan"/>
   <arg name="map_size" default="400"/>
@@ -55,6 +55,7 @@
     <param name="map_update_angle_thresh" value="0.06" />
     <param name="laser_z_min_value" value = "-1.0" />
     <param name="laser_z_max_value" value = "1.0" />
+    <param name="map_pub_period" value="1.0" />
     
     <!-- Advertising config --> 
     <param name="advertise_map_service" value="true"/>
@@ -70,6 +71,14 @@
     -->
     <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)" />
   </node>
+
+<!-- hector trajectory package -->
+<node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen" >
+    <param name="target_frame_name" type="string" value="/map" />
+    <param name="source_frame_name" type="string" value="/base_frame" />
+    <param name="trajectory_update_rate" type="double" value="2" />
+    <param name="trajectory_publish_rate" type="double" value="1.0" />
+</node>
       
 <node pkg="tf" type="static_transform_publisher" name="world_map_broadcaster" args="0 0 0 0 0 0 /world /map 100"/>
 

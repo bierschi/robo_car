@@ -138,3 +138,11 @@ void Car::turnCameraXRight(int x) {
 void Car::turnCameraStraight() {
     cameraServo->moveStraight();
 }
+
+//ultrasonic sensor
+/**
+ *
+ */
+double Car::getUltrasonicDistance() {
+    return ultrasonic->getCurrentDistance();
+}

@@ -47,10 +47,10 @@ public:
     void turnCameraXRight(int x);
     void turnCameraStraight();
 
-    /*
-    //ultrasonic
-    void getUltrasonicDistance();
-    */
+
+    //distance from ultrasonic sensor
+    double getUltrasonicDistance();
+
 };
 
 #endif //ROBOCAR_CAR_H

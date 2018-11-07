@@ -20,6 +20,7 @@ Server::Server(unsigned int port, Car& car) : port_(port), car_(car) {
 
     std::cout << "Server is being set up on port: " << port_ << std::endl;
 
+    startThread();
 }
 
 /**
@@ -32,7 +33,17 @@ Server::~Server() {
 }
 
 /**
- *
+ * starts the run thread
+ */
+void Server::startThread() {
+
+    std::thread server(&Server::run, this);
+    server.detach();
+
+}
+
+/**
+ * listening for a new client connection
  */
 void Server::waitForClient() {
 
@@ -42,7 +53,7 @@ void Server::waitForClient() {
 }
 
 /**
- *
+ * Server run thread to handle incoming commands
  */
 void Server::run() {
 
@@ -119,12 +130,12 @@ void Server::actions(Commands& cmd) {
 
             //move the camera
         case CAM_R:
-            std::cout << "Move camera right!11" << std::endl;
+            std::cout << "Move camera right!" << std::endl;
             car_.turnCameraRight();
             break;
 
         case CAM_L:
-            std::cout << "Move camera left!111" << std::endl;
+            std::cout << "Move camera left!" << std::endl;
             car_.turnCameraLeft();
             break;
 

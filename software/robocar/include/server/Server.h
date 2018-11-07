@@ -29,10 +29,10 @@ public:
     Server(unsigned int port, Car& car);
     ~Server();
 
+    void startThread();
     void waitForClient();
     void run();
     void actions(Commands& cmd);
-
 
 };
 
