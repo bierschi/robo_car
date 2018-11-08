@@ -16,7 +16,7 @@ Car::Car() {
     steeringServo = new SteeringServo(15);
     cameraServo   = new CameraServo(14);
     gearmotor     = new GearMotor(26, 21);
-    ultrasonic    = new Ultrasonic(4, 5);
+    ultrasonic    = new Ultrasonic(4, 5, *gearmotor);
 
 }
 
@@ -141,8 +141,13 @@ void Car::turnCameraStraight() {
 
 //ultrasonic sensor
 /**
- *
+ * get current distance from ultrasonic sensor
  */
 double Car::getUltrasonicDistance() {
     return ultrasonic->getCurrentDistance();
 }
+
+void Car::saveSlamMap() {
+    slamMap.setSaveMap(true);
+}
+

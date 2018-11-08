@@ -6,6 +6,7 @@
 #define ROBOCAR_GEARMOTOR_H
 
 #include <wiringPi.h>
+#include <iostream>
 
 #define MAX_SPEED 480
 
@@ -29,7 +30,7 @@ public:
     void setSpeed(int value);
     int getSpeed() const;
     int getMaxSpeed() const;
-    int getDirection() const;
+    int getDirection();
 
     void driveForward(int velocity);
     void driveBackward(int velocity);

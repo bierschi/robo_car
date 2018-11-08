@@ -9,6 +9,8 @@
 #include "server/communication/SocketException.h"
 #include "car/Car.h"
 
+#include "std_msgs/String.h"
+
 
 /**
  * /CLASS Server
@@ -23,6 +25,8 @@ private:
     ServerSocket* sock;
     Commands cmd;
 
+    ros::Publisher resetMap;
+
     Car& car_;
 
 public:
@@ -33,6 +37,7 @@ public:
     void waitForClient();
     void run();
     void actions(Commands& cmd);
+    void reset();
 
 };
 

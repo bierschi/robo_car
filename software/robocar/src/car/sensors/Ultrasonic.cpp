@@ -18,10 +18,11 @@
  * @param TriggerPin: Int gpio number
  * @param EchoPin Int gpio number
  */
-Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin),
-                                                      Echo(EchoPin),
-                                                      forwardForbiddenFlag(false),
-                                                      distanceFlag(true)
+Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin, GearMotor& gearMotor) : Trigger(TriggerPin),
+                                                                            Echo(EchoPin),
+                                                                            gearMotor_(gearMotor),
+                                                                            forwardForbiddenFlag(false),
+                                                                            distanceFlag(true)
 {
 
     wiringPiSetup();
@@ -32,7 +33,7 @@ Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin),
     digitalWrite(Trigger, LOW);
 
     distance = getCurrentDistance();
-    gearMotor = new GearMotor(26, 21);
+    //gearMotor = new GearMotor(26, 21);
 
     std::thread distThread(&Ultrasonic::distanceThread, this);
     distThread.detach();
@@ -43,7 +44,7 @@ Ultrasonic::Ultrasonic(int TriggerPin, int EchoPin) : Trigger(TriggerPin),
  * Destructor in Ultrasonic
  */
 Ultrasonic::~Ultrasonic() {
-    delete gearMotor;
+    //delete gearMotor;
 }
 
 /**
@@ -78,22 +79,25 @@ double Ultrasonic::getCurrentDistance() {
 }
 
 /**
+ * get the bool flag for the DistanceThread
  *
+ * @return: bool distanceFlag
  */
 bool Ultrasonic::getDistanceThreadFlag() const {
     return distanceFlag;
 }
 
 /**
+ * set the bool flag for the DistanceThread
  *
- * @param flag
+ * @param flag: bool
  */
 void Ultrasonic::setDistanceThreadFlag(bool flag) {
     distanceFlag = flag;
 }
 
 /**
- *
+ * distance run Thread to ensure not to hit any obstacle
  */
 void Ultrasonic::distanceThread() {
 
@@ -103,9 +107,9 @@ void Ultrasonic::distanceThread() {
 
         if (distance < 12.0) {
 
-            if ( (gearMotor->getSpeed() == 0) && (!forwardForbiddenFlag) ) {
+            if ( (gearMotor_.getDirection() == 0) && (!forwardForbiddenFlag) ) {
 
-                gearMotor->setSpeed(0);
+                gearMotor_.setSpeed(0);
                 forwardForbiddenFlag = true;
             }
 
@@ -125,16 +129,18 @@ void Ultrasonic::distanceThread() {
 }
 
 /**
+ * get the ForwardForbiddenFlag, to check if it is allowed to drive forward
  *
- * @return
+ * @return bool: forwardForbiddenFlag
  */
 bool Ultrasonic::getForwardForbiddenFlag() const {
     return forwardForbiddenFlag;
 }
 
 /**
+ * set the ForwardForbiddenFlag
  *
- * @param flag
+ * @param flag: bool
  */
 void Ultrasonic::setForwadForbiddenFlag(bool flag) {
     forwardForbiddenFlag = flag;

@@ -9,6 +9,7 @@
 #include "sensors/CameraServo.h"
 #include "sensors/GearMotor.h"
 #include "sensors/Ultrasonic.h"
+#include "slam/SlamMap.h"
 
 /**
  * /CLASS Car
@@ -23,6 +24,7 @@ private:
     CameraServo* cameraServo;
     GearMotor* gearmotor;
     Ultrasonic* ultrasonic;
+    SlamMap slamMap;
 
 public:
     Car();
@@ -47,9 +49,11 @@ public:
     void turnCameraXRight(int x);
     void turnCameraStraight();
 
-
     //distance from ultrasonic sensor
     double getUltrasonicDistance();
+
+    //Slam Map
+    void saveSlamMap();
 
 };
 

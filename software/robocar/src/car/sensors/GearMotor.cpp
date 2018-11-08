@@ -49,7 +49,6 @@ GearMotor::~GearMotor() {
  */
 void GearMotor::setSpeed(int value) {
 
-    //int direction;
 
     if (value < 0){
 
@@ -72,7 +71,7 @@ void GearMotor::setSpeed(int value) {
 
 }
 
-int GearMotor::getDirection() const {
+int GearMotor::getDirection() {
     return direction;
 }
 

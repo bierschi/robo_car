@@ -4,21 +4,22 @@
 <param name="use_sim_time" value="false" />
 <arg name="use_rviz" default="false" />
 
+
 <!--start rviz at beginning of launch file -->
 <group if="$(arg use_rviz)">
-  <node pkg="rviz" type="rviz" name="rviz" args="-d /home/christian/projects/hsp/SLAM_algo/software/slam/ros/hokuyo_hector_slam/hokuyo_hector_slam.rviz" />
+  <node pkg="rviz" type="rviz" name="rviz" args="-d /home/christian/projects/robo_car/software/slam/hokuyo_hector_slam.rviz" />
 </group>
 
+
+<!-- launch hokuyo_node -->
 <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-  
     <!-- Starts up faster, but timestamps will be inaccurate. --> 
     <param name="calibrate_time" type="bool" value="false"/> 
-    
     <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/ttyACM0"/> 
-  
     <param name="intensity" type="bool" value="false"/>
 </node>
+
 
 <!-- launch hector_slam -->
   <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
@@ -59,10 +60,8 @@
     
     <!-- Advertising config --> 
     <param name="advertise_map_service" value="true"/>
-    
     <param name="scan_subscriber_queue_size" value="$(arg scan_subscriber_queue_size)"/>
     <param name="scan_topic" value="$(arg scan_topic)"/>
-    
     <!-- Debug parameters -->
     <!--
       <param name="output_timing" value="false"/>
@@ -71,6 +70,8 @@
     -->
     <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)" />
   </node>
+
+
 
 <!-- hector trajectory package -->
 <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen" >

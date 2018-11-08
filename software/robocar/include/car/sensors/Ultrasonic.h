@@ -25,10 +25,10 @@ private:
     int Trigger, Echo;
     double distance;
     bool forwardForbiddenFlag, distanceFlag;
-    GearMotor* gearMotor;
+    GearMotor& gearMotor_;
 
 public:
-    Ultrasonic(int TriggerPin, int EchoPin);
+    Ultrasonic(int TriggerPin, int EchoPin, GearMotor& gearMotor);
     ~Ultrasonic();
 
     bool getForwardForbiddenFlag() const;
