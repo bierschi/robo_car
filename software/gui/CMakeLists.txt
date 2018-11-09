@@ -19,19 +19,14 @@ find_package(Threads REQUIRED)
 include_directories(include)
 
 # populate a CMake variable with the sources
-set(main_gui_src
-        include/mainwindow.h
-        include/ClientSocket.h
-        include/Socket.h
-        include/SocketException.h
-        src/mainwindow.ui
-        src/mainwindow.cpp
-        src/ClientSocket.cpp
-        src/Socket.cpp
-        main_gui.cpp)
+set(main_gui_src include/mainwindow.h include/communication/ClientSocket.h include/communication/Socket.h include/communication/SocketException.h
+                 src/mainwindow.ui src/mainwindow.cpp src/communication/ClientSocket.cpp src/communication/Socket.cpp
+                 main_gui.cpp)
+
 
 # tell CMake to create a main_gui executable
 add_executable(main_gui ${main_gui_src})
 
+# link libraries
 target_link_libraries(main_gui ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(main_gui Qt5::Widgets)

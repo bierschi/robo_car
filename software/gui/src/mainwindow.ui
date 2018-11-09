@@ -130,8 +130,14 @@
       <kerning>true</kerning>
      </font>
     </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
     <property name="currentIndex">
      <number>0</number>
+    </property>
+    <property name="movable">
+     <bool>false</bool>
     </property>
     <widget class="QWidget" name="control_tab">
      <property name="font">
@@ -494,6 +500,47 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="slam_tab">
+     <attribute name="title">
+      <string>SLAM</string>
+     </attribute>
+     <widget class="QGraphicsView" name="slam_gv">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>10</y>
+        <width>711</width>
+        <height>491</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_pgm_pb">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>170</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>save pgm </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="reset_map_pb">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>170</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>reset Map</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="visualization_tab">
      <attribute name="title">
       <string>Visualization</string>
@@ -691,21 +738,6 @@
         <y>10</y>
         <width>1041</width>
         <height>291</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="slam_tab">
-     <attribute name="title">
-      <string>SLAM</string>
-     </attribute>
-     <widget class="QGraphicsView" name="graphicsView">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>20</y>
-        <width>771</width>
-        <height>471</height>
        </rect>
       </property>
      </widget>

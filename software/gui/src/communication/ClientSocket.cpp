@@ -2,8 +2,8 @@
 // Created by christian on 03.09.18.
 //
 
-#include "../include/ClientSocket.h"
-#include "SocketException.h"
+#include "communication/ClientSocket.h"
+#include "communication/SocketException.h"
 
 /**
  * Constructor for a ClientSocket instance
@@ -30,12 +30,12 @@ ClientSocket::ClientSocket(std::string host, int port) {
 }
 
 /**
- * overloaded operator << to send strings to sockets
+ * method to send strings to sockets
  *
  * @param s: const string reference
  * @return const ClientSocket& reference
  */
-const ClientSocket& ClientSocket::operator << (const std::string &s) const {
+const ClientSocket& ClientSocket::sending (const std::string &s) const {
 
     if ( !Socket::send(s)) {
 
@@ -47,12 +47,12 @@ const ClientSocket& ClientSocket::operator << (const std::string &s) const {
 }
 
 /**
- * overloaded operator << to send predefined commands to sockets
+ * method to send predefined commands to sockets
  *
  * @param cmd: Commands& reference
  * @return const ClientSocket& reference
  */
-const ClientSocket& ClientSocket::operator << (Commands& cmd) const {
+const ClientSocket& ClientSocket::sending (Commands& cmd) const {
 
     if ( !Socket::send(cmd)) {
 
@@ -62,12 +62,12 @@ const ClientSocket& ClientSocket::operator << (Commands& cmd) const {
 }
 
 /**
- * overloaded operator >> to receive strings from sockets
+ * method to receive strings from sockets
  *
  * @param s: string& reference
  * @return const ClientSocket& reference
  */
-const ClientSocket& ClientSocket::operator >> (std::string &s) const {
+const ClientSocket& ClientSocket::receiving (std::string &s) const {
 
     if ( !Socket::recv(s)) {
 
@@ -79,12 +79,12 @@ const ClientSocket& ClientSocket::operator >> (std::string &s) const {
 }
 
 /**
- * overloaded operator >> to receive predefined commands from sockets
+ * method to receive predefined commands from sockets
  *
  * @param cmd: Commands& reference
  * @return const ClientSocket& reference
  */
-const ClientSocket& ClientSocket::operator >> (Commands& cmd) const {
+const ClientSocket& ClientSocket::receiving (Commands& cmd) const {
 
     if ( !Socket::recv(cmd)) {
 

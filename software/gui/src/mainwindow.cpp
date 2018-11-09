@@ -2,28 +2,51 @@
 #include <iostream>
 #include <thread>
 #include <iomanip>
+#include <QDebug>
 #include <QtWidgets/QMessageBox>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    client(NULL),
-    connected(false),
-    run(true),
-    closeFlag(true)
+/**
+ * Constructor for a MainWindow instance
+ *
+ * USAGE:
+ *      MainWindow w;
+ *
+ * @param parent: QWidget*
+ */
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+                                          ui(new Ui::MainWindow),
+                                          client(NULL),
+                                          connected(false),
+                                          closeFlag(true)
 {
+    // setup GUI
     ui->setupUi(this);
     this->setWindowTitle("RoboCar");
-    this->setGeometry(QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            this->size(),
-            qApp->desktop()->availableGeometry()
-            ));
+    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), qApp->desktop()->availableGeometry()));
+
+    // init slots
+    initSlots();
+
+    ui->desired_speed_le->setToolTip("Value between -480 and 480");
+    ui->disconnect_pb->setEnabled(false);
+    noWifi = QPixmap("/home/christian/projects/robo_car/software/gui/images/no_wifi.png");
+    wifi = QPixmap("/home/christian/projects/robo_car/software/gui/images/wifi.png");
+    ui->wifi_l->setPixmap(noWifi);
+
+    //only for testing purposes
+    ui->host_le->setText("192.168.178.39");
+    ui->port_le->setText("2501");
+
+}
+
+/**
+ * initialize all slots
+ */
+void MainWindow::initSlots() {
 
     connect(ui->exit_pb, SIGNAL(clicked()), this, SLOT(closeWindow()));
     connect(ui->connect_pb, SIGNAL(clicked()), this, SLOT(conServer()));
@@ -41,31 +64,47 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
     connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
-    connect(ui->distance_pb, SIGNAL(clicked()), this, SLOT(distance()));
 
     connect(ui->speedp_pb, SIGNAL(clicked()), this, SLOT(increaseSpeed()));
     connect(ui->speedm_pb, SIGNAL(clicked()), this, SLOT(decreaseSpeed()));
     connect(ui->apply_pb, SIGNAL(clicked()), this, SLOT(setDesiredSpeed()));
 
-    ui->desired_speed_le->setToolTip("Value between -480 and 480");
-    ui->disconnect_pb->setEnabled(false);
-    noWifi = QPixmap("/home/christian/projects/robo_car/software/gui/images/no_wifi.png");
-    wifi = QPixmap("/home/christian/projects/robo_car/software/gui/images/wifi.png");
-    ui->wifi_l->setPixmap(noWifi);
-
-    //only for testing purposes
-    ui->host_le->setText("192.168.178.39");
-    ui->port_le->setText("2501");
 }
 
+
+/**
+ * Destructor in MainWindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * close the main window
+ */
+void MainWindow::closeWindow() {
+
+    QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));
+
+    if (resBtn != QMessageBox::Yes) {
+
+    } else {
+
+        exit(0);
+
+    }
+}
+
+/**
+ * controls the key event from keyboard
+ *
+ * @param event: QKeyEvent*
+ */
 void MainWindow::keyPressEvent(QKeyEvent *event) {
 
     QMainWindow::keyPressEvent(event);
+
     if (event->key() == Qt::Key_W) {
         std::cout << "Key forward" << std::endl;
         forward();
@@ -92,21 +131,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-
-void MainWindow::closeWindow() {
-    QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));
-
-    if (resBtn != QMessageBox::Yes) {
-
-
-    } else {
-
-        exit(0);
-
-    }
-
-}
-
+/**
+ * close the main window
+ *
+ * @param event: QCloseEvent*
+ */
 void MainWindow::closeEvent(QCloseEvent *event) {
 
     QMessageBox::StandardButton resBtn = QMessageBox::question(this, "RoboCar", tr("Are you sure to quit?"));
@@ -123,6 +152,9 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     }
 }
 
+/**
+ * connect to the server on RoboCar
+ */
 void MainWindow::conServer() {
 
     std::string host = ui->host_le->text().toStdString();
@@ -130,6 +162,7 @@ void MainWindow::conServer() {
     std::cout << "Set up connection ..." << std::endl;
 
     try {
+
         client = new ClientSocket(host, port);
 
         QMessageBox::information(this, "Information", "Connection established!");
@@ -145,18 +178,17 @@ void MainWindow::conServer() {
         ui->disconnect_pb->setEnabled(true);
 
     } catch ( SocketException& e ) {
+
         std::cout << "SocketException caught with error message: " << e.description() << std::endl;
         QMessageBox::warning(this, "Error", "Connection failed!");
 
         connected = false;
-
     }
-
-
-
-
 }
 
+/**
+ * disconnect from the server on RoboCar
+ */
 void MainWindow::disConServer() {
 
     if (connected) {
@@ -173,115 +205,138 @@ void MainWindow::disConServer() {
     }
 }
 
+
+// control the RoboCar with this methods
+
+/**
+ * moves the robocar forward
+ */
+void MainWindow::forward() {
+    Commands forward_c = FORWARD;
+    if (connected)
+        client->sending(forward_c);
+}
+
+/**
+ * moves the robocar backward
+ */
+void MainWindow::backward() {
+    Commands backward_c = BACKWARD;
+    if (connected)
+        client->sending(backward_c);
+}
+
+/**
+ * moves the steering servo straight ahead
+ */
+void MainWindow::straight() {
+    Commands straight_c = STRAIGHT;
+    if (connected)
+        client->sending(straight_c);
+}
+
+/**
+ * moves the steering servo to the right
+ */
+void MainWindow::right() {
+    Commands right_c = RIGHT;
+    if (connected)
+        client->sending(right_c);
+}
+
+/**
+ * moves the steering servo to the left
+ */
+void MainWindow::left() {
+    Commands left_c = LEFT;
+    if (connected)
+        client->sending(left_c);
+}
+
+/**
+ * stops the robocar
+ */
+void MainWindow::stop() {
+    Commands stop_c = STOP;
+    if (connected)
+        client->sending(stop_c);
+}
+
+/**
+ *
+ */
+void MainWindow::increaseSpeed() {
+    Commands increase_c = INCREASE_SPEED;
+    if (connected)
+        client->sending(increase_c);
+}
+
+/**
+ *
+ */
+void MainWindow::decreaseSpeed() {
+    Commands decrease_c = DECREASE_SPEED;
+    if (connected)
+        client->sending(decrease_c);
+}
+
+/**
+ * moves the camera servo to the right
+ */
+void MainWindow::cameraRight() {
+    Commands cam_r_c = CAM_R;
+    if (connected)
+        client->sending(cam_r_c);
+}
+
+/**
+ * moves the camera servo to the left
+ */
+void MainWindow::cameraLeft() {
+    Commands cam_l_c = CAM_L;
+    if (connected)
+        client->sending(cam_l_c);
+}
+
+/**
+ * saves a slam map as a pgm file
+ */
+void MainWindow::saveMap() {
+    Commands save_map = SAVE_MAP;
+    if (connected)
+        client->sending(save_map);
+}
+
+/**
+ * resets the current slam map
+ */
+void MainWindow::resetMap() {
+    Commands reset_map = RESET_MAP;
+    if (connected)
+        client->sending(reset_map);
+}
+/**
+ * stream from camera
+ */
 void MainWindow::stream() {
     Commands stream_c = STREAM;
 
     if (connected)
-        (*client)<<(stream_c);
+        client->sending(stream_c);
 }
 
-void MainWindow::forward() {
-    Commands forward_c = FORWARD;
-    if (connected)
-        (*client) << forward_c;
-}
 
-void MainWindow::backward() {
-    Commands backward_c = BACKWARD;
-    if (connected)
-    (*client) << backward_c;
-}
 
-void MainWindow::straight() {
-    Commands straight_c = STRAIGHT;
-    if (connected)
-        (*client) << straight_c;
-}
 
-void MainWindow::right() {
-    Commands right_c = RIGHT;
-    if (connected)
-        (*client) << right_c;
-}
 
-void MainWindow::left() {
-    Commands left_c = LEFT;
-    if (connected)
-        (*client) << left_c;
+void MainWindow::send_cmd() {
+    std::string cmd = ui->send_cmd_le->text().toStdString();
+    //client->send(cmd);
 }
-
-void MainWindow::stop() {
-    Commands stop_c = STOP;
-    if (connected)
-        (*client) << stop_c;
-}
-
-void MainWindow::increaseSpeed() {
-    Commands increase_c = INCREASE_SPEED;
-    if (connected)
-        (*client) << increase_c;
-}
-
-void MainWindow::decreaseSpeed() {
-    Commands decrease_c = DECREASE_SPEED;
-    if (connected)
-        (*client) << decrease_c;
-}
-
 void MainWindow::setDesiredSpeed() {
 
     int speed = ui->desired_speed_le->text().toInt();
     std::cout << "speed: " << speed << std::endl;
     //if (connected)
     //    (*client) << decrease_c;
-}
-
-
-void MainWindow::cameraRight() {
-    Commands cam_r_c = CAM_R;
-    if (connected)
-        (*client) << cam_r_c;
-}
-
-void MainWindow::cameraLeft() {
-    Commands cam_l_c = CAM_L;
-    if (connected)
-        (*client) << cam_l_c;
-}
-
-void MainWindow::distance() {
-    Commands distance = DISTANCE;
-    //std::string dist_s;
-
-    if (connected) {
-
-        (*client) << distance;
-        //(*client) >> dist_s;
-        if ( !run ){
-            run = true;
-            std::thread t(&MainWindow::showThread, this);
-            t.detach();
-        } else {
-            run = false;
-        }
-
-
-    }
-   // std::cout << "received distance: " << dist_s << std::endl;
-}
-
-void MainWindow::send_cmd() {
-    std::string cmd = ui->send_cmd_le->text().toStdString();
-    //client->send(cmd);
-}
-
-void MainWindow::showThread() {
-    std::string dist_s;
-
-    while (run) {
-        (*client) >> dist_s;
-        std::cout << "distance: " << dist_s << std::endl;
-        ui->distance_lcd->display(QString::fromStdString(dist_s));
-    }
-
 }

@@ -4,11 +4,16 @@
 #include <QMainWindow>
 #include <QDesktopWidget>
 #include <QCloseEvent>
-//#include <QKeyEvent>
-#include "ClientSocket.h"
-#include "SocketException.h"
+
+#include "communication/ClientSocket.h"
+#include "communication/SocketException.h"
 
 
+/**
+ * /CLASS ClientSocket
+ *
+ * creates a MainWindow object
+ */
 namespace Ui {
 class MainWindow;
 }
@@ -26,16 +31,22 @@ private:
     Ui::MainWindow *ui;
     ClientSocket *client;
     QPixmap noWifi, wifi;
-    bool connected;
-    bool run;
-    bool closeFlag;
+    bool connected, closeFlag;
 
 private slots:
+
+    void initSlots();
     void closeWindow();
+
+    // Qt events
+    void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
+
+    // connect/disconnect to server on RoboCar
     void conServer();
     void disConServer();
-    void stream();
+
+    // control the Robocar
     void forward();
     void backward();
     void straight();
@@ -44,13 +55,14 @@ private slots:
     void stop();
     void increaseSpeed();
     void decreaseSpeed();
-    void setDesiredSpeed();
     void cameraRight();
     void cameraLeft();
-    void distance();
+    void saveMap();
+    void resetMap();
+    void stream();
+
     void send_cmd();
-    void showThread();
-    void keyPressEvent(QKeyEvent *event);
+    void setDesiredSpeed();
 
 };
 

@@ -15,15 +15,15 @@
 class ClientSocket : private Socket {
 
 public:
-
+    // constructor/destructor
     ClientSocket(std::string host, int port);
     virtual ~ClientSocket(){};
 
-    const ClientSocket& operator << (const std::string&) const;
-    const ClientSocket& operator << (Commands&) const;
+    const ClientSocket& sending (const std::string&) const;
+    const ClientSocket& sending (Commands&) const;
 
-    const ClientSocket& operator >> (std::string&) const;
-    const ClientSocket& operator >> (Commands&) const;
+    const ClientSocket& receiving (std::string&) const;
+    const ClientSocket& receiving (Commands&) const;
 
     void closeConnection();
 };
