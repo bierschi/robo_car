@@ -7,10 +7,12 @@
 
 #include <string>
 #include <math.h>
+#include <thread>
 
 #include "ros/ros.h"
 #include "nav_msgs/GetMap.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "std_msgs/String.h"
 #include "tf/transform_datatypes.h"
 
 #define PI 3.14159265
@@ -28,6 +30,8 @@ private:
     ros::Subscriber map_sub_;
     ros::Subscriber map_metadata_sub_;
     ros::Subscriber pose_sub_;
+
+    ros::Publisher reset_map_pub_;
 
     bool save_map_;
 
@@ -56,7 +60,11 @@ public:
     void createPgmMapFile(const nav_msgs::OccupancyGridConstPtr& map);
     void createTxtMapFile(std::string fileName, std::vector<int> mapData);
     void createTxtPositionFile();
+
     void mapInterface(const nav_msgs::OccupancyGridConstPtr& map);
+    void sendSlamMap();
+    void resetMap();
+    void reset();
 
     //getter and setter
     bool getSaveMap() const;

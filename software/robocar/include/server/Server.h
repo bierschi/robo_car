@@ -25,8 +25,6 @@ private:
     ServerSocket* sock;
     Commands cmd;
 
-    ros::Publisher resetMap;
-
     Car& car_;
 
 public:
@@ -37,7 +35,7 @@ public:
     void waitForClient();
     void run();
     void actions(Commands& cmd);
-    void reset();
+    void sendDataAtStart();
 
 };
 

@@ -54,6 +54,8 @@ public:
 
     //Slam Map
     void saveSlamMap();
+    void resetSlamMap();
+    void sendSlamMap();
 
 };
 

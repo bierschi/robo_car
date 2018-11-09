@@ -29,11 +29,15 @@ SlamMap::SlamMap(const std::string& mapname, int threshold_occupied, int thresho
           theta(0.0)
 {
 
-    ros::NodeHandle n1, n2, n3;
+    ros::NodeHandle n1, n2, n3, n4;
+
     ROS_INFO("Waiting for the map!");
+    // Subscriber
     map_sub_ = n1.subscribe("map", 2, &SlamMap::mapCallback, this);
     map_metadata_sub_ = n2.subscribe("map_metadata", 2, &SlamMap::mapMetadataCallback, this);
     pose_sub_ = n3.subscribe("slam_out_pose", 2, &SlamMap::poseCallback, this);
+    // Publisher
+    reset_map_pub_ = n4.advertise<std_msgs::String>("syscommand", 2);
 
 }
 
@@ -248,6 +252,34 @@ void SlamMap::createTxtPositionFile() {
     FILE* out = fopen(positionDataFile.c_str(), "w");
     fprintf(out, "%d\n%d\n%.2f", (int)position_x, (int)position_y, theta);
     fclose(out);
+
+}
+
+/**
+ *
+ */
+void SlamMap::sendSlamMap() {
+
+}
+
+/**
+ * method to reset the Map as a independent thread
+ */
+void SlamMap::resetMap() {
+
+    std::thread reset(&SlamMap::reset, this);
+    reset.detach();
+
+}
+
+/**
+ * Thread to reset the Slam Map
+ */
+void SlamMap::reset() {
+
+    std_msgs::String msg;
+    msg.data = "reset";
+    reset_map_pub_.publish(msg);
 
 }
 

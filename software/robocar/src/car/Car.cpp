@@ -147,7 +147,24 @@ double Car::getUltrasonicDistance() {
     return ultrasonic->getCurrentDistance();
 }
 
+// slam map
+/**
+ * save the current slam map as a pgm file
+ */
 void Car::saveSlamMap() {
     slamMap.setSaveMap(true);
 }
 
+/**
+ * reset the current slam map
+ */
+void Car::resetSlamMap() {
+    slamMap.resetMap();
+}
+
+/**
+ *
+ */
+void Car::sendSlamMap() {
+
+}

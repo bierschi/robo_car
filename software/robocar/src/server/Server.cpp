@@ -17,9 +17,6 @@ Server::Server(unsigned int port, Car& car) : port_(port), car_(car) {
     serverSocket = new ServerSocket(port);
     sock = new ServerSocket();
 
-    ros::NodeHandle n;
-    resetMap = n.advertise<std_msgs::String>("syscommand", 2);
-
     cmd;
 
     std::cout << "Server is being set up on port: " << port_ << std::endl;
@@ -64,7 +61,7 @@ void Server::run() {
     waitForClient();
 
     try {
-
+            sendDataAtStart();
             while (true) {
                 // receiving command from client
                 sock->receiving(cmd);
@@ -80,6 +77,14 @@ void Server::run() {
         }
 }
 
+/**
+ *
+ */
+void Server::sendDataAtStart() {
+
+    car_.sendSlamMap();
+
+}
 
 /**
  * selects a appropriate action, depending on the incoming command
@@ -144,17 +149,15 @@ void Server::actions(Commands& cmd) {
             break;
 
         //SlamMap
-        case SAVE_MAP:
+        case SAVE_MAP: {
             std::cout << "Save SLAM Map" << std::endl;
-            system("rostopic pub /syscommand std_msgs/String 'reset'");
-            //car_.saveSlamMap();
+            car_.saveSlamMap();
+        }
             break;
 
         case RESET_MAP: {
-
             std::cout << "Reset SLAM Map" << std::endl;
-            std::thread reset(&server::reset, this);
-            reset.detach();
+            car_.resetSlamMap();
         }
             break;
 
@@ -173,11 +176,4 @@ void Server::actions(Commands& cmd) {
         default:
             std::cout << "Default in method Server::actions!" << std::endl;
     }
-}
-
-
-void Server::reset() {
-    std_msgs::String msg;
-    msg.data = "reset";
-    resetMap.publish(msg);
 }
