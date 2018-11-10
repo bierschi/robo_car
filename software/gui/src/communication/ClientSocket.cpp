@@ -37,7 +37,7 @@ ClientSocket::ClientSocket(std::string host, int port) {
  */
 const ClientSocket& ClientSocket::sending (const std::string &s) const {
 
-    if ( !Socket::send(s)) {
+    if ( !Socket::send(s) ) {
 
         throw SocketException("Could not write to socket!");
 
@@ -54,7 +54,7 @@ const ClientSocket& ClientSocket::sending (const std::string &s) const {
  */
 const ClientSocket& ClientSocket::sending (Commands& cmd) const {
 
-    if ( !Socket::send(cmd)) {
+    if ( !Socket::send(cmd) ) {
 
         throw SocketException("Could not write ctl cmd to socket!");
 
@@ -69,7 +69,7 @@ const ClientSocket& ClientSocket::sending (Commands& cmd) const {
  */
 const ClientSocket& ClientSocket::receiving (std::string &s) const {
 
-    if ( !Socket::recv(s)) {
+    if ( !Socket::recv(s) ) {
 
         throw SocketException("Could not read from socket!");
 
@@ -86,7 +86,7 @@ const ClientSocket& ClientSocket::receiving (std::string &s) const {
  */
 const ClientSocket& ClientSocket::receiving (Commands& cmd) const {
 
-    if ( !Socket::recv(cmd)) {
+    if ( !Socket::recv(cmd) ) {
 
         throw SocketException("Could not read ctl cmd from socket!");
 
@@ -95,6 +95,16 @@ const ClientSocket& ClientSocket::receiving (Commands& cmd) const {
     return *this;
 }
 
+const ClientSocket& ClientSocket::receiving(std::vector<int>& v) {
+
+    if ( !Socket::recv(v) ) {
+
+        throw SocketException("Could not read vector from socket!");
+
+    }
+
+    return *this;
+}
 /**
  * disconnect cleanly from the socket
  */

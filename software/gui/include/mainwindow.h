@@ -31,7 +31,7 @@ private:
     Ui::MainWindow *ui;
     ClientSocket *client;
     QPixmap noWifi, wifi;
-    bool connected, closeFlag;
+    bool connected, closeFlag, streamMapFlag;
 
 private slots:
 
@@ -57,12 +57,16 @@ private slots:
     void decreaseSpeed();
     void cameraRight();
     void cameraLeft();
+    void startStreamMap();
+    void stopStreamMap();
     void saveMap();
     void resetMap();
     void stream();
 
     void send_cmd();
     void setDesiredSpeed();
+    void run();
+    void createTxtMapFile(std::string fileName, std::vector<int>);
 
 };
 

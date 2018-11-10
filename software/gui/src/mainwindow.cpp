@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                                           ui(new Ui::MainWindow),
                                           client(NULL),
                                           connected(false),
-                                          closeFlag(true)
+                                          closeFlag(true),
+                                          streamMapFlag(false)
 {
     // setup GUI
     ui->setupUi(this);
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->host_le->setText("192.168.178.39");
     ui->port_le->setText("2501");
 
+
 }
 
 /**
@@ -52,22 +54,24 @@ void MainWindow::initSlots() {
     connect(ui->connect_pb, SIGNAL(clicked()), this, SLOT(conServer()));
     connect(ui->disconnect_pb, SIGNAL(clicked()), this, SLOT(disConServer()));
 
-    connect(ui->stream_pb, SIGNAL(clicked()), this, SLOT(stream()));
-    connect(ui->send_cmd_pb, SIGNAL(clicked()), this, SLOT(send_cmd()));
-
     connect(ui->forward_pb, SIGNAL(clicked()), this, SLOT(forward()));
     connect(ui->backward_pb, SIGNAL(clicked()), this, SLOT(backward()));
-    connect(ui->stop_pb, SIGNAL(clicked()), this, SLOT(stop()));
     connect(ui->straight_pb, SIGNAL(clicked()), this, SLOT(straight()));
     connect(ui->right_pb, SIGNAL(clicked()), this, SLOT(right()));
     connect(ui->left_pb, SIGNAL(clicked()), this, SLOT(left()));
-
-    connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
-    connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
-
+    connect(ui->stop_pb, SIGNAL(clicked()), this, SLOT(stop()));
     connect(ui->speedp_pb, SIGNAL(clicked()), this, SLOT(increaseSpeed()));
     connect(ui->speedm_pb, SIGNAL(clicked()), this, SLOT(decreaseSpeed()));
+    connect(ui->right_camera_pb, SIGNAL(clicked()), this, SLOT(cameraRight()));
+    connect(ui->left_camera_pb, SIGNAL(clicked()), this, SLOT(cameraLeft()));
+    connect(ui->start_stream_pb, SIGNAL(clicked()), this, SLOT(startStreamMap()));
+    connect(ui->stop_stream_pb, SIGNAL(clicked()), this, SLOT(stopStreamMap()));
+    connect(ui->save_pgm_pb, SIGNAL(clicked()), this, SLOT(saveMap()));
+    connect(ui->reset_map_pb, SIGNAL(clicked()), this, SLOT(resetMap()));
+    connect(ui->stream_pb, SIGNAL(clicked()), this, SLOT(stream()));
+
     connect(ui->apply_pb, SIGNAL(clicked()), this, SLOT(setDesiredSpeed()));
+    connect(ui->send_cmd_pb, SIGNAL(clicked()), this, SLOT(send_cmd()));
 
 }
 
@@ -298,6 +302,29 @@ void MainWindow::cameraLeft() {
         client->sending(cam_l_c);
 }
 
+void MainWindow::startStreamMap() {
+    Commands start_stream_map = START_STREAM_MAP;
+
+    if (connected) {
+
+        client->sending(start_stream_map);
+        streamMapFlag = true;
+        std::thread r(&MainWindow::run, this);
+        r.detach();
+
+    }
+}
+
+void MainWindow::stopStreamMap() {
+    Commands stop_stream_map = STOP_STREAM_MAP;
+
+    if (connected) {
+        streamMapFlag = false;
+        client->sending(stop_stream_map);
+    }
+
+}
+
 /**
  * saves a slam map as a pgm file
  */
@@ -339,4 +366,35 @@ void MainWindow::setDesiredSpeed() {
     std::cout << "speed: " << speed << std::endl;
     //if (connected)
     //    (*client) << decrease_c;
+}
+
+void MainWindow::run() {
+
+    while (streamMapFlag) {
+
+        if (connected) {
+            std::vector<int> v;
+            client->receiving(v);
+            createTxtMapFile("array.txt", v);
+
+        }
+        std::cout << "Test" << std::endl;
+        sleep(2);
+
+    }
+}
+
+void MainWindow::createTxtMapFile(std::string fileName, std::vector<int> mapData) {
+
+    FILE* out = fopen(fileName.c_str(), "w");
+    for(int s = 0; s < mapData.size(); s++) {
+        fprintf(out, "%d ", mapData[s]);
+
+        if (s && s%400 == 0) {
+
+            fprintf(out, "\n");
+
+        }
+    }
+    fclose(out);
 }

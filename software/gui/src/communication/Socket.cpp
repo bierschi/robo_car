@@ -201,6 +201,29 @@ int Socket::recv(Commands& cmd) const {
 
 }
 
+int Socket::recv(std::vector<int>& v) {
+
+    //std::int64_t sz;
+    int sz;
+    int status = ::recv(m_sock, &sz, sizeof(sz), 0);
+    std::cout << "statz: " << status << std::endl;
+    v.resize(sz);
+    status = ::recv(m_sock, &(*v.begin()), sz * sizeof(int), 0);
+    std::cout << "vectorsize: " << v.size() << std::endl;
+    if (status == -1 ) {
+
+        std::cout << "vector failed" << std::endl;
+
+    } else if (status == 0) {
+
+        return 0;
+
+    } else {
+
+        return status;
+
+    }
+}
 
 /**
  * connecting to a particular socket

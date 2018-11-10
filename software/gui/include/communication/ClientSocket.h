@@ -24,6 +24,7 @@ public:
 
     const ClientSocket& receiving (std::string&) const;
     const ClientSocket& receiving (Commands&) const;
+    const ClientSocket& receiving (std::vector<int>& v);
 
     void closeConnection();
 };

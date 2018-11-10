@@ -540,6 +540,32 @@
        <string>reset Map</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="start_stream_pb">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>110</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>start stream</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="stop_stream_pb">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>110</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>stop stream</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="visualization_tab">
      <attribute name="title">
