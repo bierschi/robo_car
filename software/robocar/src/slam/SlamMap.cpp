@@ -2,6 +2,7 @@
 // Created by christian on 27.10.18.
 //
 
+
 #include "slam/SlamMap.h"
 
 /**
@@ -258,8 +259,25 @@ void SlamMap::createTxtPositionFile() {
 /**
  *
  */
-void SlamMap::sendSlamMap() {
+void SlamMap::sendSlamMap(ServerSocket& sock) {
 
+    std::thread run(&SlamMap::sendSlamMapThread, this, std::ref(sock));
+    run.detach();
+}
+
+/**
+ *
+ * @param sock
+ */
+void SlamMap::sendSlamMapThread(ServerSocket &sock) {
+    std::vector<int> v;
+
+    while(true) {
+        std::cout << "Test" << std::endl;
+        v = getMapData();
+        sock.sending(v);
+        sleep(2);
+    }
 }
 
 /**

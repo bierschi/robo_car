@@ -165,6 +165,6 @@ void Car::resetSlamMap() {
 /**
  *
  */
-void Car::sendSlamMap() {
-
+void Car::sendSlamMap(ServerSocket& sock) {
+    slamMap.sendSlamMap(sock);
 }

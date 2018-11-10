@@ -137,6 +137,24 @@ bool Socket::send(Commands& cmd) const {
     else
         return true;
 }
+
+bool Socket::send(std::vector<int>& v) {
+
+    //const std::int64_t sz = v.size();
+    long sz = v.size();
+    std::cout << "vectorsize: " <<v.size() << std::endl;
+    std::cout << "sizeof(): " << sizeof(sz) << std::endl;
+    int status = ::send(m_sock, &sz, sizeof(sz), MSG_NOSIGNAL);
+    status = ::send(m_sock, &(*v.begin()), sz * sizeof(int), MSG_NOSIGNAL);
+    std::clog << "send vector .." << std::endl;
+
+    if (status == -1 )
+        return false;
+    else
+        return true;
+
+}
+
 /**
  * receive string from socket
  *

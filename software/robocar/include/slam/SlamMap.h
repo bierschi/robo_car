@@ -9,6 +9,7 @@
 #include <math.h>
 #include <thread>
 
+#include <server/communication/ServerSocket.h>
 #include "ros/ros.h"
 #include "nav_msgs/GetMap.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -62,7 +63,8 @@ public:
     void createTxtPositionFile();
 
     void mapInterface(const nav_msgs::OccupancyGridConstPtr& map);
-    void sendSlamMap();
+    void sendSlamMap(ServerSocket& sock);
+    void sendSlamMapThread(ServerSocket& sock);
     void resetMap();
     void reset();
 

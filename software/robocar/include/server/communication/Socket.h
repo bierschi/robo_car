@@ -13,13 +13,15 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <string>
+#include <vector>
 
 
 const int MAXCONNECTIONS = 5;
 const int MAXRECV = 500;
 
-enum Commands {FORWARD, BACKWARD, STRAIGHT, RIGHT, LEFT, STOP, INCREASE_SPEED, DECREASE_SPEED, CAM_R, CAM_L, SAVE_MAP,
-               RESET_MAP, DISTANCE, STREAM};
+enum Commands {FORWARD, BACKWARD, STRAIGHT, RIGHT, LEFT, STOP, INCREASE_SPEED, DECREASE_SPEED, CAM_R, CAM_L,
+               START_STREAM_MAP, STOP_STREAM_MAP, SAVE_MAP, RESET_MAP,
+               DISTANCE, STREAM};
 
 /** /CLASS Socket
  *
@@ -47,6 +49,7 @@ public:
 
     bool send(const std::string) const;
     bool send(Commands&) const;
+    bool send(std::vector<int>& v);
 
     int recv(std::string&) const;
     int recv(Commands&) const;

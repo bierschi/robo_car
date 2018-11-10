@@ -30,6 +30,7 @@ public:
 
     const ServerSocket& sending(const std::string& s) const;
     const ServerSocket& sending(Commands& cmd) const;
+    const ServerSocket& sending(std::vector<int>& v);
     const ServerSocket& receiving (std::string& ) const;
     const ServerSocket& receiving (Commands& ) const;
 

@@ -104,6 +104,23 @@ const ServerSocket& ServerSocket::sending (Commands& cmd) const {
 }
 
 /**
+ *
+ * @param v
+ * @return
+ */
+const ServerSocket& ServerSocket::sending (std::vector<int>& v) {
+
+    if ( !Socket::send(v)) {
+
+        throw SocketException("Could not write to socket!");
+
+    }
+
+    return *this;
+
+}
+
+/**
  * receiving strings from sockets
  *
  * @param s: string& reference

@@ -122,7 +122,7 @@ void Ultrasonic::distanceThread() {
         }
         //sleep(1);
         //std::cout << "distance: " << distance <<std::endl;
-        usleep(400);
+        usleep(200);
 
 
     }

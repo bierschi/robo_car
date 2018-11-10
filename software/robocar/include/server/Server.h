@@ -22,7 +22,7 @@ class Server {
 private:
     unsigned int port_;
     ServerSocket* serverSocket;
-    ServerSocket* sock;
+    ServerSocket* sock, mapSocket;
     Commands cmd;
 
     Car& car_;

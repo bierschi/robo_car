@@ -16,6 +16,7 @@ Server::Server(unsigned int port, Car& car) : port_(port), car_(car) {
 
     serverSocket = new ServerSocket(port);
     sock = new ServerSocket();
+    mapSocket = new ServerSocket();
 
     cmd;
 
@@ -29,7 +30,7 @@ Server::Server(unsigned int port, Car& car) : port_(port), car_(car) {
  */
 Server::~Server() {
 
-    delete serverSocket, sock;
+    delete serverSocket, sock, mapSocket;
 
 }
 
@@ -61,6 +62,7 @@ void Server::run() {
     waitForClient();
 
     try {
+
             sendDataAtStart();
             while (true) {
                 // receiving command from client
@@ -73,6 +75,7 @@ void Server::run() {
         } catch (SocketException& e) {
 
             std::cout << "SocketException was caught: " << e.description() << std::endl;
+            // stop slammap thread
             run();
         }
 }
@@ -82,7 +85,7 @@ void Server::run() {
  */
 void Server::sendDataAtStart() {
 
-    car_.sendSlamMap();
+    car_.sendSlamMap(*sock);
 
 }
 
@@ -148,7 +151,15 @@ void Server::actions(Commands& cmd) {
             car_.turnCameraLeft();
             break;
 
-        //SlamMap
+            //SlamMap
+        case START_STREAM_MAP:
+            std::cout << "Start Stream Map!" << std::endl;
+            break;
+
+        case STOP_STREAM_MAP:
+            std::cout << "Stop Stream Map!" << std::endl;
+            break;
+
         case SAVE_MAP: {
             std::cout << "Save SLAM Map" << std::endl;
             car_.saveSlamMap();
