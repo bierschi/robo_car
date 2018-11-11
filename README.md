@@ -91,12 +91,12 @@ A pdf file is under `/circuit_diagram`
 
 
 
-## Software
+## **Software**
 
 This Software is written in C++, build with [CMake](https://cmake.org/) and is divided in
 `Remote-controlled` and `Autonomous driving` with different submodules:
 
-### __Remote-controlled__:
+### Remote-controlled:
 #### RoboCar:
 
 #### GUI:
