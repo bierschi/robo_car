@@ -90,6 +90,7 @@ fabric.properties
 #Project
 /software/.idea
 /software/gui/build/*
+/software/gui/.idea
 /software/robocar/build/*
 /software/libs
 /software/client

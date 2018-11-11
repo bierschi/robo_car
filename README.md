@@ -2,6 +2,9 @@
 The main aim of this repo is to set up a low-cost remote-controlled robotic car
 and later on a completely autonomous driving car with a Raspberry Pi 3b+
 
+
+
+
 #### Table of Contents:
 
 - [Hardware](https://github.com/bierschi/robo_car#hardware)
@@ -17,6 +20,13 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Add write permission to the hokuyo port /dev/ttyACM0](https://github.com/bierschi/robo_car#add-write-permission-to-the-hokuyo-port-devttyacm0)
     - [Wiring Pi update](https://github.com/bierschi/robo_car#wiring-pi-update)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
+
+
+
+
+
+
+
 
 
 
@@ -69,17 +79,23 @@ A pdf file is under `/circuit_diagram`
 
 
 
+
+
+
+
+
+
 ## Software
 
 This Software is written in C++, build with [CMake](https://cmake.org/) and is divided in
 `Remote-controlled` and `Autonomous driving` with different submodules:
 
 ### Remote-controlled:
-##### RoboCar:
+#### RoboCar:
 
-##### GUI:
+#### GUI:
 
-##### SLAM:
+#### SLAM:
 **Build hokuyo_node** <br>
 
 <pre><code>
@@ -96,15 +112,36 @@ catkin_make
 
 <br>
 
-**Install hector_mapping**
+**Install hector_mapping and trajectory**
 <pre><code>
-sudo apt-get install ros-kinetic-hector-mapping
+sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory
 </pre></code>
 
 
 ##### Testing:
 
 ### Autonomous driving:
+
+#### ROS drivers
+
+Writing drivers to convert raw sensor data to ROS compliant message data:
+- /motion/cmd_vel -> data to control the robots movement
+- /odom          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an odometry sensor/source
+- /imu/data      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an inertial measurement unit (imu) sensor
+- /scan &nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data  from a Laser scanner
+- /camera/data   &nbsp;&nbsp;&nbsp;&nbsp; -> data from a plugged in camera
+
+#### Create a correct transformation tree of the robot
+
+#### Navigation stack
+
+
+
+
+
+
+
+
 
 
 
@@ -298,6 +335,15 @@ gpio -v
 <pre><code>
 gpio readall
 </pre></code>
+
+
+
+
+
+
+
+
+
 
 
 
