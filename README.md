@@ -12,7 +12,13 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Circuit Diagram](https://github.com/bierschi/robo_car#circuit-diagram)
 - [Software](https://github.com/bierschi/robo_car#software)
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
+        - [RoboCar](https://github.com/bierschi/robo_car#robocar-1)
+        - [RoboControl](https://github.com/bierschi/robo_car#gui)
+        - [SLAM](https://github.com/bierschi/robo_car#slam)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
+        - [ROS drivers](https://github.com/bierschi/robo_car#ros-drivers)
+        - [Transformation tree of the RoboCar](https://github.com/bierschi/robo_car#create-a-correct-transformation-tree-of-the-robot)
+        - [Navigation Stack](https://github.com/bierschi/robo_car#navigation-stack)
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
     - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
@@ -90,7 +96,7 @@ A pdf file is under `/circuit_diagram`
 This Software is written in C++, build with [CMake](https://cmake.org/) and is divided in
 `Remote-controlled` and `Autonomous driving` with different submodules:
 
-### Remote-controlled:
+### __Remote-controlled__:
 #### RoboCar:
 
 #### GUI:
