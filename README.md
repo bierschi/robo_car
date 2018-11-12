@@ -14,7 +14,7 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
         - [RoboCar](https://github.com/bierschi/robo_car#robocar-1)
         - [RoboControl](https://github.com/bierschi/robo_car#robocontrol)
-        - [SLAM](https://github.com/bierschi/robo_car#slam)
+        - [RoboSLAM](https://github.com/bierschi/robo_car#slam)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
         - [ROS drivers](https://github.com/bierschi/robo_car#ros-drivers)
         - [Transformation tree of the RoboCar](https://github.com/bierschi/robo_car#create-a-correct-transformation-tree-of-the-robot)
@@ -103,7 +103,7 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 
 #### RoboControl:
 
-#### SLAM:
+#### RoboSLAM:
 __Build hokuyo_node__ <br>
 
 <pre><code>
@@ -120,9 +120,9 @@ catkin_make
 
 <br>
 
-**Install hector_mapping and hector_trajectory**
+**Install hector_mapping and hector_trajectory_server**
 <pre><code>
-sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory
+sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server
 </pre></code>
 
 <br>
@@ -130,7 +130,7 @@ sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory
 **Launch file for hector_mapping and hector_trajectory_server**
 
 launch file to start the `hokuyo_node`, the `hector_mapping` and the `hector_trajectory_server`
-packages with the correct parameters can be found [here](https://github.com/bierschi/robo_car/blob/master/software/slam/hokuyo_hector_slam.launch)
+packages with the correct parameters can be found [here](https://github.com/bierschi/robo_car/blob/master/software/remote_controlled/roboslam/hokuyo_hector_slam.launch)
 
 ### Autonomous driving:
 
