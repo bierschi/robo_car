@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
         std_msgs
         )
 #find_package(OpenCV REQUIRED)
-#find_library(wiringPi_LIB wiringPi)
+find_library(wiringPi_LIB wiringPi)
 
 
 #include_directories( ${OpenCV_INCLUDE_DIRS})
