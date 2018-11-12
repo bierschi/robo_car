@@ -12,7 +12,13 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Circuit Diagram](https://github.com/bierschi/robo_car#circuit-diagram)
 - [Software](https://github.com/bierschi/robo_car#software)
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
+        - [RoboCar](https://github.com/bierschi/robo_car#robocar-1)
+        - [RoboControl](https://github.com/bierschi/robo_car#robocontrol)
+        - [SLAM](https://github.com/bierschi/robo_car#slam)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
+        - [ROS drivers](https://github.com/bierschi/robo_car#ros-drivers)
+        - [Transformation tree of the RoboCar](https://github.com/bierschi/robo_car#create-a-correct-transformation-tree-of-the-robot)
+        - [Navigation Stack](https://github.com/bierschi/robo_car#navigation-stack)
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
     - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
@@ -59,6 +65,7 @@ Here are listed all hardware components that were used to build this RoboCar
     - PCA9685 PWM/Servo Driver: [PCA9685](https://www.ebay.de/itm/PCA9685-16-Kanal-Driver-Servomotor-Treiber-Modul-PWM-I2C-Arduino-Raspberry-Pi/253285067342?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649)
     - MPU6050: [MPU6050](https://www.ebay.de/itm/GY-521-MPU-6050-3-Achsen-Gyroskop-Accelerometer-module-Raspberry-Pi-for-Arduino/272260489619?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649)
     - Laser Scanner Hokuyo URG-04LX-UG01: [Hokuyo URG](https://www.robotshop.com/de/de/hokuyo-urg-04lx-ug01-scan-laser-entfernungsmesser-eu.html?gclid=Cj0KCQjw6MHdBRCtARIsAEigMxFSq916Qq001TadjiVhvlQdLHBiCjHoI453lspePQd77kCsp5AZhw4aApSKEALw_wcB)
+    <br> Alternative:
     - Laser Scanner RPLidar A1: [RPLidar A1](https://de.aliexpress.com/item/12-mt-Lidar-RPLIDAR-A1-verbessert-360-grad-Lidar-Scannen-Im-Bereich-EINE-neue-verbesserte-version/32862806452.html?spm=a2g0x.search0104.3.2.7b59bf04YGt7RO&transAbTest=ae803_5&ws_ab_test=searchweb0_0%2Csearchweb201602_1_10320_10065_10068_318_10547_319_10548_10696_450_10084_10083_10618_452_535_534_10304_10307_533_10820_532_10821_5727311_10302_204_10843_5727211_10059_10884_10887_100031_10319_320_10103_448_449%2Csearchweb201603_2%2CppcSwitch_0&algo_pvid=622b8212-2b4b-484f-979e-0fab781315a0&priceBeautifyAB=0&algo_expid=622b8212-2b4b-484f-979e-0fab781315a0-0)
     - Laser Scanner RPLidar A2: [RPLIdar A2](https://de.aliexpress.com/item/Slamtec-RPLIDAR-A2-2D-360-grad-12-meter-scannen-radius-lidar-sensor-scanner-f-r-bstacle/32893709845.html?spm=a2g0x.search0104.3.2.57c8748fEgi3nC&transAbTest=ae803_5&ws_ab_test=searchweb0_0%2Csearchweb201602_1_10320_10065_10068_318_10547_319_10548_10696_450_10084_10083_10618_452_535_534_10304_10307_533_10820_532_10821_5727311_10302_204_10843_5727211_10059_10884_10887_100031_10319_320_10103_448_449%2Csearchweb201603_2%2CppcSwitch_0&algo_pvid=98320612-5189-4bf7-9049-efd4f4fba2c8&priceBeautifyAB=0&algo_expid=98320612-5189-4bf7-9049-efd4f4fba2c8-0)
 
@@ -91,12 +98,13 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 `Remote-controlled` and `Autonomous driving` with different submodules:
 
 ### Remote-controlled:
+
 #### RoboCar:
 
-#### GUI:
+#### RoboControl:
 
 #### SLAM:
-**Build hokuyo_node** <br>
+__Build hokuyo_node__ <br>
 
 <pre><code>
 sudo apt-get install ros-kinetic-driver-common
@@ -112,13 +120,104 @@ catkin_make
 
 <br>
 
-**Install hector_mapping and trajectory**
+**Install hector_mapping and hector_trajectory**
 <pre><code>
 sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory
 </pre></code>
 
+<br>
 
-##### Testing:
+**Launch file for hector_mapping and hector_trajectory**
+
+
+<myxml>
+
+    <launch>
+
+    <!-- set arguments -->
+    <param name="use_sim_time" value="false" />
+    <arg name="use_rviz" default="false" />
+
+    <!--start rviz at beginning of launch file -->
+    <group if="$(arg use_rviz)">
+      <node pkg="rviz" type="rviz" name="rviz" args="-d /home/christian/projects/robo_car/software/slam/hokuyo_hector_slam.rviz" />
+    </group>
+
+    <!-- launch hokuyo_node -->
+    <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+        <!-- Starts up faster, but timestamps will be inaccurate. -->
+        <param name="calibrate_time" type="bool" value="false"/>
+        <!-- Set the port to connect to here -->
+        <param name="port" type="string" value="/dev/ttyACM0"/>
+        <param name="intensity" type="bool" value="false"/>
+    </node>
+
+    <!-- launch hector_slam -->
+      <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
+      <arg name="base_frame" default="base_frame"/>
+      <arg name="odom_frame" default="base_frame"/>
+      <arg name="pub_map_odom_transform" default="true"/>
+      <arg name="scan_subscriber_queue_size" default="5"/>
+      <arg name="scan_topic" default="scan"/>
+      <arg name="map_size" default="400"/>
+
+      <node pkg="hector_mapping" type="hector_mapping" name="hector_mapping" output="screen">
+
+        <!-- Frame names -->
+        <param name="map_frame" value="map" />
+        <param name="base_frame" value="$(arg base_frame)" />
+        <param name="odom_frame" value="$(arg odom_frame)" />
+
+        <!-- Tf use -->
+        <param name="use_tf_scan_transformation" value="true"/>
+        <param name="use_tf_pose_start_estimate" value="false"/>
+        <param name="pub_map_odom_transform" value="$(arg pub_map_odom_transform)"/>
+
+        <!-- Map size / start point -->
+        <param name="map_resolution" value="0.025"/>
+        <param name="map_size" value="$(arg map_size)"/>
+        <param name="map_start_x" value="0.2"/>
+        <param name="map_start_y" value="0.7" />
+        <param name="map_multi_res_levels" value="2" />
+
+        <!-- Map update parameters -->
+        <param name="update_factor_free" value="0.4"/>
+        <param name="update_factor_occupied" value="0.9" />
+        <param name="map_update_distance_thresh" value="0.4"/>
+        <param name="map_update_angle_thresh" value="0.06" />
+        <param name="laser_z_min_value" value = "-1.0" />
+        <param name="laser_z_max_value" value = "1.0" />
+        <param name="map_pub_period" value="1.0" />
+
+        <!-- Advertising config -->
+        <param name="advertise_map_service" value="true"/>
+        <param name="scan_subscriber_queue_size" value="$(arg scan_subscriber_queue_size)"/>
+        <param name="scan_topic" value="$(arg scan_topic)"/>
+        <!-- Debug parameters -->
+        <!--
+          <param name="output_timing" value="false"/>
+          <param name="pub_drawings" value="true"/>
+          <param name="pub_debug_output" value="true"/>
+        -->
+        <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)" />
+      </node>
+
+    <!-- hector trajectory package -->
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen" >
+        <param name="target_frame_name" type="string" value="/map" />
+        <param name="source_frame_name" type="string" value="/base_frame" />
+        <param name="trajectory_update_rate" type="double" value="2" />
+        <param name="trajectory_publish_rate" type="double" value="1.0" />
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="world_map_broadcaster" args="0 0 0 0 0 0 /world /map 100"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 /base_frame /laser 100"/>
+
+    </launch>
+
+</myxml>
+
 
 ### Autonomous driving:
 
