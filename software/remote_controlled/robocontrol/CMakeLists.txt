@@ -21,7 +21,7 @@ include_directories(include)
 # populate a CMake variable with the sources
 set(robocontrol_src include/mainwindow.h include/communication/ClientSocket.h include/communication/Socket.h include/communication/SocketException.h
                  src/mainwindow.ui src/mainwindow.cpp src/communication/ClientSocket.cpp src/communication/Socket.cpp
-        main_robocontrol.cpp)
+        robocontrol_main.cpp)
 
 
 # tell CMake to create a main_gui executable
