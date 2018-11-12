@@ -88,6 +88,13 @@ fabric.properties
 /latex/**/*.aux
 
 #Project
+#remote_controlled
+/software/remote_controlled/client/build/*
+/software/remote_controlled/robocar/build/*
+/software/remote_controlled/robocontrol/.idea
+/software/remote_controlled/robocontrol/build/*
+/software/remote_controlled/testing/robotic_car/*
+
 /software/.idea
 /software/gui/build/*
 /software/gui/.idea

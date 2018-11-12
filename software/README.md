@@ -1,11 +1,11 @@
-## gui
+## RoboControl
 this folder contains all source files for the gui to control the car
-<br> Built with:
+
 - C++
 - Qt
 - CMake
 
-## robocar
+## RoboCar
 this folder contains all source files for the RoboCar and shall be build directly on the Raspberry Pi
 - Ubuntu Mate
 - C++
