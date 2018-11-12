@@ -25,7 +25,7 @@ set(robocontrol_src include/mainwindow.h include/communication/ClientSocket.h in
 
 
 # tell CMake to create a main_gui executable
-add_executable(robocontrol ${robocontrol    _src})
+add_executable(robocontrol ${robocontrol_src})
 
 # link libraries
 target_link_libraries(robocontrol ${CMAKE_THREAD_LIBS_INIT})

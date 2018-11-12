@@ -133,6 +133,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         std::cout << "Key stop" << std::endl;
         stop();
     }
+    else if (event->key() == Qt::Key_3) {
+        std::cout << "Key camera left" << std::endl;
+        cameraLeft();
+    }
+    else if (event->key() == Qt::Key_R) {
+        std::cout << "Key camera right" << std::endl;
+        cameraRight();
+    }
 }
 
 /**
