@@ -22,8 +22,9 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
 - [Operating System](https://github.com/bierschi/robo_car#operating-system)
     - [Install Ubuntu Mate for Raspberry Pi 3b+](https://github.com/bierschi/robo_car#instructions-to-install-ubuntu-mate-for-raspberry-pi-3b)
     - [Install ROS on Ubuntu Mate](https://github.com/bierschi/robo_car#instructions-to-install-ros-on-ubuntu-mate)
-    - [Create a systemd service for roscore master](https://github.com/bierschi/robo_car#create-a-systemd-service-for-roscore-master)
     - [Add write permission to the hokuyo port /dev/ttyACM0](https://github.com/bierschi/robo_car#add-write-permission-to-the-hokuyo-port-devttyacm0)
+    - [Create a systemd service for roscore master](https://github.com/bierschi/robo_car#create-a-systemd-service-for-roscore-master)
+    - [Create a systemd service for hokuyo_hector_slam.launch file]()
     - [Wiring Pi update](https://github.com/bierschi/robo_car#wiring-pi-update)
 - [Project Layout](https://github.com/bierschi/robo_car#project-layout)
 
@@ -268,6 +269,24 @@ roscore
 
 <br>
 
+
+#### Add write permission to the hokuyo port /dev/ttyACM0
+<br>
+
+The hokuyo laser scanner needs write permission to the `/dev/ttyACM0` port to get scans.
+For this add your current "user_name" to the `dialout` group.
+
+<pre><code>
+sudo adduser "user_name" dialout
+</pre></code>
+
+<pre><code>
+sudo reboot
+</pre></code>
+
+<br>
+
+
 #### Create a systemd service for roscore master
 <br>
 
@@ -298,20 +317,33 @@ sudo systemctl status roscore.service
 
 <br>
 
-#### Add write permission to the hokuyo port /dev/ttyACM0
+#### Create a systemd service for hokuyo_hector_slam.launch file
 <br>
 
-The hokuyo laser scanner needs write permission to the `/dev/ttyACM0` port to get scans.
-For this add your current "user_name" to the `dialout` group.
+1. Create a file named `hector.service` in `/etc/systemd/system` and insert:
 
 <pre><code>
-sudo adduser "user_name" dialout
+[Unit]
+Description=start hokuyo_node and hector_mapping as a systemd service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "source /opt/ros/kinetic/setup.bash; source /path_to_catkin_ws/devel/setup.bash; /opt/ros/kinetic/bin/roslaunch /path_to_launch_file/robo_car/software/remote_controlled/roboslam/hokuyo_hector_slam.launch"
+ExecStop=/bin/bash -c "source /opt/ros/kinetic/setup.bash; /opt/ros/kinetic/bin/rosnode kill /hokuyo /hector_mapping"
+
+[Install]
+WantedBy=multi-user.target
 </pre></code>
 
+2. Enable this service on boot
 <pre><code>
-sudo reboot
+sudo systemctl enable hector.service
 </pre></code>
 
+3. Now the this service should be available on boot. Check status with:
+<pre><code>
+sudo systemctl status hector.service
+</pre></code>
 
 
 <br>
