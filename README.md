@@ -325,15 +325,21 @@ sudo systemctl status roscore.service
 <pre><code>
 [Unit]
 Description=start hokuyo_node and hector_mapping as a systemd service
+Requires=roscore.service
+After=roscore.service
+After=network.target
 
 [Service]
-Type=simple
+Type=forking
 ExecStart=/bin/bash -c "source /opt/ros/kinetic/setup.bash; source /path_to_catkin_ws/devel/setup.bash; /opt/ros/kinetic/bin/roslaunch /path_to_launch_file/robo_car/software/remote_controlled/roboslam/hokuyo_hector_slam.launch"
-ExecStop=/bin/bash -c "source /opt/ros/kinetic/setup.bash; /opt/ros/kinetic/bin/rosnode kill /hokuyo /hector_mapping"
+ExecStop=/bin/bash -c "source /opt/ros/kinetic/setup.bash; /opt/ros/kinetic/bin/rosnode kill /hokuyo /hector_mapping /hector_trajectory_server"
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 </pre></code>
+
+Please **change** the `/path_to_catkin_ws`  and the `/path_to_launch_file` to your needs
 
 2. Enable this service on boot
 <pre><code>
