@@ -14,7 +14,7 @@ and later on a completely autonomous driving car with a Raspberry Pi 3b+
     - [Remote-controlled](https://github.com/bierschi/robo_car#remote-controlled)
         - [RoboCar](https://github.com/bierschi/robo_car#robocar-1)
         - [RoboControl](https://github.com/bierschi/robo_car#robocontrol)
-        - [RoboSLAM](https://github.com/bierschi/robo_car#slam)
+        - [RoboSLAM](https://github.com/bierschi/robo_car#roboslam)
     - [Autonomous driving](https://github.com/bierschi/robo_car#autonomous-driving)
         - [ROS drivers](https://github.com/bierschi/robo_car#ros-drivers)
         - [Transformation tree of the RoboCar](https://github.com/bierschi/robo_car#create-a-correct-transformation-tree-of-the-robot)
@@ -105,23 +105,25 @@ This Software is written in C++, build with [CMake](https://cmake.org/) and is d
 #### RoboControl:
 
 #### RoboSLAM:
-__Build hokuyo_node__ <br>
 
+As first step build the hokuyo_node with subsequent commands: <br>
 <pre><code>
 sudo apt-get install ros-kinetic-driver-common
 </pre></code>
-Go into catkin workspace `~/catkin_ws/src` and clone hokuyo_node
+
+Go into catkin workspace `~/catkin_ws/src` and clone hokuyo_node:
 <pre><code>
 git clone https://github.com/ros-drivers/hokuyo_node.git
 </pre></code>
-go back to `~/catkin_ws` and build
+
+go back to `~/catkin_ws` and build:
 <pre><code>
 catkin_make
 </pre></code>
 
 <br>
 
-**Install hector_mapping and hector_trajectory_server**
+Install hector_mapping and hector_trajectory_server:
 <pre><code>
 sudo apt-get install ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server
 </pre></code>
@@ -138,11 +140,13 @@ packages with the correct parameters can be found [here](https://github.com/bier
 #### ROS drivers
 
 Writing drivers to convert raw sensor data to ROS compliant message data:
+
+Data topics:
+- /visual/odom   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an odometry sensor/source (camera odometry)
+- /imu/data      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an inertial measurement unit (imu) sensor (mpu6050)
+- /scan &nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data  from a Laser scanner (hokuyo)
+- /camera/data   &nbsp;&nbsp;&nbsp;&nbsp; -> data from a plugged in camera (picamera)
 - /motion/cmd_vel -> data to control the robots movement
-- /odom          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an odometry sensor/source
-- /imu/data      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an inertial measurement unit (imu) sensor
-- /scan &nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data  from a Laser scanner
-- /camera/data   &nbsp;&nbsp;&nbsp;&nbsp; -> data from a plugged in camera
 
 #### Create a correct transformation tree of the robot
 
