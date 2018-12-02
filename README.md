@@ -334,9 +334,8 @@ After=roscore.service
 After=network.target
 
 [Service]
-Type=forking
+Type=simple
 ExecStart=/bin/bash -c "source /opt/ros/kinetic/setup.bash; source /path_to_catkin_ws/devel/setup.bash; /opt/ros/kinetic/bin/roslaunch /path_to_launch_file/robo_car/software/remote_controlled/roboslam/hokuyo_hector_slam.launch"
-ExecStop=/bin/bash -c "source /opt/ros/kinetic/setup.bash; /opt/ros/kinetic/bin/rosnode kill /hokuyo /hector_mapping /hector_trajectory_server"
 Restart=on-failure
 
 [Install]
