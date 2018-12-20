@@ -2,7 +2,10 @@
 The main aim of this repo is to set up a low-cost remote-controlled robotic car
 and later on a completely autonomous driving car with a Raspberry Pi 3b+
 
-
+<div align="left">
+  <br>
+  <img src="images/robocar.png" alt="example" width="486" height="368">
+</div>
 
 
 #### Table of Contents:
@@ -146,7 +149,12 @@ Data topics:
 - /imu/data      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data from an inertial measurement unit (imu) sensor (mpu6050)
 - /scan &nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> data  from a Laser scanner (hokuyo)
 - /camera/data   &nbsp;&nbsp;&nbsp;&nbsp; -> data from a plugged in camera (picamera)
-- /motion/cmd_vel -> data to control the robots movement
+
+#### Sensor data fusion
+
+In order to obtain the most accurate position, the data sources visual odometry, lidar odometry
+and imu will be merged with an extended kalman filter
+
 
 #### Create a correct transformation tree of the robot
 
