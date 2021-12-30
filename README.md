@@ -1,4 +1,7 @@
 # RoboCar
+
+**DEPRECATED**, checkout [RoboCar_Platform](https://github.com/bierschi/RoboCar_Platform) and [RoboCar_SDK](https://github.com/bierschi/RoboCar_SDK)
+
 The main aim of this repo is to set up a low-cost remote-controlled robotic car
 and later on a completely autonomous driving car with a Raspberry Pi 3b+
 
